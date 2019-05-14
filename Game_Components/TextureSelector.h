@@ -7,45 +7,45 @@
 
 namespace gui
 {
-    class Game;
-
     class TextureSelector
     {
         private:
-            GameDataRef m_Data;
-
+            float m_KeyTime;
+            const float m_KeyTimeMax;
             // Size of each tile
             float m_GridSize;
-            // Check if texture selector is active ( mouse pointer is over it )
+            
+            // To manage texture selector
             bool m_Active;
-            // Check if texture selector is hidden
             bool m_Hidden;
 
             // Button to toggle texture selector window
             gui::Button* m_HideBtn;
-
             // Bounds of texture selector area
             sf::RectangleShape m_Bounds;
-            
-            // To hold the sprite
             sf::Sprite m_Sheet;
-
             // Rectangle to select each tile
             sf::RectangleShape m_Selector;
-            
             // Mouse position in grid
             sf::Vector2u m_MousePosGrid;
             sf::IntRect m_TextuerRect;
             
 
         public:
-            TextureSelector( GameDataRef data, float x, float y, float width, float height, const std::string& texture_sheet );
-            ~TextureSelector();
+            TextureSelector(
+                const float& x, const float& y, const float& width, const float& height,
+                const float& grid_size, const sf::Texture* texture_sheet,
+                sf::Font& font, std::string text
+            );
+            virtual ~TextureSelector();
 
             // Accessors
-            const bool& GetActive() const;
+            bool GetActive() const;
             const sf::IntRect& GetTextureRect() const;
+            bool GetKeyTime();
 
+            // Functions
+            void UpdateKeyTime( const float& dt );
             void Update( const float& dt, const sf::Vector2i& mousePostion );
             void Draw( sf::RenderTarget& target );
     };

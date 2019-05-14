@@ -2,21 +2,24 @@
 
 namespace gui
 {
-    TextureSelector::TextureSelector( GameDataRef data, float x, float y, float width, float height, const std::string& texture_sheet ) :
-        m_Data( std::move( data ) )
+    TextureSelector::TextureSelector( 
+        const float& x, const float& y, const float& width, const float& height,
+        const float& grid_size, const sf::Texture* texture_sheet,
+        sf::Font& font, std::string text
+    ) : m_KeyTimeMax( 1.f ), m_KeyTime( 0.f )
     {
-        m_GridSize = GRID_SIZE;
+        m_GridSize = grid_size;
         m_Active = false;
         m_Hidden = false;
-        float offset = 60.f;
+        float offset = grid_size;
         
-        m_Bounds.setPosition( x + offset, y );
         m_Bounds.setSize( sf::Vector2f( width, height ) );
+        m_Bounds.setPosition( x + offset, y );
         m_Bounds.setFillColor( sf::Color( 50, 50, 50, 100 ) );
         m_Bounds.setOutlineThickness( 1.f );
         m_Bounds.setOutlineColor( sf::Color( 255, 255, 255, 200 ) );
 
-        m_Sheet.setTexture( m_Data->assets.GetTexture( texture_sheet ) );
+        m_Sheet.setTexture( *texture_sheet );
         m_Sheet.setPosition( x + offset, y );
 
         /*
@@ -34,10 +37,8 @@ namespace gui
             m_Sheet.setTextureRect( sf::IntRect( 0, 0, m_Sheet.getGlobalBounds().width, m_Bounds.getGlobalBounds().height ) );
         }
 
-        m_Selector.setPosition( x + offset, y );
-        
-        // Do we need to pass this value from parameter?
         m_Selector.setSize( sf::Vector2f ( m_GridSize, m_GridSize ) );
+        m_Selector.setPosition( x + offset, y );
         m_Selector.setFillColor( sf::Color::Transparent );
         m_Selector.setOutlineThickness( 1.f );
         m_Selector.setOutlineColor( sf::Color::Red );
@@ -47,21 +48,12 @@ namespace gui
 
 
         // Drawing the button
-        m_HideBtn = new gui::Button( m_Data );
-
-        m_HideBtn->CreateButton(  20.f, 20.f, 50.f, 50.f );
-
-        std::vector<sf::Color> textColor = { sf::Color( TEXT_IDLE_FILL_COLOR ),
-                                                sf::Color( TEXT_HOVER_FILL_COLOR ),
-                                                sf::Color( TEXT_ACTIVE_FILL_COLOR ) };
-
-        std::vector<sf::Color> buttonColor = { sf::Color( 70, 70, 70, 200 ),
-                                                sf::Color( 150, 150, 150, 200 ),
-                                                sf::Color( 20, 20, 20, 200 ) };
-
-        m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
-
-        m_HideBtn->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "TS", 30.f, textColor, buttonColor );
+        m_HideBtn = new gui::Button(
+            y, x, 50.f, 50.f,
+            &font, text, 14,
+            sf::Color(LIST_TEXT_IDLE_FILL_COLOR), sf::Color(LIST_TEXT_HOVER_FILL_COLOR), sf::Color(LIST_TEXT_ACTIVE_FILL_COLOR),
+            sf::Color(LIST_IDLE_FILL_COLOR), sf::Color(LIST_HOVER_FILL_COLOR), sf::Color(LIST_ACTIVE_FILL_COLOR)
+        );
     }
 
     TextureSelector::~TextureSelector()
@@ -69,9 +61,19 @@ namespace gui
         delete m_HideBtn;
     }
 
-    const bool& TextureSelector::GetActive( ) const
+    bool TextureSelector::GetActive( ) const
     {
         return m_Active;
+    }
+
+    bool TextureSelector::GetKeyTime()
+    {
+        if ( m_KeyTime >= m_KeyTimeMax )
+        {
+            m_KeyTime = 0.f;
+            return true;
+        }
+        return false;
     }
 
     const sf::IntRect& TextureSelector::GetTextureRect() const
@@ -79,13 +81,20 @@ namespace gui
         return m_TextuerRect;
     }
 
+    void TextureSelector::UpdateKeyTime( const float& dt )
+    {
+        if ( m_KeyTime < m_KeyTimeMax )
+        {
+            m_KeyTime += 10.f * dt;
+        }
+    }
+
     void TextureSelector::Update( const float& dt, const sf::Vector2i& mousePostion )
     {
-        m_Data->input.UpdateKeyTime( dt );
+        UpdateKeyTime( dt );
         m_HideBtn->Update( static_cast<sf::Vector2f>( mousePostion ) );
 
-        // Button should be in editor state controlling texture selector.
-        if ( m_HideBtn->isPressed() && m_Data->input.GetKeyTime() )
+        if ( m_HideBtn->isPressed() && GetKeyTime() )
         {
             m_Hidden = !m_Hidden;
         }
