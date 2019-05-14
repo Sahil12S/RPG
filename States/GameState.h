@@ -6,11 +6,9 @@
 
 #include "State.h"
 #include "PauseMenu.h"
-#include "GameOverMenu.h"
 #include "../Game.h"
 #include "../Entities/Player.h"
 #include "../Map/TileMap.h"
-#include "../Items/Callout.h"
 
 class GameState : public State
 {
@@ -28,32 +26,16 @@ private:
     Player* m_Player;
     TileMap* m_TileMap;
     PauseMenu* m_PauseMenu;
-    GameOverMenu* m_GOMenu;
-    Callout* m_Callout;
 
     sf::Sprite m_BackgroundSprite;
 
     sf::Text m_CursorText;
 
     bool m_Paused;
-    bool m_GameOver;
-    bool isCallout;
-    bool question;
-    bool answer;
 
-    int idx;
 
     std::map< std::string, gui::HUD* > hud;
-    std::vector< std::pair<std::string, bool> > questionVec;
 
-    std::string calloutMessage;
-    std::list< std::string > startMessages;
-
-    int maxScore;
-
-    /* Functions */
-    void fix_newlines( std::string& s );
-    
     // Initializers
     void InitView();
     void InitVariables();
@@ -63,13 +45,9 @@ private:
 
     void InitKeyBinds();
     void InitPauseMenu();
-    void InitGameOverMenu();
     void InitComponents();
     void InitTileMap();
     void InitPlayers();
-    void InitCallout();
-
-    void InitQuestions();
 
 
 
@@ -88,8 +66,6 @@ public:
 
     void UpdateTileMap( const float& dt );
     void UpdatePauseMenuButtons();
-    void UpdateGameOverMenuButtons();
-    void UpdateCalloutButtons( const float& dt );
     void UpdateGui();
 
     void Update( float dt ) override;

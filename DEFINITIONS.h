@@ -20,11 +20,10 @@
 #define CALLOUT_TEXTURE_FILEPATH "../Resources/img/callout.png"
 
 // Fonts
-#define SCREEN_FONT_FILEPATH "../Resources/font/multivac-interference.ttf"
-#define SCREEN_FONT_FILEPATH2 "../Resources/font/multivac-ghost.ttf"
-#define BUTTON_FONT_FILEPATH "../Resources/font/Hacked.ttf"
-#define LIST_FONT_FILEPATH "../Resources/font/Hacked.ttf"
-#define TEXT_FONT_FILEPATH "../Resources/font/Hacked.ttf"
+#define SCREEN_FONT_FILEPATH "../Resources/font/Twopath_Shadow.otf"
+#define BUTTON_FONT_FILEPATH "../Resources/font/Twopath_Regular.otf"
+#define LIST_FONT_FILEPATH "../Resources/font/Twopath_Regular.otf"
+#define TEXT_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
 #define DEBUG_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
 
 // Key binds
@@ -34,9 +33,6 @@
 #define SETTINGS_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/SettingsStateKeyBinds.ini"
 #define PAUSE_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/PauseStateKeyBinds.ini"
 #define EDITOR_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/EditorStateKeyBinds.ini"
-
-#define QUESTIONS_FILEATH "../Resources/inputFiles/questions.txt"
-#define MESSAGES_FILEATH "../Resources/inputFiles/messages.txt"
 
 // Tile variables
 #define TITLE_SIZE 80
@@ -56,7 +52,7 @@
 #define BUTTON_HEIGHT 70
 #define BUTTON_TEXT_SIZE 50
 
-#define TEXT_IDLE_FILL_COLOR 70, 70, 70, 200
+#define TEXT_IDLE_FILL_COLOR 170, 170, 170, 200
 #define TEXT_HOVER_FILL_COLOR 250, 250, 250, 250
 #define TEXT_ACTIVE_FILL_COLOR 20, 20, 20, 50
 
@@ -69,11 +65,11 @@
 #define LIST_HEIGHT 40
 #define LIST_TEXT_SIZE 15
 
-#define LIST_TEXT_IDLE_FILL_COLOR 70, 70, 70, 150
+#define LIST_TEXT_IDLE_FILL_COLOR 225, 225, 225, 150
 #define LIST_TEXT_HOVER_FILL_COLOR 250, 250, 250, 255
 #define LIST_TEXT_ACTIVE_FILL_COLOR 20, 20, 20, 50
 
-#define LIST_IDLE_FILL_COLOR 200, 200, 200, 150
+#define LIST_IDLE_FILL_COLOR 40, 40, 40, 150
 #define LIST_HOVER_FILL_COLOR 150, 150, 150, 200
 #define LIST_ACTIVE_FILL_COLOR 20, 20, 20, 150
 

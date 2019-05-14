@@ -2,8 +2,14 @@
 
 namespace gui
 {
-    DropDownList::DropDownList(GameDataRef data, const std::string &font, const float &x, const float &y,
-                            std::string list[], unsigned numOfElements, unsigned default_idx) : m_Data(std::move(data)), m_ShowList(false), keyTimeMax( 1.f ), keyTime( keyTimeMax )
+    DropDownList::DropDownList(
+        GameDataRef data,
+        const std::string &font,
+        const float &x, const float &y,
+        std::string list[],
+        unsigned numOfElements,
+        unsigned default_idx ) : 
+        m_Data(std::move(data)), m_ShowList(false), keyTimeMax( 1.f ), keyTime( keyTimeMax )
     {
         m_Font = m_Data->assets.GetFont(font);
 

@@ -50,7 +50,8 @@ namespace gui
                                 unsigned int characterSize,
                                 const std::vector<sf::Color>& textColors,
                                 const std::vector< sf::Color >& buttonColors,
-                                const std::vector< sf::Color >& outlineColors = { sf::Color::Transparent, sf::Color::Transparent, sf::Color::Transparent },
+                                const std::vector< sf::Color >& outlineColors = { sf::Color(250, 250, 250, 200), sf::Color(250, 250, 250, 200), sf::Color(250, 250, 250, 200) },
+                                // const std::vector< sf::Color >& outlineColors = { sf::Color::Transparent, sf::Color::Transparent, sf::Color::Transparent },
                                 unsigned short id = 0 );
 
         sf::RectangleShape& GetButton();

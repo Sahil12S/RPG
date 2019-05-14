@@ -24,15 +24,7 @@ void GameState::InitView()
 
 void GameState::InitVariables()
 {
-    m_Paused = false;
-    m_GameOver = false;
-    isCallout = true;
-    question = false;
-    calloutMessage = "";
-    answer = false;
-    maxScore = SCORE_TO_WIN;
-    idx = 0;
-    
+    m_Paused = false;    
 }
 
 void GameState::InitTextures()
@@ -78,12 +70,6 @@ void GameState::InitPauseMenu()
     m_PauseMenu->AddButton("Quit", m_Data->GfxSettings.resolution.height / 1.2f , "Quit");
 }
 
-void GameState::InitGameOverMenu()
-{
-    m_GOMenu = new GameOverMenu( m_Data );
-    m_GOMenu->AddButton("Quit", m_Data->GfxSettings.resolution.height / 1.2f , "Quit");
-}
-
 void GameState::InitComponents()
 {
     hud["timer"] = new gui::HUD( m_Data );
@@ -107,64 +93,6 @@ void GameState::InitPlayers()
     m_Player->SetPosition( 50.f, 300.f );
 }
 
-void GameState::InitCallout()
-{
-    m_Callout = new Callout( m_Data, "Hud Font",  "callout" );
-}
-
-// Not a good way
-void GameState::fix_newlines( std::string& s )
-{
-    size_t start_pos = 0;
-    while((start_pos = s.find("\\n", start_pos)) != std::string::npos) {
-         s.replace(start_pos, 2, "\n");
-         start_pos += 1;
-    }
-    // std::cout << "=> " << s << '\n';
-}
-
-void GameState::InitQuestions()
-{
-    std::ifstream in_file;
-    in_file.open( QUESTIONS_FILEATH );
-    
-    std::string line;
-
-    std::getline( in_file, line );
-    fix_newlines( line );
-    startMessages.emplace_back( line );
-    std::getline( in_file, line );
-    fix_newlines( line );
-    startMessages.emplace_back( line );
-    std::getline( in_file, line );
-    fix_newlines( line );
-    startMessages.emplace_back( line );
-
-    calloutMessage = startMessages.front();
-    startMessages.pop_front();
-    // std::cout << calloutMessage << std::endl;
-    std::pair< std::string, bool > p;
-    while( std::getline( in_file, line ) )
-    {
-        
-        fix_newlines( line );
-        p.first = line;
-        std::getline( in_file, line );
-        p.second = stoi( line );
-        questionVec.emplace_back( p );
-        // questionVec.back().second = stoi( line );
-        
-        // i++;
-    }
-
-    in_file.close();
-
-    // for( auto& it : questionVec )
-    // {
-    //     std::cout << it.second.first << '\n';
-    // }
-}
-
 GameState::GameState( GameDataRef data ) : m_Data( std::move( data ) )
 {
 }
@@ -175,7 +103,6 @@ GameState::~GameState()
     delete m_Player;
     delete m_TileMap;
     delete m_PauseMenu;
-    delete m_GOMenu;
 }
 void GameState::Init()
 {
@@ -189,12 +116,9 @@ void GameState::Init()
 
     InitKeyBinds();
     InitPauseMenu();
-    InitGameOverMenu();
     InitComponents();
     InitTileMap();
     InitPlayers();
-    InitCallout();
-    InitQuestions();
 
     m_CursorText.setFont( m_Data->assets.GetFont( "Debug Font" ) );
     m_CursorText.setFillColor( sf::Color::White );
@@ -228,87 +152,44 @@ void GameState::HandleInput( float dt )
 
     }
 
-    if( !m_GameOver )
+    if ( sf::Keyboard::isKeyPressed(( sf::Keyboard::Key( m_KeyBinds["QUIT"] ) ) ) && 
+                    m_Data->input.GetKeyTime() )
     {
+        m_Paused = !m_Paused;
+    }
 
-        if ( sf::Keyboard::isKeyPressed(( sf::Keyboard::Key( m_KeyBinds["QUIT"] ) ) ) && 
-                        m_Data->input.GetKeyTime() )
+    /*
+    * Handle movements
+    */
+    if ( !m_Paused )
+    {
+        // Walk Left
+        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_LEFT"] ) ) )
         {
-            if( isCallout )
-            {
-                question = false;
-                isCallout = false;   
-                if( startMessages.size() > 0 )
-                {
-                    isCallout = true;
-                    calloutMessage = startMessages.front();
-                    startMessages.pop_front();
-                }
-            }
-            else
-            {
-                m_Paused = !m_Paused;
-            }
-            
+            m_Player->Move( dt, -1.0f, 0.0f);
         }
 
-        /*
-        * Handle movements
-        */
-        if ( !m_Paused )
+        // Walk right
+        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_RIGHT"] ) ) )
         {
-            if( !isCallout )
-            {
-                    
-                // Walk Left
-                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_LEFT"] ) ) )
-                {
-                    m_Player->Move( dt, -1.0f, 0.0f);
-                }
+            m_Player->Move( dt, 1.0f, 0.0f);
+        }
 
-                // Walk right
-                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_RIGHT"] ) ) )
-                {
-                    m_Player->Move( dt, 1.0f, 0.0f);
-                }
+        // Walk Up
+        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_UP"] ) ) )
+        {
+            m_Player->Move( dt, 0.0f, -1.0f);
+        }
 
-                // Walk Up
-                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_UP"] ) ) )
-                {
-                    m_Player->Move( dt, 0.0f, -1.0f);
-                }
+        // Walk Down
+        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_DOWN"] ) ) )
+        {
+            m_Player->Move( dt, 0.0f, 1.0f);
+        }
 
-                // Walk Down
-                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_DOWN"] ) ) )
-                {
-                    m_Player->Move( dt, 0.0f, 1.0f);
-                }
-
-                if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) && m_Data->input.GetKeyTime() )
-                {
-                    if( m_TileMap->TileInteractive( m_Player, m_Data->input.GetGridMousePosition().x, m_Data->input.GetGridMousePosition().y ) && !isCallout )
-                    {
-                        if( questionVec.size() > 0 )
-                        {
-                            idx = rand() % questionVec.size();
-                            calloutMessage = questionVec[idx].first;
-                            answer = questionVec[idx].second;
-                            questionVec.erase( questionVec.begin() + idx );
-                            question = true;
-                        }
-                        else
-                        {
-                            question = false;
-                            calloutMessage = "";
-                            answer = false;
-                        }
-                        // Open a callout box
-                        std::cout << idx << ", " << calloutMessage << '\n';
-                        isCallout = true;
-                        // std::cout << "Opened Question" << '\n';
-                    }
-                }
-            }
+        if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) && m_Data->input.GetKeyTime() )
+        {
+            
         }
     }
 }
@@ -324,71 +205,6 @@ void GameState::UpdatePauseMenuButtons( )
     if ( m_PauseMenu->IsButtonPressed("Quit") && m_Data->input.GetKeyTime() )
     {
         m_Data->machine.AddState( StateRef ( new MainMenuState ( m_Data ) ), true );
-    }
-}
-
-void GameState::UpdateGameOverMenuButtons( )
-{
-    if ( m_GOMenu->IsButtonPressed("Quit") && m_Data->input.GetKeyTime() )
-    {
-        m_Data->machine.AddState( StateRef ( new MainMenuState ( m_Data ) ), true );
-    }
-}
-
-void GameState::UpdateCalloutButtons( const float& dt )
-{
-    std::cout << isCallout << std::endl;
-    if( m_Callout->IsButtonPressed("Close") && m_Data->input.GetKeyTime() )
-    {
-        isCallout = false;
-    }
-    
-    if( !isCallout && startMessages.size() > 0 )
-    {
-        // std::cout << "Tyrue again" << '\n';
-        isCallout = true;
-        calloutMessage = startMessages.front();
-        startMessages.pop_front();
-    }
-
-
-    if( question && startMessages.size() == 0 )
-    {
-        if ( m_Callout->IsButtonPressed("True") && m_Data->input.GetKeyTime() )
-        {
-            // std::cout << "True Clicked" << '\n';
-            if( answer )
-            {
-                m_Player->WinPoints();
-            }            
-            
-            isCallout = false;
-            question = false;
-            m_TileMap->Hide( m_Player );
-        }
-        else if ( m_Callout->IsButtonPressed("False") && m_Data->input.GetKeyTime() )
-        {
-            // std::cout << "False clicked" << '\n';
-            if( !answer )
-            {
-                m_Player->WinPoints();
-            }
-            question = false;
-            isCallout = false;
-            m_TileMap->Hide( m_Player );
-        }
-    }
-
-    if( m_Player->GetScore() >= maxScore )
-    {
-        // Get to game over state
-        calloutMessage = "You succeeded in securing your account";
-        
-        // isCallout = true;
-        // question = false;
-        std::cout << calloutMessage << '\n';
-        m_GameOver = true;
-        m_GOMenu->SetMessage( true, std::to_string( m_Player->GetScore() ) );
     }
 }
 
@@ -408,40 +224,12 @@ void GameState::Update(float dt)
     
     UpdateGui();
 
-    if ( !m_Paused && !m_GameOver )
+    if ( !m_Paused )
     {
-        if( !question )
-        {
             UpdateView( dt );
             UpdateTileMap( dt );
-        }
 
-        if( isCallout )
-        {
-            m_Callout->Update( m_Data->input.GetWindowMousePosition(), calloutMessage );
-            UpdateCalloutButtons( dt );
-        }
-
-        if( startMessages.size() == 0 )
-        {
             m_Player->Update( dt );
-        }
-        
-       
-
-        int rem_time = static_cast<int>( m_Player->GetRemainingTime() );
-        if( rem_time <= 0 )
-        {
-            m_GameOver = true;
-            m_GOMenu->SetMessage( false, std::to_string( m_Player->GetScore() ) );
-        }
-        hud["timer"]->UpdateText( "Remaining Time: " + std::to_string( rem_time ) );
-        hud["score"]->UpdateText( "Score: " + std::to_string( m_Player->GetScore() ) );
-    }
-    else if ( m_GameOver )
-    {
-        m_GOMenu->Update( m_Data->input.GetWindowMousePosition() );
-        UpdateGameOverMenuButtons();
     }
     else
     {
@@ -465,21 +253,10 @@ void GameState::Draw()
     // m_Data->window.draw( m_CursorText );
     
     m_Data->window.setView( m_Data->window.getDefaultView() );
-    hud["timer"]->Draw( m_Data->window );
-    hud["score"]->Draw( m_Data->window );
 
-    if( isCallout )
-    {
-        m_Callout->Draw( m_Data->window, question );
-    }
-
-    if ( m_Paused && !m_GameOver )
+    if ( m_Paused )
     {
         m_PauseMenu->Draw( m_Data->window );
-    }
-    if( m_GameOver )
-    {
-        m_GOMenu->Draw( m_Data->window );
     }
 
     m_Data->window.setView( m_View );

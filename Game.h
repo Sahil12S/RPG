@@ -24,7 +24,6 @@ class Game
 {
 private:
     float dt;
-    // const float dt = 1.0f / 60.0f;
 
     sf::Clock m_Clock;
 

@@ -32,7 +32,6 @@ void EditorState::InitTextures()
 void EditorState::InitFonts()
 {
     m_Data->assets.LoadFont("Title Font", SCREEN_FONT_FILEPATH);
-    m_Data->assets.LoadFont("Hack Font", SCREEN_FONT_FILEPATH2);
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
     m_Data->assets.LoadFont("Debug Font", DEBUG_FONT_FILEPATH);
 }

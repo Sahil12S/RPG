@@ -21,14 +21,13 @@ void MainMenuState::InitTextures()
 {
     // Use sprites for background
     m_Background.setSize(sf::Vector2f(m_Data->window.getSize()));
-    m_Background.setFillColor(sf::Color(97, 143, 216));
+    m_Background.setFillColor(sf::Color(30, 30, 30));
 }
 
 void MainMenuState::InitFonts()
 {
     m_Data->assets.LoadFont("Title Font", SCREEN_FONT_FILEPATH);
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
-    m_Data->assets.LoadFont("Hack Font", SCREEN_FONT_FILEPATH2);
     // m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
 }
 
@@ -80,11 +79,7 @@ void MainMenuState::InitComponents()
 void MainMenuState::InitVariables()
 {
     m_Hud = new gui::HUD( m_Data );
-    m_Hud->SetText("Title Font", "WHO'S WATCHING??", TITLE_SIZE, ( m_Data->GfxSettings.resolution.width / 2.0f ), m_Data->GfxSettings.resolution.height / 6.0f );
-    clock.restart().asSeconds();
-    movedLeft = false;
-
-    srand((unsigned)time(0));
+    m_Hud->SetText("Title Font", "RPG", TITLE_SIZE, ( m_Data->GfxSettings.resolution.width / 2.0f ), m_Data->GfxSettings.resolution.height / 6.0f );
 }
 
 // @override
@@ -125,7 +120,7 @@ void MainMenuState::HandleInput(float dt)
     while (m_Data->window.pollEvent(event))
     {
         // Check for game close
-        if (sf::Event::Closed == event.type || m_Buttons["Exit"]->isPressed() && m_Data->input.GetKeyTime() )
+        if (sf::Event::Closed == event.type || ( m_Buttons["Exit"]->isPressed() && m_Data->input.GetKeyTime() ) )
         {
             m_Data->machine.ClearStates();
             m_Data->machine.RemoveState();
@@ -161,23 +156,6 @@ void MainMenuState::Update(float dt)
 {
     m_Data->input.UpdateMousePosition(m_Data->window);
     m_Data->input.UpdateKeyTime( dt );
-
-    if ( !movedLeft && clock.getElapsedTime().asSeconds() > ( 2 + static_cast<int>( 4 * rand() / ( RAND_MAX + 1.f ) ) ) )
-    {
-        // std::string font = "H"
-        m_Hud->Move( "Hack Font", -50.f, 0.f );
-        movedLeft = true;
-        clock.restart().asSeconds();
-    }
-
-    if ( movedLeft && clock.getElapsedTime().asSeconds() > ( 4 + static_cast<int>( 5.f * rand() / ( RAND_MAX + 1.f ) ) ) / 10.f )
-    {
-        // Debug( "Move back");
-        // m_Hud->Move( "Title Font", 50.f , 0.f );
-        m_Hud->Reset();
-        movedLeft = false;
-        clock.restart().asSeconds();
-    }
 
     for (auto button : m_Buttons)
     {

@@ -25,14 +25,13 @@ void GameSettingsState::InitTextures()
     Debug( "Settings State: Initializing Textures...")
     // Set Background
     m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
-    m_Background.setFillColor( sf::Color(97, 143, 216) );
+    m_Background.setFillColor( sf::Color(30, 30, 30) );
 }
 
 void GameSettingsState::InitFonts()
 {
     Debug( "Settings State: Initializing Key Fonts...")
     m_Data->assets.LoadFont( "Title Font", SCREEN_FONT_FILEPATH );
-    m_Data->assets.LoadFont( "Hack Font", SCREEN_FONT_FILEPATH2 );
     m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
     m_Data->assets.LoadFont( "DDList Font", LIST_FONT_FILEPATH );
     m_Data->assets.LoadFont( "Text Font", TEXT_FONT_FILEPATH );
@@ -93,7 +92,7 @@ void GameSettingsState::InitComponents()
     m_Buttons["Home"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Home", BUTTON_TEXT_SIZE, textColor, buttonColor );
 
     // std::string list[] = { "abc", "def", "fgh", "ijk", "lmn" };
-    std::string list[] = { "1920 x 1080", "1280 x 720", "800 x 600", "640 x 480" };
+    // std::string list[] = { "1920 x 1080", "1280 x 720", "800 x 600", "640 x 480" };
     std::vector< std::string > modes_str;
     for ( auto& mode : m_Modes )
     {
@@ -157,9 +156,7 @@ void GameSettingsState::HandleInput( float dt )
             m_Data->machine.ClearStates();
             m_Data->machine.RemoveState();
             m_Data->window.close();
-        }
-
-        
+        }   
     }
 
     // Go back to Main Menu on Button click or Escape
@@ -210,21 +207,6 @@ void GameSettingsState::UpdateComponents( const float& dt )
 void GameSettingsState::Update(float dt)
 {
     m_Data->input.UpdateMousePosition( m_Data->window );
-    
-    // Handle title animation
-    if ( !movedLeft && clock.getElapsedTime().asSeconds() > ( 2 + static_cast<int>( 4 * rand() / ( RAND_MAX + 1.f ) ) ) )
-    {
-        m_Hud->Move( "Hack Font", -50.f, 0.f );
-        movedLeft = true;
-        clock.restart().asSeconds();
-    }
-
-    if ( movedLeft && clock.getElapsedTime().asSeconds() > ( 4 + static_cast<int>( 5.f * rand() / ( RAND_MAX + 1.f ) ) ) / 10.f )
-    {
-        m_Hud->Reset();
-        movedLeft = false;
-        clock.restart().asSeconds();
-    }
 
     UpdateComponents( dt );
 

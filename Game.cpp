@@ -16,7 +16,7 @@ void Game::InitWindow()
 {
     if ( m_Data->GfxSettings.fullscreen )
     {
-        std::cout << "FULLSCREEN" << std::endl;
+        // std::cout << "FULLSCREEN" << std::endl;
         m_Data->window.create(
                             m_Data->GfxSettings.resolution,
                             m_Data->GfxSettings.title,
@@ -25,7 +25,7 @@ void Game::InitWindow()
     }
     else
     {
-        std::cout << "NOT FULLSCREEN" << std::endl;
+        // std::cout << "NOT FULLSCREEN" << std::endl;
         m_Data->window.create(
                             m_Data->GfxSettings.resolution,
                             m_Data->GfxSettings.title,
@@ -60,11 +60,6 @@ void Game::UpdateDt()
 
 void Game::Run()
 {
-    float newTime, frameTime, interpolation;
-
-    float currentTime = m_Clock.getElapsedTime().asSeconds();
-    float accumulator = 0.0f;
-
     while ( m_Data->window.isOpen() )
     {
         UpdateDt();
