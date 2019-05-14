@@ -4,7 +4,6 @@
 #include "../pch.cpp"
 #include "../DEFINITIONS.h"
 
-#include "../Game.h"
 #include "Button.h"
 
 namespace gui
@@ -12,33 +11,47 @@ namespace gui
     class DropDownList
     {
         private:
-            GameDataRef m_Data;
-
-            sf::Font m_Font;
+            sf::Font& m_Font;
             Button* m_ActiveElement;
 
             float keyTime;
             float keyTimeMax;
 
-            std::vector< Button* > m_List;
             bool m_ShowList;
+            std::vector< Button* > m_List;
 
         public:
-        DropDownList( GameDataRef data, const std::string& font, const float& x, const float& y,
-                std::string list[], unsigned numOfElements, unsigned default_idx = 0 );
+        DropDownList(
+            const float& x, const float& y, 
+            const float& width, const float& height,
+            sf::Font& font, std::string list[],
+            unsigned numOfElements, unsigned default_idx = 0
+        );
         virtual ~DropDownList();
 
         // Accessors
+        /*
+         * getActiveElementId: Returns ID of active element in dropdown list
+         */
         const short unsigned& getActiveElementId();
 
         // Functions
         /*
-        * Key time will prevent spamming of one button
-        */
-        const bool GetKeyTime();
+         * GetKeyTime: Key time will prevent spamming of one button
+         */
+        bool GetKeyTime();
+        /*
+         * UpdateKeyTime: Updates key time for Dropdown list
+         */
         void UpdateKeyTime(  const float& dt );
 
-        void Update(  const float& dt, const sf::Vector2f& mousePosition );
+        /*
+         * Update: Update time and mouse position for Dropdown list
+         */
+        void Update( const float& dt, const sf::Vector2f& mousePosition );
+        /*
+         * Draw: Draw objects on target
+         */
         void Draw( sf::RenderTarget& target );
     };
 }

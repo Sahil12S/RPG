@@ -3,41 +3,36 @@
 namespace gui
 {
     DropDownList::DropDownList(
-        GameDataRef data,
-        const std::string &font,
-        const float &x, const float &y,
-        std::string list[],
-        unsigned numOfElements,
-        unsigned default_idx ) : 
-        m_Data(std::move(data)), m_ShowList(false), keyTimeMax( 1.f ), keyTime( keyTimeMax )
+        const float& x, const float& y, 
+        const float& width, const float& height,
+        sf::Font& font, std::string list[],
+        unsigned numOfElements, unsigned default_idx
+    ) : m_Font( font ), m_ShowList(false), keyTimeMax( 1.f ), keyTime( 0.f )
     {
-        m_Font = m_Data->assets.GetFont(font);
+        m_ActiveElement = new gui::Button( 
+            x, y, width, height,
+            &m_Font, list[default_idx], 14,
+            sf::Color(LIST_TEXT_IDLE_FILL_COLOR), sf::Color(LIST_TEXT_HOVER_FILL_COLOR), sf::Color(LIST_TEXT_ACTIVE_FILL_COLOR),
+            sf::Color(LIST_IDLE_FILL_COLOR), sf::Color(LIST_HOVER_FILL_COLOR), sf::Color(LIST_ACTIVE_FILL_COLOR),
+            sf::Color(OUTLINE_COLOR_IDLE), sf::Color(OUTLINE_COLOR_HOVER), sf::Color( OUTLINE_COLOR_ACTIVE )
+        );
 
-        std::vector<sf::Color> textColor = {sf::Color(LIST_TEXT_IDLE_FILL_COLOR),
-                                            sf::Color(LIST_TEXT_HOVER_FILL_COLOR),
-                                            sf::Color(LIST_TEXT_ACTIVE_FILL_COLOR)};
-        std::vector<sf::Color> listBgColor = {sf::Color(LIST_IDLE_FILL_COLOR), 
-                                            sf::Color(LIST_HOVER_FILL_COLOR),
-                                            sf::Color(LIST_ACTIVE_FILL_COLOR)};
-        std::vector<sf::Color> outlineColor = { sf::Color( OUTLINE_COLOR_IDLE ), 
-                                            sf::Color( OUTLINE_COLOR_HOVER ),
-                                            sf::Color( OUTLINE_COLOR_ACTIVE ) };
-
-        // int numOfElements = sizeof( list ) / sizeof( std::string );
-        m_ActiveElement = new Button(m_Data);
-        m_ActiveElement->CreateButton(x, y, LIST_WIDTH, LIST_HEIGHT );
-        m_ActiveElement->SetButtonProperties( m_Data->assets.GetFont( font ), list[default_idx], LIST_TEXT_SIZE, textColor, listBgColor, outlineColor );
-
-        outlineColor = { sf::Color( 255, 255, 255, 0 ),
-                    sf::Color( 255, 255, 255, 0 ),
-                    sf::Color( 20, 20, 20, 0 ) };
+        // outlineColor = { sf::Color(  ),
+        //             sf::Color(  ),
+        //             sf::Color( 2) };
 
         for (size_t i = 0; i < numOfElements; i++)
         {
-            // Create new button
-            m_List.emplace_back( new Button( m_Data ) );
-            m_List.back()->CreateButton( x, y + ( ( i + 1 ) * LIST_HEIGHT), LIST_WIDTH, LIST_HEIGHT );
-            m_List.back()->SetButtonProperties( m_Data->assets.GetFont( font ), list[i], LIST_TEXT_SIZE, textColor, listBgColor, outlineColor, i );
+            m_List.emplace_back(
+                new gui::Button( 
+                    x, y + ( (i + 1 ) * height ), width, height,
+                    &m_Font, list[i], 14,
+                    sf::Color(LIST_TEXT_IDLE_FILL_COLOR), sf::Color(LIST_TEXT_HOVER_FILL_COLOR), sf::Color(LIST_TEXT_ACTIVE_FILL_COLOR),
+                    sf::Color(LIST_IDLE_FILL_COLOR), sf::Color(LIST_HOVER_FILL_COLOR), sf::Color(LIST_ACTIVE_FILL_COLOR),
+                    sf::Color(255, 255, 255, 0), sf::Color(255, 255, 255, 0), sf::Color(20, 20, 20, 0),
+                    i
+                )
+            );
         }
 
     }
@@ -45,9 +40,9 @@ namespace gui
     DropDownList::~DropDownList()
     {
         delete m_ActiveElement;
-        for (auto &l : m_List)
+        for (size_t i = 0; i < m_List.size(); i++ )
         {
-            delete l;
+            delete m_List[i];
         }
     }
 
@@ -56,7 +51,7 @@ namespace gui
         return m_ActiveElement->getId();
     }
 
-    const bool DropDownList::GetKeyTime()
+    bool DropDownList::GetKeyTime()
     {
         if (keyTime >= keyTimeMax)
         {

@@ -3,8 +3,8 @@
 namespace gui
 {
 
-    Button::Button( float x, float y, float width, float height,
-			sf::Font& font, std::string text, unsigned character_size,
+    Button::Button( const float& x, const float& y, const float& width, const float& height,
+			sf::Font* font, std::string text, unsigned character_size,
 			sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
 			sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
 			sf::Color outline_idle_color = sf::Color::Transparent, 
@@ -21,7 +21,7 @@ namespace gui
         m_Shape.setOutlineThickness( 1.f );
         m_Shape.setOutlineColor( outline_idle_color );
 
-        m_Text.setFont( m_Font );
+        m_Text.setFont( *m_Font );
         m_Text.setString( text );
         m_Text.setFillColor( text_idle_color );
         m_Text.setCharacterSize( character_size );
