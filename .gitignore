@@ -1,0 +1,8 @@
+# VS Code files
+.vscode/
+
+# Build directory
+build/
+
+# Workspace file
+WhosWatching.code-workspace
