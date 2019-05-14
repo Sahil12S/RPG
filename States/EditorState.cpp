@@ -23,6 +23,7 @@ void EditorState::InitView()
 
 void EditorState::InitTextures()
 {
+    // m_Data->assets.LoadAudio("", )
     // m_Data->assets.LoadTexture( )
     // Use sprites for background
     // m_Background.setSize(sf::Vector2f(m_Data->window.getSize()));
@@ -90,18 +91,27 @@ void EditorState::InitGui()
     m_SideBar.setOutlineThickness( 1.f );
 
     m_Hud = new gui::HUD(m_Data);
-    m_Hud->SetText("Title Font", "Editor", TITLE_SIZE, ( m_Data->GfxSettings.resolution.width / 2.0f ), 
-                        m_Data->GfxSettings.resolution.height / 6.0f );
+    m_Hud->SetText(
+        "Title Font", "Editor", 
+        TITLE_SIZE,
+        ( m_Data->GfxSettings.resolution.width / 2.0f ), 
+        m_Data->GfxSettings.resolution.height / 6.0f
+    );
     
     m_SelectorRect.setSize( sf::Vector2f (GRID_SIZE, GRID_SIZE) );
     m_SelectorRect.setFillColor( sf::Color(255, 255, 255, 150) );
     m_SelectorRect.setOutlineThickness( 1.f );
     m_SelectorRect.setOutlineColor( sf::Color::Green );
-    m_SelectorRect.setTexture( &m_Data->assets.GetTexture( m_TileMap->GetTileSheet() ) );
+    m_SelectorRect.setTexture( m_TileMap->GetTileSheet() );
     m_SelectorRect.setTextureRect( m_TextureRect );
 
     // Area of texture selector
-    m_TS = new gui::TextureSelector( m_Data, 20.f, 20.f, 500.f, 700.f, m_TileMap->GetTileSheet() );
+    m_TS = new gui::TextureSelector(
+        20.f, 20.f, 500.f, 700.f,
+        GRID_SIZE, m_TileMap->GetTileSheet(),
+        m_Data->assets.GetFont("Button Font"),
+        "TS"
+    );
 
 }
 
@@ -111,7 +121,7 @@ EditorState::EditorState( GameDataRef data ) : m_Data( std::move( data ) )
 
 EditorState::~EditorState()
 {
-    Debug( "[DEBUG] Destructor of Editor state")
+    Debug( "Editor State: Destructor")
     delete m_Hud;
     delete m_PauseMenu;
     delete m_TileMap;

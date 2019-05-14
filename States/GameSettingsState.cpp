@@ -66,40 +66,46 @@ void GameSettingsState::InitComponents()
     Debug( "Settings State: Initializing components...")
 
     // Set Buttons
-    m_Buttons["Home"] = new gui::Button( m_Data );
-    m_Buttons["Apply"] = new gui::Button( m_Data );
-    m_Buttons["Back"] = new gui::Button( m_Data );
-
-    m_Buttons["Back"]->CreateButton( 25.f, 25.f, BUTTON_WIDTH, BUTTON_HEIGHT );
-    m_Buttons["Apply"]->CreateButton( 2.f * m_Data->window.getSize().x / 3.f - BUTTON_WIDTH / 2.f,
-                                            m_Data->window.getSize().y - BUTTON_HEIGHT / 0.4f,
-                                            BUTTON_WIDTH, BUTTON_HEIGHT );
-    m_Buttons["Home"]->CreateButton(  m_Data->window.getSize().x / 3.f - BUTTON_WIDTH / 2.f,
-                                            m_Data->window.getSize().y - BUTTON_HEIGHT / 0.4f,
-                                            BUTTON_WIDTH, BUTTON_HEIGHT );
-
-    std::vector<sf::Color> textColor = { sf::Color( TEXT_IDLE_FILL_COLOR ),
-                                            sf::Color( TEXT_HOVER_FILL_COLOR ),
-                                            sf::Color( TEXT_ACTIVE_FILL_COLOR ) };
-
-    std::vector<sf::Color> buttonColor = { sf::Color( BUTTON_IDLE_FILL_COLOR ),
-                                            sf::Color( BUTTON_HOVER_FILL_COLOR ),
-                                            sf::Color( BUTTON_ACTIVE_FILL_COLOR ) };
+    m_Buttons["Home"] = new gui::Button(
+        m_Data->GfxSettings.resolution.width / 3.f - BUTTON_WIDTH / 2.f,
+        m_Data->GfxSettings.resolution.width - BUTTON_HEIGHT / 0.4f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Home", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
 
 
-    m_Buttons["Back"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Back", BUTTON_TEXT_SIZE, textColor, buttonColor );
-    m_Buttons["Apply"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Apply", BUTTON_TEXT_SIZE, textColor, buttonColor );
-    m_Buttons["Home"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Home", BUTTON_TEXT_SIZE, textColor, buttonColor );
+    m_Buttons["Apply"] = new gui::Button(
+        2.f * m_Data->GfxSettings.resolution.width / 3.f - BUTTON_WIDTH / 2.f,
+        m_Data->GfxSettings.resolution.width - BUTTON_HEIGHT / 0.4f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Apply", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
+    
+    
+    m_Buttons["Back"] = new gui::Button(
+        25.f, 25.f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Back", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
 
-    // std::string list[] = { "abc", "def", "fgh", "ijk", "lmn" };
-    // std::string list[] = { "1920 x 1080", "1280 x 720", "800 x 600", "640 x 480" };
     std::vector< std::string > modes_str;
     for ( auto& mode : m_Modes )
     {
         modes_str.emplace_back( std::to_string( mode.width ) + " x " + std::to_string( mode.height ) );
     }
 
-    m_DropdownList["Resolution"] = new gui::DropDownList( m_Data, "DDList Font",  m_Data->window.getSize().x / 2.f - LIST_WIDTH / 2.f, 400.f, modes_str.data(), modes_str.size() );
+    m_DropdownList["Resolution"] = new gui::DropDownList(
+        m_Data->window.getSize().x / 2.f - LIST_WIDTH / 2.f, 400.f,
+        LIST_WIDTH, LIST_HEIGHT, m_Data->assets.GetFont( "DDList Font" ),
+        modes_str.data(), modes_str.size()
+        
+    );
 }
 
 void GameSettingsState::InitTexts()

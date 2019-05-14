@@ -7,10 +7,8 @@ namespace gui
 			sf::Font* font, std::string text, unsigned character_size,
 			sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
 			sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
-			sf::Color outline_idle_color = sf::Color::Transparent, 
-            sf::Color outline_hover_color = sf::Color::Transparent, 
-            sf::Color outline_active_color = sf::Color::Transparent,
-			short unsigned id = 0 ) : m_Font( font )
+			sf::Color outline_idle_color, sf::Color outline_hover_color, sf::Color outline_active_color,
+			short unsigned id ) : m_Font( font )
     {
         m_ButtonState = ButtonState::eBtnIdle;
         m_Id = id;
@@ -65,6 +63,11 @@ namespace gui
     const short unsigned& Button::getId() const
     {
         return m_Id;
+    }
+
+    const sf::RectangleShape& Button::GetButton() const
+    {
+        return m_Shape;
     }
 
     // Modifiers

@@ -19,6 +19,7 @@ private:
     std::map<std::string, int> m_KeyBinds;
 
     sf::RectangleShape m_Background;
+    // sf::Texture m_BackgroundTexture;
 
     gui::HUD* m_Hud;
 
@@ -26,17 +27,17 @@ private:
 
     // Handle title animation
     sf::Clock clock;
-    bool movedLeft;
 
     /* Functions */
     // Initializers
-    void InitKeyBinds();
     void InitTextures();
     void InitFonts();
     void InitSounds();
-    void InitComponents();
-
     void InitVariables();
+    void InitKeyBinds();
+    void InitGui();
+    void ResetGui();
+
 
 public:
     explicit MainMenuState( GameDataRef data );
@@ -44,7 +45,9 @@ public:
 
     void Init() override;
     void HandleInput(float dt) override;
+    void UpdateButtons();
     void Update( float dt ) override;
+    void DrawButtons( sf::RenderTarget& target );
     void Draw() override;
 
 

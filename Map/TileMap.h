@@ -9,7 +9,6 @@
 
 class Game;
 
-
 class TileMap
 {
 private:
@@ -17,21 +16,21 @@ private:
 
     float m_GridSizeF;
     int m_GridSizeI;
-    int m_Layers;
     // Number of grids in world
     sf::Vector2i m_MaxSizeWorldGrid;
     // Size of grid ( num of grid x size of grid )
     sf::Vector2f m_MaxSizeWorldF;
-
-    std::string m_TextureFile;
-    sf::RectangleShape m_CollisionBox;
+    int m_Layers;
 
     // 3D vector to store tiles and layers
     std::vector< std::vector< std::vector< std::vector< Tile* > > > > m_Map;
 
     // Store tiles that we want to render later
     std::stack<Tile*> deferredRenderStack;
-    std::stack<Tile*> interactiveRenderStack;
+
+    std::string m_TextureFile;
+    // sf::Texture m_TileSheet;
+    sf::RectangleShape m_CollisionBox;
 
     // Culling
     int fromX;
@@ -48,11 +47,11 @@ public:
     TileMap( GameDataRef data, const std::string file_name);
     virtual ~TileMap();
     
-    const std::string GetTileSheet() const;
-    int GetLayerSize( const int& x, const int& y, const int& layer ) const;
+    const sf::Texture* GetTileSheet() const;
+    const int GetLayerSize( const int& x, const int& y, const int& layer ) const;
     bool TileEmpty( const int& x, const int& y, const int& z ) const;
-    bool TileInteractive( Entity* entity, const int& mousePosX, const int& mousePosY );
 
+    // Functions
     void AddTile( const int& x, const int& y, const int& z, const sf::IntRect& texture_rect, const bool& collision, const short& type );
     // Remove tile from map
     void RemoveTile( const int& x, const int& y, const int& z );
@@ -61,18 +60,11 @@ public:
     // Load map from a text file
     void LoadFromFile( const std::string file_name );
 
-    void Hide( Entity* entity );
-
     void UpdateCollision( Entity* entity, const float& dt );
-
     void Update();
-
     // We can render using position rather than player
     void Draw( sf::RenderTarget& target, const sf::Vector2i& gridPosition );
     void RenderDeferred( sf::RenderTarget& target );
-    void RenderInteractive( sf::RenderTarget& target );
-    // void ( sf::RenderTarget& target );
-
 };
 
 #endif // TILEMAP_H

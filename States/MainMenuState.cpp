@@ -3,19 +3,7 @@
 #include "GameSettingsState.h"
 #include "EditorState.h"
 
-MainMenuState::MainMenuState(GameDataRef data) : m_Data(std::move(data))
-{
-}
 
-MainMenuState::~MainMenuState()
-{
-    Debug( "[DEBUG] Destructor of Main Menu state")
-    delete m_Hud;
-    for (const auto &button : m_Buttons)
-    {
-        delete button.second;
-    }
-}
 
 void MainMenuState::InitTextures()
 {
@@ -35,64 +23,15 @@ void MainMenuState::InitSounds()
 {
 }
 
-void MainMenuState::InitComponents()
-{
-    //Draw Buttons
-    m_Buttons["Play"] = new gui::Button(m_Data);
-    m_Buttons["Exit"] = new gui::Button(m_Data);
-    m_Buttons["Settings"] = new gui::Button(m_Data);
-    m_Buttons["Editor"] = new gui::Button(m_Data);
-
-    // Set Button Properties
-    m_Buttons["Exit"]->CreateButton(m_Data->GfxSettings.resolution.width / 2.0f - BUTTON_WIDTH / 2.0f,
-                                    m_Data->GfxSettings.resolution.height - BUTTON_HEIGHT / 0.4f,
-                                    BUTTON_WIDTH, BUTTON_HEIGHT);
-
-    m_Buttons["Settings"]->CreateButton(m_Data->window.getSize().x / 2.0f - BUTTON_WIDTH / 2.0f,
-                                        m_Buttons["Exit"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f,
-                                        BUTTON_WIDTH, BUTTON_HEIGHT);
-
-    m_Buttons["Editor"]->CreateButton(m_Data->GfxSettings.resolution.width / 2.0f - BUTTON_WIDTH / 2.0f,
-                                    m_Buttons["Settings"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f,
-                                    BUTTON_WIDTH, BUTTON_HEIGHT);
-
-    m_Buttons["Play"]->CreateButton(m_Data->GfxSettings.resolution.width / 2.0f - BUTTON_WIDTH / 2.0f,
-                                    m_Buttons["Editor"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f,
-                                    BUTTON_WIDTH, BUTTON_HEIGHT);
-
-    // Set Text and Button colors
-
-    std::vector<sf::Color> textColor = {sf::Color(TEXT_IDLE_FILL_COLOR),
-                                        sf::Color(TEXT_HOVER_FILL_COLOR),
-                                        sf::Color(TEXT_ACTIVE_FILL_COLOR)};
-
-    std::vector<sf::Color> buttonColor = {sf::Color(BUTTON_IDLE_FILL_COLOR),
-                                          sf::Color(BUTTON_HOVER_FILL_COLOR),
-                                          sf::Color(BUTTON_ACTIVE_FILL_COLOR)};
-
-    m_Buttons["Exit"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Exit", BUTTON_TEXT_SIZE, textColor, buttonColor);
-    m_Buttons["Settings"]->SetButtonProperties( m_Data->assets.GetFont(  "Button Font" ), "Settings", BUTTON_TEXT_SIZE, textColor, buttonColor);
-    m_Buttons["Editor"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Editor", BUTTON_TEXT_SIZE, textColor, buttonColor);
-    m_Buttons["Play"]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), "Play", BUTTON_TEXT_SIZE, textColor, buttonColor);
-}
-
 void MainMenuState::InitVariables()
 {
     m_Hud = new gui::HUD( m_Data );
-    m_Hud->SetText("Title Font", "RPG", TITLE_SIZE, ( m_Data->GfxSettings.resolution.width / 2.0f ), m_Data->GfxSettings.resolution.height / 6.0f );
-}
-
-// @override
-void MainMenuState::Init()
-{
-    Debug("**Initialized** Main menu state");
-
-    InitTextures();
-    InitFonts();
-    InitSounds();
-    InitComponents();
-    InitVariables();
-    InitKeyBinds();
+    m_Hud->SetText(
+        "Title Font", "RPG", 
+        TITLE_SIZE, 
+        ( m_Data->GfxSettings.resolution.width / 2.0f ),
+        m_Data->GfxSettings.resolution.height / 6.0f 
+    );
 }
 
 void MainMenuState::InitKeyBinds()
@@ -109,7 +48,77 @@ void MainMenuState::InitKeyBinds()
             m_KeyBinds[keyAction] = m_Data->input.getSupportedKeys().at(key);
         }
     }
-    Debug("Key bindings initialized for main menu");
+}
+
+void MainMenuState::InitGui()
+{
+    //Draw Buttons
+    m_Buttons["Exit"] = new gui::Button(
+        m_Data->GfxSettings.resolution.width / 2.f - BUTTON_WIDTH / 2.f,
+        m_Data->GfxSettings.resolution.height - BUTTON_HEIGHT / 0.4f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Exit", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
+
+    m_Buttons["Settings"] = new gui::Button(
+        m_Data->GfxSettings.resolution.width / 2.f - BUTTON_WIDTH / 2.f,
+        m_Buttons["Exit"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Settings", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
+
+    m_Buttons["Editor"] = new gui::Button(
+        m_Data->GfxSettings.resolution.width / 2.f - BUTTON_WIDTH / 2.f,
+        m_Buttons["Settings"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Editor", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
+
+    m_Buttons["Play"] = new gui::Button(
+        m_Data->GfxSettings.resolution.width / 2.f - BUTTON_WIDTH / 2.f,
+        m_Buttons["Editor"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), "Start", BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );
+
+}
+
+
+
+MainMenuState::MainMenuState(GameDataRef data) : m_Data(std::move(data))
+{
+}
+
+MainMenuState::~MainMenuState()
+{
+    Debug( "Destructor of Main Menu state")
+    delete m_Hud;
+    for (const auto &button : m_Buttons)
+    {
+        delete button.second;
+    }
+}
+
+// @override
+void MainMenuState::Init()
+{
+    Debug("Main Menu State Initializing....");
+
+    InitTextures();
+    InitFonts();
+    InitSounds();
+    InitVariables();
+    InitKeyBinds();
+    InitGui();
+    // ResetGui();
 }
 
 // @override

@@ -6,8 +6,8 @@ void TileMap::Clear()
     /*
     * Delete all the tiles
     */
-   if( !m_Map.empty() )
-   {
+    if( !m_Map.empty() )
+    {
         for ( int x = 0; x < m_MaxSizeWorldGrid.x; x++ )
         {
             for ( int y = 0; y < m_MaxSizeWorldGrid.y; y++ )
@@ -26,13 +26,13 @@ void TileMap::Clear()
             m_Map[x].clear();
         }
         m_Map.clear();
-   }
+    }
 }
 
 TileMap::TileMap( GameDataRef data, int width, int height, const std::string& texture_file ) : m_Data( std::move( data ) )
 {
     m_GridSizeF = GRID_SIZE;
-    m_GridSizeI = static_cast<unsigned>( m_GridSizeF );
+    m_GridSizeI = static_cast<int>( m_GridSizeF );
     m_Layers = LAYERS;
     m_MaxSizeWorldGrid.x = width;
     m_MaxSizeWorldGrid.y = height;
@@ -90,12 +90,12 @@ TileMap::~TileMap()
     Clear();
 }
 
-const std::string TileMap::GetTileSheet() const
+const sf::Texture* TileMap::GetTileSheet() const
 {
-    return "Tiles";
+    return &m_Data->assets.GetTexture( "Tiles" );
 }
 
-int TileMap::GetLayerSize( const int& x, const int& y, const int& layer ) const
+const int TileMap::GetLayerSize( const int& x, const int& y, const int& layer ) const
 {
     if ( x >= 0 && x < m_Map.size() )
     {
@@ -284,135 +284,6 @@ void TileMap::LoadFromFile( const std::string file_name )
 
     in_file.close();
  
-}
-
-bool TileMap::TileInteractive( Entity* entity, const int& mousePosX, const int& mousePosY )
-{
-    // std::cout << "cliked on " << mousePosX << ", " << mousePosY << '\n';
-    int layer = 0;
-
-    fromX = entity->GetGridPosition( m_GridSizeI ).x - 1;
-    if( fromX < 0 )
-    {
-        fromX = 0;
-    }
-    else if ( fromX >= m_MaxSizeWorldGrid.x )
-    {
-        fromX = m_MaxSizeWorldGrid.x - 1;
-    }
-
-    toX = entity->GetGridPosition( m_GridSizeI ).x + 1;
-    if( toX < 0 )
-    {
-        toX = 0;
-    }
-    else if ( toX >= m_MaxSizeWorldGrid.x )
-    {
-        toX = m_MaxSizeWorldGrid.x - 1;
-    }
-    fromY = entity->GetGridPosition( m_GridSizeI ).y - 1;
-    if( fromY < 0 )
-    {
-        fromY = 0;
-    }
-    else if ( fromY >= m_MaxSizeWorldGrid.y )
-    {
-        fromY = m_MaxSizeWorldGrid.y - 1;
-    }
-
-    toY = entity->GetGridPosition( m_GridSizeI ).y + 1;
-    if( toY < 0 )
-    {
-        toY = 0;
-    }
-    else if ( toY >= m_MaxSizeWorldGrid.y )
-    {
-        toY = m_MaxSizeWorldGrid.y - 1;
-    }
-
-    // std::cout << "from Y pos: " << fromY << "to Y pos: " << toY << '\n';
-    for ( int x = fromX; x <= toX; x++ )
-    {
-        for ( int y = fromY; y <= toY; y++ )
-        {
-            // std::cout << "k: " << m_Map[x][y][layer].size() <<  '\n';
-            for (size_t k = 0; k < m_Map[x][y][layer].size(); k++)
-            {
-                // std::cout << "X pos: " << x << " Y pos: " << y << " k pos: " << k << '\n';
-                if( m_Map[x][y][layer][k]->getType() == TileType::eInteractive )
-                {
-                    if( x == mousePosX && y == mousePosY )
-                    {
-                        // std::cout << "returning True" << '\n';
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    // std::cout << "returning false" << '\n';
-    return false;
-}
-
-void TileMap::Hide( Entity* entity )
-{
-    int layer = 0;
-
-    fromX = entity->GetGridPosition( m_GridSizeI ).x - 1;
-    if( fromX < 0 )
-    {
-        fromX = 0;
-    }
-    else if ( fromX >= m_MaxSizeWorldGrid.x )
-    {
-        fromX = m_MaxSizeWorldGrid.x - 1;
-    }
-
-    toX = entity->GetGridPosition( m_GridSizeI ).x + 1;
-    if( toX < 0 )
-    {
-        toX = 0;
-    }
-    else if ( toX >= m_MaxSizeWorldGrid.x )
-    {
-        toX = m_MaxSizeWorldGrid.x - 1;
-    }
-
-    fromY = entity->GetGridPosition( m_GridSizeI ).y - 1;
-    if( fromY < 0 )
-    {
-        fromY = 0;
-    }
-    else if ( fromY >= m_MaxSizeWorldGrid.y )
-    {
-        fromY = m_MaxSizeWorldGrid.y - 1;
-    }
-
-    toY = entity->GetGridPosition( m_GridSizeI ).y + 1;
-    if( toY < 0 )
-    {
-        toY = 0;
-    }
-    else if ( toY >= m_MaxSizeWorldGrid.y )
-    {
-        toY = m_MaxSizeWorldGrid.y - 1;
-    }
-
-    // std::cout << fromX << ", " << toX << ", " << fromY << ", " << toY << '\n';
-
-    for ( int x = fromX; x <= toX; x++ )
-    {
-        for ( int y = fromY; y <= toY; y++ )
-        {
-            for (size_t k = 0; k < m_Map[x][y][layer].size(); k++)
-            {
-                if( m_Map[x][y][layer][k]->getType() == TileType::eInteractive )
-                {
-                    m_Map[x][y][layer][k]->Hide();
-                }
-            }
-        }
-    }
 }
 
 void TileMap::UpdateCollision( Entity* entity, const float& dt  )

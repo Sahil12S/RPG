@@ -54,19 +54,14 @@ void PauseMenu::AddButton( const std::string key,
                 const float y, 
                 const std::string text)
 {
-    m_Buttons[key] = new gui::Button( m_Data );
-    m_Buttons[key]->CreateButton(  m_Container.getPosition().x + m_Container.getSize().x / 2.f - BUTTON_WIDTH / 2.f,
-                                y, BUTTON_WIDTH, BUTTON_HEIGHT );
-
-    std::vector<sf::Color> textColor = { sf::Color( 255, 224, 53, 200 ),
-                                        sf::Color( TEXT_HOVER_FILL_COLOR ),
-                                        sf::Color( TEXT_ACTIVE_FILL_COLOR ) };
-
-    std::vector<sf::Color> buttonColor = { sf::Color( BUTTON_IDLE_FILL_COLOR ),
-                                        sf::Color( BUTTON_HOVER_FILL_COLOR ),
-                                        sf::Color( BUTTON_ACTIVE_FILL_COLOR ) };
-    
-    m_Buttons[key]->SetButtonProperties( m_Data->assets.GetFont( "Button Font" ), text, BUTTON_TEXT_SIZE, textColor, buttonColor );
+    m_Buttons[key] = new gui::Button(
+        m_Container.getPosition().x + m_Container.getSize().x / 2.f - BUTTON_WIDTH / 2.f,
+        y,
+        BUTTON_WIDTH, BUTTON_HEIGHT,
+        &m_Data->assets.GetFont( "Button Font" ), text, BUTTON_TEXT_SIZE,
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR)
+    );   
 }
 
 void PauseMenu::Update( const sf::Vector2i& mousePosWindow )

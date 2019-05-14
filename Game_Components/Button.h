@@ -47,6 +47,7 @@ namespace gui
         bool isPressed() const;
         const std::string getText() const;
         const short unsigned& getId() const;
+        const sf::RectangleShape& GetButton() const;
 
         // Modifiers
         void setText( std::string text );
