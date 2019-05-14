@@ -3,72 +3,51 @@
 namespace gui
 {
 
-    Button::Button(GameDataRef data) : m_Data( std::move ( data ) )
+    Button::Button( float x, float y, float width, float height,
+			sf::Font& font, std::string text, unsigned character_size,
+			sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
+			sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
+			sf::Color outline_idle_color = sf::Color::Transparent, 
+            sf::Color outline_hover_color = sf::Color::Transparent, 
+            sf::Color outline_active_color = sf::Color::Transparent,
+			short unsigned id = 0 ) : m_Font( font )
     {
-        m_ButtonState = eBtnIdle;
-    }
-
-    Button::~Button() = default;
-
-    void Button::CreateButton( float x, float y, float width, float height)
-    {
-        m_Shape.setSize( sf::Vector2f( width, height ) );
-        m_Shape.setPosition( sf::Vector2f( x, y ) );
-    }
-
-    void Button::SetButtonProperties(const sf::Font& font, const std::string &text,
-                                        unsigned int characterSize,
-                                        const std::vector<sf::Color>& textColors,
-                                        const std::vector<sf::Color>& buttonColors,
-                                        const std::vector< sf::Color >& outlineColors, unsigned short id )
-    {
-        m_ButtonState = eBtnIdle;
+        m_ButtonState = ButtonState::eBtnIdle;
         m_Id = id;
 
-        m_Font = font;
-
-        m_TextIdleColor = textColors[0];
-        m_TextHoverColor = textColors[1];
-        m_TextActiveColor = textColors[2];
-
-        m_BtnIdleColor = buttonColors[0];
-        m_BtnHoverColor = buttonColors[1];
-        m_BtnActiveColor = buttonColors[2];
-
-        m_OutlineIdleColor = outlineColors[0];
-        m_OutlineHoverColor = outlineColors[1];
-        m_OutlineActiveColor = outlineColors[2];
-
+        m_Shape.setPosition( sf::Vector2f( x, y ) );
+        m_Shape.setSize( sf::Vector2f( width, height ) );
         m_Shape.setFillColor( m_BtnIdleColor );
-        m_Shape.setOutlineColor( m_OutlineIdleColor );
-        m_Shape.setOutlineThickness( 1 );
-        
-        // m_Font = m_Data->assets.GetFont( fontName );
+        m_Shape.setOutlineThickness( 1.f );
+        m_Shape.setOutlineColor( outline_idle_color );
+
         m_Text.setFont( m_Font );
         m_Text.setString( text );
-        //( 97, 143, 216 )
-        m_Text.setFillColor( m_TextIdleColor );
-        m_Text.setCharacterSize( characterSize );
-
-        // Set in the middle of button
+        m_Text.setFillColor( text_idle_color );
+        m_Text.setCharacterSize( character_size );
         m_Text.setPosition(
-                m_Shape.getPosition().x +
-                m_Shape.getGlobalBounds().width / 2.0f -
-                m_Text.getGlobalBounds().width / 2.0f,
-                m_Shape.getPosition().y );
-        // Correct text position
-        // +
-        //         m_Shape.getGlobalBounds().height / 2.0f -
-        //         m_Text.getGlobalBounds().height / 2.0f
+            m_Shape.getPosition().x + m_Shape.getGlobalBounds().width / 2.0f - m_Text.getGlobalBounds().width / 2.0f,
+            m_Shape.getPosition().y
+        );
 
+        m_TextIdleColor = text_idle_color;
+        m_TextHoverColor = text_hover_color;
+        m_TextActiveColor = text_active_color;
 
+        m_BtnIdleColor = idle_color;
+        m_BtnHoverColor = hover_color;
+        m_BtnActiveColor = active_color;
+
+        m_OutlineIdleColor = outline_idle_color;
+        m_OutlineHoverColor = outline_hover_color;
+        m_OutlineActiveColor = outline_active_color;
     }
 
-    sf::RectangleShape &Button::GetButton()
+    Button::~Button()
     {
-        return m_Shape;
     }
 
+    // Accessors
     bool Button::isPressed() const
     {
         if ( m_ButtonState == eBtnActive)
@@ -88,6 +67,7 @@ namespace gui
         return m_Id;
     }
 
+    // Modifiers
     void Button::setText( std::string text )
     {
         m_Text.setString( text );
@@ -98,37 +78,38 @@ namespace gui
         m_Id = id;
     }
 
+    // Functions
     void Button::Update(const sf::Vector2f& mousePosition)
     {
         // Update button hover with mouse position
-        m_ButtonState = eBtnIdle;
+        m_ButtonState = ButtonState::eBtnIdle;
 
         // Hover
         if( m_Shape.getGlobalBounds().contains( mousePosition ) )
         {
-            m_ButtonState = eBtnHover;
+            m_ButtonState = ButtonState::eBtnHover;
 
             // Active
             if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
             {
-                m_ButtonState = eBtnActive;
+                m_ButtonState = ButtonState::eBtnActive;
             }
         }
 
         // Set the button color
         switch ( m_ButtonState )
         {
-            case eBtnIdle:
+            case ButtonState::eBtnIdle:
                 m_Shape.setFillColor( m_BtnIdleColor );
                 m_Text.setFillColor( m_TextIdleColor );
                 m_Text.setOutlineColor( m_OutlineIdleColor );
                 break;
-            case eBtnHover:
+            case ButtonState::eBtnHover:
                 m_Shape.setFillColor( m_BtnHoverColor );
                 m_Text.setFillColor( m_TextHoverColor );
                 m_Text.setOutlineColor( m_OutlineHoverColor );
                 break;
-            case eBtnActive:
+            case ButtonState::eBtnActive:
                 m_Shape.setFillColor( m_BtnActiveColor );
                 m_Text.setFillColor( m_TextActiveColor );
                 m_Text.setOutlineColor( m_OutlineActiveColor );

@@ -20,7 +20,7 @@
 #define CALLOUT_TEXTURE_FILEPATH "../Resources/img/callout.png"
 
 // Fonts
-#define SCREEN_FONT_FILEPATH "../Resources/font/Twopath_Shadow.otf"
+#define SCREEN_FONT_FILEPATH "../Resources/font/Good_Brush.otf"
 #define BUTTON_FONT_FILEPATH "../Resources/font/Twopath_Regular.otf"
 #define LIST_FONT_FILEPATH "../Resources/font/Twopath_Regular.otf"
 #define TEXT_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
