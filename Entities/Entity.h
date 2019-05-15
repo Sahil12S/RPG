@@ -42,7 +42,7 @@ public:
                                 const float& width, const float& height );
     void CreateMovementComponent( const float& maxVelocity, const float& acceleration, const float& deceleration );
     void CreateAnimationComponent( const std::string& texture ); // TODO: Use texture rather than name
-    void CreateAttributeComponent( );
+    void CreateAttributeComponent( const unsigned& level );
     
     // Getters
     virtual const sf::Vector2f& GetPosition() const;

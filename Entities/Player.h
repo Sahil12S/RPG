@@ -36,6 +36,9 @@ public:
     explicit Player( GameDataRef data );
     ~Player() override;
 
+    // Accessors
+    AttributeComponent* GetAttributeComponent();
+
     /* Functions */
     void Attack();
 

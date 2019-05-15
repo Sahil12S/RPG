@@ -8,26 +8,26 @@ class AttributeComponent
 {
 public:
     // Levelling attributes
-    unsigned mLevel;
-    unsigned mExp;
-    unsigned mExpNext;
-    unsigned mAttributePoints;
+    unsigned m_Level;
+    unsigned m_Exp;
+    unsigned m_ExpNext;
+    unsigned m_AttributePoints;
 
     // Attributes
-    unsigned mVitality;
-    unsigned mStrength;
-    unsigned mDexterity;
-    unsigned mAgility;
-    unsigned mIntelligence;
+    int m_Vitality;
+    int m_Strength;
+    int m_Dexterity;
+    int m_Agility;
+    int m_Intelligence;
 
     // Stats
-    int mHp;
-    int mHpMax;
-    int mDamageMin;
-    int mDamageMax;
-    int mAccuracy;
-    int mDefense;
-    int mLuck;
+    int m_Hp;
+    int m_HpMax;
+    int m_DamageMin;
+    int m_DamageMax;
+    int m_Accuracy;
+    int m_Defense;
+    int m_Luck;
 
 
     // Con / Des
@@ -35,9 +35,12 @@ public:
     virtual ~AttributeComponent();
 
     // Functions
-    void CalculateExpNext();
-    void UpdateStats();
-    void LevelUp();
+    std::string DebugPrint() const;
+
+    void GainExp( const unsigned exp );
+    
+    void UpdateStats( const bool& reset );
+    void UpdateLevel();
 
     void Update();
 };

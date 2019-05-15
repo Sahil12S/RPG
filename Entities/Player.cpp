@@ -32,10 +32,10 @@ Player::Player( GameDataRef data ) : Entity( data ), m_Data( move( data ) )
 
     // Set acceleration and deceleration
     CreateMovementComponent( PLAYER_MOVEMENT_SPEED, 1500, 500 );
-    CreateAnimationComponent( "Player Sheet" );
+    CreateAnimationComponent( "Player Sheet" ); // Send texture
     // OffsetX, OffsetY, width, height
     CreateHitboxComponent( 35.f, 20.f, 30.f, 60.f );
-    CreateAttributeComponent();
+    CreateAttributeComponent( 0 );
 
     // Animation name, animation timer, start pos X, start pos Y, frames X, frames Y, tile size
     // Lesser the timer, faster the animation speed
@@ -52,6 +52,10 @@ Player::~Player()
 {
 }
 
+AttributeComponent* Player::GetAttributeComponent()
+{
+    return m_AttComp;
+}
 
 void Player::Attack()
 {
@@ -147,7 +151,6 @@ void Player::Update(const float& dt)
     m_MC->Update( dt );
     UpdateAnimation( dt );
     m_HC->Update();
-    
 }
 
 void Player::Draw( sf::RenderTarget& target )

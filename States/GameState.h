@@ -9,6 +9,12 @@
 #include "../Game.h"
 #include "../Entities/Player.h"
 #include "../Map/TileMap.h"
+#include "../Game_Components/PlayerGui.h"
+
+class PauseMenu;
+class TileMap;
+class Player;
+class PlayerGui;
 
 class GameState : public State
 {
@@ -26,6 +32,7 @@ private:
     Player* m_Player;
     TileMap* m_TileMap;
     PauseMenu* m_PauseMenu;
+    PlayerGui* m_PlayerGui;
 
     sf::Sprite m_BackgroundSprite;
 
@@ -46,8 +53,9 @@ private:
     void InitKeyBinds();
     void InitPauseMenu();
     void InitComponents();
-    void InitTileMap();
     void InitPlayers();
+    void InitPlayerGui();
+    void InitTileMap();
 
 
 
@@ -64,9 +72,10 @@ public:
     void UpdateView( const float& dt );
     void HandleInput( float dt ) override;
 
-    void UpdateTileMap( const float& dt );
+    void UpdatePlayerGui( const float& dt );
     void UpdatePauseMenuButtons();
     void UpdateGui();
+    void UpdateTileMap( const float& dt );
 
     void Update( float dt ) override;
     void Draw() override;

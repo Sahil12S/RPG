@@ -39,9 +39,9 @@ void Entity::CreateAnimationComponent(const std::string& texture)
     m_AC = new AnimationComponent( m_Data, m_Sprite, texture );
 }
 
-void Entity::CreateAttributeComponent()
+void Entity::CreateAttributeComponent( const unsigned& level )
 {
-    m_AttComp = new AttributeComponent( 1 );
+    m_AttComp = new AttributeComponent( level );
 }
 
 /* Functions */

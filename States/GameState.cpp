@@ -72,18 +72,12 @@ void GameState::InitPauseMenu()
 
 void GameState::InitComponents()
 {
-    hud["timer"] = new gui::HUD( m_Data );
-    hud["timer"]->SetText("Hud Font", "Remaining Time: 0", 50, m_Data->GfxSettings.resolution.width / 6, m_Data->GfxSettings.resolution.height / 25 );
-    hud["score"] = new gui::HUD( m_Data );
-    hud["score"]->SetText("Hud Font", "Score: 0", 50, m_Data->GfxSettings.resolution.width / 1.2, m_Data->GfxSettings.resolution.height / 25 );
+    // hud["timer"] = new gui::HUD( m_Data );
+    // hud["timer"]->SetText("Hud Font", "Remaining Time: 0", 50, m_Data->GfxSettings.resolution.width / 6, m_Data->GfxSettings.resolution.height / 25 );
+    // hud["score"] = new gui::HUD( m_Data );
+    // hud["score"]->SetText("Hud Font", "Score: 0", 50, m_Data->GfxSettings.resolution.width / 1.2, m_Data->GfxSettings.resolution.height / 25 );
 }
 
-void GameState::InitTileMap()
-{
-    // m_TileMap = new TileMap( m_Data, "myMap.txt" );
-    m_TileMap = new TileMap( m_Data, 100, 100, TILES_TEXTURE_FILEPATH );
-    m_TileMap->LoadFromFile("myMap.txt");
-}
 
 void GameState::InitPlayers()
 {
@@ -93,16 +87,29 @@ void GameState::InitPlayers()
     m_Player->SetPosition( 500.f, 300.f );
 }
 
+void GameState::InitPlayerGui()
+{
+    m_PlayerGui = new PlayerGui( m_Player );
+}
+
+void GameState::InitTileMap()
+{
+    // m_TileMap = new TileMap( m_Data, "myMap.txt" );
+    m_TileMap = new TileMap( m_Data, 100, 100, TILES_TEXTURE_FILEPATH );
+    m_TileMap->LoadFromFile("myMap.txt");
+}
+
 GameState::GameState( GameDataRef data ) : m_Data( std::move( data ) )
 {
 }
 
 GameState::~GameState()
 {
-    Debug( "[DEBUG] Destructor of Game state")
+    Debug( "Game State: Destructor")
     delete m_Player;
     delete m_TileMap;
     delete m_PauseMenu;
+    delete m_PlayerGui;
 }
 void GameState::Init()
 {
@@ -117,8 +124,9 @@ void GameState::Init()
     InitKeyBinds();
     InitPauseMenu();
     InitComponents();
-    InitTileMap();
     InitPlayers();
+    InitPlayerGui();
+    InitTileMap();
 
     m_CursorText.setFont( m_Data->assets.GetFont( "Debug Font" ) );
     m_CursorText.setFillColor( sf::Color::White );
@@ -194,10 +202,9 @@ void GameState::HandleInput( float dt )
     }
 }
 
-void GameState::UpdateTileMap( const float& dt )
+void GameState::UpdatePlayerGui( const float& dt )
 {
-    m_TileMap->Update();
-    m_TileMap->UpdateCollision( m_Player, dt );
+    m_PlayerGui->Update( dt );
 }
 
 void GameState::UpdatePauseMenuButtons( )
@@ -217,6 +224,12 @@ void GameState::UpdateGui()
     m_CursorText.setPosition( m_Data->input.GetViewMousePosition().x + 20, m_Data->input.GetViewMousePosition().y );
 }
 
+void GameState::UpdateTileMap( const float& dt )
+{
+    m_TileMap->Update();
+    m_TileMap->UpdateCollision( m_Player, dt );
+}
+
 void GameState::Update(float dt)
 {
     m_Data->input.UpdateMousePosition( m_Data->window, &m_View );
@@ -230,6 +243,7 @@ void GameState::Update(float dt)
             UpdateTileMap( dt );
 
             m_Player->Update( dt );
+            UpdatePlayerGui( dt );
     }
     else
     {
@@ -249,17 +263,17 @@ void GameState::Draw()
 
     m_Player->Draw( m_Data->window );
     m_TileMap->RenderDeferred( m_Data->window );
-
-    // m_Data->window.draw( m_CursorText );
+    m_Data->window.draw( m_CursorText );
     
     m_Data->window.setView( m_Data->window.getDefaultView() );
+    m_PlayerGui->Draw( m_Data->window );
 
     if ( m_Paused )
     {
         m_PauseMenu->Draw( m_Data->window );
     }
 
-    m_Data->window.setView( m_View );
+    // m_Data->window.setView( m_View );
     // m_Data->window.draw( m_CursorText );
     
 
