@@ -120,14 +120,8 @@ enum PlayerStates
 enum TileType
 {
     eDefault = 0,
-    eInteractive,
+    eDamaging,
     eDoodad,
-    eCallout
 };
-
-// Game play variables
-#define MAX_GAME_TIME 35.f
-#define BONUS_TIME 5.f
-#define SCORE_TO_WIN 8
 
 #endif // DEFINITIONS_H

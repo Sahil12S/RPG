@@ -36,13 +36,8 @@ public:
     explicit Player( GameDataRef data );
     ~Player() override;
 
-
-    const float GetRemainingTime();
-    const int GetScore();
-
     /* Functions */
     void Attack();
-    void WinPoints();
 
     void UpdateAnimation( const float& dt );
 

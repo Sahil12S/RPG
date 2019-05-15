@@ -7,19 +7,39 @@
 class AttributeComponent
 {
 public:
+    // Levelling attributes
+    unsigned mLevel;
+    unsigned mExp;
+    unsigned mExpNext;
+    unsigned mAttributePoints;
+
     // Attributes
-    float timer; // time remaining in seconds
-    unsigned points; // For each correct answer
+    unsigned mVitality;
+    unsigned mStrength;
+    unsigned mDexterity;
+    unsigned mAgility;
+    unsigned mIntelligence;
+
+    // Stats
+    int mHp;
+    int mHpMax;
+    int mDamageMin;
+    int mDamageMax;
+    int mAccuracy;
+    int mDefense;
+    int mLuck;
 
 
-    // Con / Dec
-    AttributeComponent();
+    // Con / Des
+    AttributeComponent( unsigned level );
     virtual ~AttributeComponent();
 
     // Functions
-    void UpdatePoints();
-    // Check if you gained something
-    void UpdateTime( const float& dt );
+    void CalculateExpNext();
+    void UpdateStats();
+    void LevelUp();
+
+    void Update();
 };
 
 #endif // ATTRIBUTE_COMPONENT_H

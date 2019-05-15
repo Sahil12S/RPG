@@ -1,10 +1,20 @@
 #include "AttributeComponent.h"
 
 
-AttributeComponent::AttributeComponent()
+AttributeComponent::AttributeComponent( unsigned level )
 {
-    timer = MAX_GAME_TIME;
-    points = 0;
+    mLevel = level;
+    mExp = 0;
+    mExpNext = 0;
+    mAttributePoints = 3;
+
+    mVitality = 1;
+    mStrength = 1;
+    mDexterity = 1;
+    mAgility = 1;
+    mIntelligence = 1;
+
+    UpdateStats();
 }
 
 AttributeComponent::~AttributeComponent()
@@ -12,17 +22,23 @@ AttributeComponent::~AttributeComponent()
 
 }
 
-void AttributeComponent::UpdatePoints()
+// Functions
+void CalculateExpNext()
 {
-    points++;
-    timer += BONUS_TIME;
-    if( timer >= MAX_GAME_TIME )
-    {
-        timer = MAX_GAME_TIME;
-    }
+    
 }
 
-void AttributeComponent::UpdateTime( const float& dt )
+void AttributeComponent::UpdateStats()
 {
-    timer -= dt;
+
+}
+
+void LevelUp()
+{
+
+}
+
+void Update()
+{
+
 }

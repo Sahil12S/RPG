@@ -41,7 +41,7 @@ public:
     void CreateHitboxComponent( const float& offset_x, const float& offset_y,
                                 const float& width, const float& height );
     void CreateMovementComponent( const float& maxVelocity, const float& acceleration, const float& deceleration );
-    void CreateAnimationComponent( const std::string& texture );
+    void CreateAnimationComponent( const std::string& texture ); // TODO: Use texture rather than name
     void CreateAttributeComponent( );
     
     // Getters

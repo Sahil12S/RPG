@@ -80,8 +80,8 @@ void GameState::InitComponents()
 
 void GameState::InitTileMap()
 {
-    // m_Map = new TileMap( m_Data, "myMap.txt" );
-    m_TileMap = new TileMap( m_Data, 15, 15, TILES_TEXTURE_FILEPATH );
+    // m_TileMap = new TileMap( m_Data, "myMap.txt" );
+    m_TileMap = new TileMap( m_Data, 100, 100, TILES_TEXTURE_FILEPATH );
     m_TileMap->LoadFromFile("myMap.txt");
 }
 
@@ -90,7 +90,7 @@ void GameState::InitPlayers()
     // Initialize player & spawn it
     m_Player = new Player( m_Data );
     // m_Player->SetPosition( m_Data->GfxSettings.resolution.width / 2.f, m_Data->GfxSettings.resolution.height / 2.f );
-    m_Player->SetPosition( 50.f, 300.f );
+    m_Player->SetPosition( 500.f, 300.f );
 }
 
 GameState::GameState( GameDataRef data ) : m_Data( std::move( data ) )

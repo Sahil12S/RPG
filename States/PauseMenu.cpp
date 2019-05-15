@@ -9,8 +9,10 @@ void PauseMenu::InitTextures()
 
     m_Container.setSize( sf::Vector2f( m_Data->GfxSettings.resolution.width / 4.f, m_Data->GfxSettings.resolution.height ));
     m_Container.setFillColor( sf::Color(60, 60, 60, 200) );
-    m_Container.setPosition( sf::Vector2f( m_Data->GfxSettings.resolution.width / 2.f - m_Container.getSize().x / 2.f,
-                                    20.f ));
+    m_Container.setPosition( 
+        sf::Vector2f( m_Data->GfxSettings.resolution.width / 2.f - m_Container.getSize().x / 2.f,
+        20.f )
+    );
 }
 
 void PauseMenu::InitFonts()
@@ -37,7 +39,7 @@ PauseMenu::PauseMenu(GameDataRef data) : m_Data( std::move( data ) )
 
 PauseMenu::~PauseMenu()
 {
-    Debug( "[DEBUG] Destructor of Pause Menu")
+    Debug( "Pause Menu: Destructor")
     delete m_Hud;
     for ( const auto& button : m_Buttons )
     {
@@ -45,7 +47,7 @@ PauseMenu::~PauseMenu()
     }
 }
 
-const bool PauseMenu::IsButtonPressed( const std::string& key )
+bool PauseMenu::IsButtonPressed( const std::string& key )
 {
     return m_Buttons[key]->isPressed();
 }

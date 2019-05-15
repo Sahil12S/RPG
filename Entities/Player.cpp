@@ -52,28 +52,14 @@ Player::~Player()
 {
 }
 
-const float Player::GetRemainingTime()
-{
-    return m_AttComp->timer;
-}
-
-const int Player::GetScore()
-{
-    return m_AttComp->points;
-}
 
 void Player::Attack()
 {
-    if ( m_LastAttackFace == eNone )
+    if ( m_LastAttackFace == AttackFace::eNone )
     {
         m_LastAttackFace = m_CurrentFace;
     }
     m_IsAttacking = true;
-}
-
-void Player::WinPoints()
-{
-    m_AttComp->UpdatePoints();
 }
 
 void Player::UpdateAnimation(const float &dt)
@@ -158,7 +144,6 @@ void Player::UpdateAnimation(const float &dt)
 
 void Player::Update(const float& dt)
 {
-    m_AttComp->UpdateTime( dt );
     m_MC->Update( dt );
     UpdateAnimation( dt );
     m_HC->Update();
@@ -169,5 +154,5 @@ void Player::Draw( sf::RenderTarget& target )
 {
     target.draw( m_Sprite );
 
-    // m_HC->Draw( target );
+    m_HC->Draw( target );
 }

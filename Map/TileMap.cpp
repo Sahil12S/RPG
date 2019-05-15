@@ -1,6 +1,5 @@
 #include "TileMap.h"
 
-
 void TileMap::Clear()
 {
     /*
@@ -54,7 +53,6 @@ TileMap::TileMap( GameDataRef data, int width, int height, const std::string& te
 
         for ( int y = 0; y < m_MaxSizeWorldGrid.y; y++ )
         {
-            // m_Map[x][y].resize( m_Layers, new Tile( m_Data, x * m_GridSizeF, y * m_GridSizeF, m_GridSizeF ) );
             m_Map[x][y].resize( m_Layers, std::vector<Tile*>() );
         }
     }
@@ -283,7 +281,7 @@ void TileMap::LoadFromFile( const std::string file_name )
     }
 
     in_file.close();
- 
+    std::cout << "TILEMAP: Map load complete" << std::endl;
 }
 
 void TileMap::UpdateCollision( Entity* entity, const float& dt  )
@@ -486,11 +484,11 @@ void TileMap::Draw( sf::RenderTarget& target, const sf::Vector2i& gridPosition )
                     m_Map[x][y][layer][k]->Draw( target );
                 }
 
-                // if( m_Map[x][y][layer][k]->GetCollision() )
-                // {
-                //     m_CollisionBox.setPosition( m_Map[x][y][layer][k]->GetPosition() );
-                //     target.draw( m_CollisionBox );
-                // }
+                if( m_Map[x][y][layer][k]->GetCollision() )
+                {
+                    m_CollisionBox.setPosition( m_Map[x][y][layer][k]->GetPosition() );
+                    target.draw( m_CollisionBox );
+                }
             }
         }
     }

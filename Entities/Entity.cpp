@@ -41,7 +41,7 @@ void Entity::CreateAnimationComponent(const std::string& texture)
 
 void Entity::CreateAttributeComponent()
 {
-    m_AttComp = new AttributeComponent();
+    m_AttComp = new AttributeComponent( 1 );
 }
 
 /* Functions */

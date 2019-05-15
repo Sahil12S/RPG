@@ -34,7 +34,7 @@ public:
     std::vector<std::string, gui::Button*> GetButtons();
 
 
-    const bool IsButtonPressed( const std::string& key );
+    bool IsButtonPressed( const std::string& key );
 
     void AddButton( const std::string key, 
                 const float y, 

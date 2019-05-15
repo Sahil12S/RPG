@@ -23,11 +23,6 @@ void EditorState::InitView()
 
 void EditorState::InitTextures()
 {
-    // m_Data->assets.LoadAudio("", )
-    // m_Data->assets.LoadTexture( )
-    // Use sprites for background
-    // m_Background.setSize(sf::Vector2f(m_Data->window.getSize()));
-    // m_Background.setFillColor(sf::Color(97, 143, 216));
 }
 
 void EditorState::InitFonts()
@@ -80,7 +75,7 @@ void EditorState::InitPauseMenu()
 
 void EditorState::InitTileMap()
 {
-    m_TileMap = new TileMap( m_Data, 15, 15, TILES_TEXTURE_FILEPATH );
+    m_TileMap = new TileMap( m_Data, 100, 100, TILES_TEXTURE_FILEPATH );
 }
 
 void EditorState::InitGui()
