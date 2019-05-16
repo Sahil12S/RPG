@@ -95,7 +95,7 @@ void GameState::InitPlayerGui()
 void GameState::InitTileMap()
 {
     // m_TileMap = new TileMap( m_Data, "myMap.txt" );
-    m_TileMap = new TileMap( m_Data, 100, 100, TILES_TEXTURE_FILEPATH );
+    m_TileMap = new TileMap( m_Data, MAP_WIDTH, MAP_HEIGHT, TILES_TEXTURE_FILEPATH );
     m_TileMap->LoadFromFile("myMap.txt");
 }
 
@@ -187,12 +187,20 @@ void GameState::HandleInput( float dt )
         if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_UP"] ) ) )
         {
             m_Player->Move( dt, 0.0f, -1.0f);
+            if( m_Data->input.GetKeyTime() )
+            {
+                m_Player->GainExp(10);
+            }
         }
 
         // Walk Down
         if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_DOWN"] ) ) )
         {
             m_Player->Move( dt, 0.0f, 1.0f);
+            // if( m_Data->input.GetKeyTime() )
+            // {
+            //     m_Player->LoseExp(1);
+            // }
         }
 
         if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) && m_Data->input.GetKeyTime() )
@@ -263,7 +271,6 @@ void GameState::Draw()
 
     m_Player->Draw( m_Data->window );
     m_TileMap->RenderDeferred( m_Data->window );
-    m_Data->window.draw( m_CursorText );
     
     m_Data->window.setView( m_Data->window.getDefaultView() );
     m_PlayerGui->Draw( m_Data->window );
@@ -273,7 +280,8 @@ void GameState::Draw()
         m_PauseMenu->Draw( m_Data->window );
     }
 
-    // m_Data->window.setView( m_View );
+    m_Data->window.setView( m_View );
+    m_Data->window.draw( m_CursorText );
     // m_Data->window.draw( m_CursorText );
     
 

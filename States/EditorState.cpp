@@ -75,7 +75,7 @@ void EditorState::InitPauseMenu()
 
 void EditorState::InitTileMap()
 {
-    m_TileMap = new TileMap( m_Data, 100, 100, TILES_TEXTURE_FILEPATH );
+    m_TileMap = new TileMap( m_Data, MAP_WIDTH, MAP_HEIGHT, TILES_TEXTURE_FILEPATH );
 }
 
 void EditorState::InitGui()
@@ -102,7 +102,7 @@ void EditorState::InitGui()
 
     // Area of texture selector
     m_TS = new gui::TextureSelector(
-        20.f, 20.f, 500.f, 700.f,
+        20.f, 20.f, 500.f, 600.f,
         GRID_SIZE, m_TileMap->GetTileSheet(),
         m_Data->assets.GetFont("Button Font"),
         "TS"

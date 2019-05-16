@@ -52,9 +52,43 @@ Player::~Player()
 {
 }
 
+// Accessors
 AttributeComponent* Player::GetAttributeComponent()
 {
     return m_AttComp;
+}
+
+// Functions
+void Player::LoseHP( const int& hp )
+{
+    m_AttComp->m_Hp -= hp;
+    if( m_AttComp->m_Hp < 0 )
+    {
+        m_AttComp->m_Hp = 0;
+    }
+}
+
+void Player::GainHP( const int& hp )
+{
+    m_AttComp->m_Hp += hp;
+    if( m_AttComp->m_Hp > m_AttComp->m_HpMax )
+    {
+        m_AttComp->m_Hp = m_AttComp->m_HpMax;
+    }
+}
+
+void Player::LoseExp( const unsigned& exp )
+{
+    m_AttComp->m_Exp -= exp;
+    if( m_AttComp->m_Exp < 0 )
+    {
+        m_AttComp->m_Exp = 0;
+    }
+}
+
+void Player::GainExp( const unsigned& exp )
+{
+    m_AttComp->GainExp( exp );
 }
 
 void Player::Attack()

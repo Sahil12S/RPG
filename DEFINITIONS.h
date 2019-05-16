@@ -42,9 +42,9 @@
 #define TILE_HEIGHT 40
 
 // Tile Map variables
-#define GRID_SIZE 100.f
-#define MAP_WIDTH 1000
-#define MAP_HEIGHT 1000
+#define GRID_SIZE 64.f
+#define MAP_WIDTH 100
+#define MAP_HEIGHT 100
 #define LAYERS 1
 
 // For Buttons

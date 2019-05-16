@@ -16,21 +16,34 @@ private:
     Player* m_Player;
 
     sf::Font m_Font;
+    // EXP Bar
+    std::string m_ExpBarString;
+    float m_ExpBarMaxWidth;
+    sf::Text m_ExpBarText;
+    sf::RectangleShape m_ExpBarBack;
+    sf::RectangleShape m_ExpBarInner;
 
+    // HP Bar
+    std::string m_HpBarString;
+    float m_HpBarMaxWidth;
+    sf::Text m_HpBarText;
     sf::RectangleShape m_HpBarBack;
     sf::RectangleShape m_HpBarInner;
 
-    float m_HpBarMaxWidth;
 
     void InitFont();
+    void InitExpBar();
     void InitHPBar();
 
 public:
     PlayerGui( GameDataRef data, Player* player );
     virtual ~PlayerGui();
 
+    void UpdateExpBar( const float& dt );
     void UpdateHPBar( const float& dt );
     void Update( const float& dt );
+
+    void DrawExpBar( sf::RenderTarget& target );
     void DrawHPBar( sf::RenderTarget& target );
     void Draw( sf::RenderTarget& target );
 };
