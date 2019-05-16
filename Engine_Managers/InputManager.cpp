@@ -104,7 +104,7 @@ sf::Vector2i InputManager::GetGridMousePosition()
     return m_MousePosGrid;
 }
 
-const bool InputManager::GetKeyTime()
+bool InputManager::GetKeyTime()
 {
     if ( m_KeyTime >= m_KeyTimeMax )
 	{

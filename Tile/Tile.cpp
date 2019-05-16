@@ -26,7 +26,7 @@ const short& Tile::getType() const
     return m_Type;
 }
 
-const bool Tile::GetCollision() const
+const bool& Tile::GetCollision() const
 {
     return m_Collision;
 }
@@ -54,7 +54,7 @@ bool Tile::Hidden() const
     return m_Hidden;
 }
 
-const bool Tile::Intersects( const sf::FloatRect bounds ) const
+const bool& Tile::Intersects( const sf::FloatRect bounds ) const
 {
     return m_Shape.getGlobalBounds().intersects( bounds );
 }

@@ -35,7 +35,7 @@ public:
     sf::Vector2i GetWindowMousePosition();
     sf::Vector2f GetViewMousePosition();
     sf::Vector2i GetGridMousePosition();
-    const bool GetKeyTime();
+    bool GetKeyTime();
 
     std::map<std::string, int>& getSupportedKeys();
 };

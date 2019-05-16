@@ -24,13 +24,13 @@ public:
 
     // Return tile properties as string
     const short& getType() const;
-    const bool GetCollision() const;
+    const bool& GetCollision() const;
     bool Hidden() const;
     const sf::Vector2f& GetPosition() const;
     const sf::FloatRect GetGlobalBounds() const;
     const std::string GetAsString() const;
 
-    const bool Intersects( const sf::FloatRect bounds ) const;
+    const bool& Intersects( const sf::FloatRect bounds ) const;
 
     void Hide();
     void Update();

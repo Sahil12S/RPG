@@ -67,7 +67,7 @@ PlayerGui::~PlayerGui()
     delete m_Player;
 }
 
-void PlayerGui::UpdateExpBar( const float& dt )
+void PlayerGui::UpdateExpBar( )
 {
     float percent = static_cast<float>( m_Player->GetAttributeComponent()->m_Exp ) / static_cast<float>( m_Player->GetAttributeComponent()->m_ExpNext );
     m_ExpBarInner.setSize( sf::Vector2f(
@@ -79,7 +79,7 @@ void PlayerGui::UpdateExpBar( const float& dt )
     m_ExpBarText.setString( m_ExpBarString );
 }
 
-void PlayerGui::UpdateHPBar( const float& dt )
+void PlayerGui::UpdateHPBar( )
 {
     float percent = static_cast<float>( m_Player->GetAttributeComponent()->m_Hp ) / static_cast<float>( m_Player->GetAttributeComponent()->m_HpMax );
     m_HpBarInner.setSize( sf::Vector2f(
@@ -93,8 +93,8 @@ void PlayerGui::UpdateHPBar( const float& dt )
 
 void PlayerGui::Update( const float& dt )
 {
-    UpdateExpBar( dt );
-    UpdateHPBar( dt );
+    UpdateExpBar( );
+    UpdateHPBar( );
 }
 
 void PlayerGui::DrawExpBar( sf::RenderTarget& target )

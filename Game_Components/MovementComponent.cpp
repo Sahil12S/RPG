@@ -14,7 +14,7 @@ const sf::Vector2f &MovementComponent::GetVelocity() const
     return m_Velocity;
 }
 
-const bool MovementComponent::GetState(const unsigned short& state) const
+bool MovementComponent::GetState(const unsigned short& state) const
 {
     switch ( state )
     {

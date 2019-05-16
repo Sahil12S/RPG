@@ -6,7 +6,7 @@ namespace gui
         const float& x, const float& y, const float& width, const float& height,
         const float& grid_size, const sf::Texture* texture_sheet,
         sf::Font& font, std::string text
-    ) : m_KeyTimeMax( 1.f ), m_KeyTime( 0.f )
+    ) : m_KeyTime( 0.f ), m_KeyTimeMax( 1.f )
     {
         m_GridSize = grid_size;
         m_Active = false;

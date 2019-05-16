@@ -48,7 +48,7 @@ public:
     virtual ~TileMap();
     
     const sf::Texture* GetTileSheet() const;
-    const int GetLayerSize( const int& x, const int& y, const int& layer ) const;
+    int GetLayerSize( const int& x, const int& y, const int& layer ) const;
     bool TileEmpty( const int& x, const int& y, const int& z ) const;
 
     // Functions

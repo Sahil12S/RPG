@@ -135,15 +135,15 @@ void MainMenuState::HandleInput(float dt)
         }
     }
 
-    if (m_Buttons["Play"]->isPressed() && m_Data->input.GetKeyTime() )
+    if (m_Buttons["Play"]->isPressed() && m_Data->input.GetKeyTime() && m_Data->input.GetKeyTime() )
     {
         m_Data->machine.AddState(StateRef(new GameState(m_Data)), true);
     }
-    if (m_Buttons["Editor"]->isPressed() && m_Data->input.GetKeyTime() )
+    if (m_Buttons["Editor"]->isPressed() && m_Data->input.GetKeyTime() && m_Data->input.GetKeyTime() )
     {
         m_Data->machine.AddState(StateRef(new EditorState(m_Data)), true);
     }
-    if (m_Buttons["Settings"]->isPressed() && m_Data->input.GetKeyTime() )
+    if (m_Buttons["Settings"]->isPressed() && m_Data->input.GetKeyTime() && m_Data->input.GetKeyTime() )
     {
         m_Data->machine.AddState(StateRef(new GameSettingsState(m_Data)), true);
     }

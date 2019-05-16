@@ -39,8 +39,8 @@ public:
     PlayerGui( GameDataRef data, Player* player );
     virtual ~PlayerGui();
 
-    void UpdateExpBar( const float& dt );
-    void UpdateHPBar( const float& dt );
+    void UpdateExpBar( );
+    void UpdateHPBar( );
     void Update( const float& dt );
 
     void DrawExpBar( sf::RenderTarget& target );

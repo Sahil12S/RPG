@@ -93,13 +93,13 @@ const sf::Texture* TileMap::GetTileSheet() const
     return &m_Data->assets.GetTexture( "Tiles" );
 }
 
-const int TileMap::GetLayerSize( const int& x, const int& y, const int& layer ) const
+int TileMap::GetLayerSize( const int& x, const int& y, const int& layer ) const
 {
-    if ( x >= 0 && x < m_Map.size() )
+    if ( x >= 0 && static_cast<size_t>( x ) < m_Map.size() )
     {
-        if( y >= 0 && y < m_Map[x].size() )
+        if( y >= 0 && static_cast<size_t>( y ) < m_Map[x].size() )
         {
-            if( layer >= 0 && layer < m_Map[x][y].size() )
+            if( layer >= 0 && static_cast<size_t>( layer ) < m_Map[x][y].size() )
             {
                 return m_Map[x][y][layer].size();
             }
@@ -356,7 +356,7 @@ void TileMap::UpdateCollision( Entity* entity, const float& dt  )
     {
         for ( int y = fromY; y < toY; y++ )
         {
-            for (int k = 0; k < m_Map[x][y][layer].size(); k++)
+            for (int k = 0; static_cast<size_t>( k ) < m_Map[x][y][layer].size(); k++)
             {
                 sf::FloatRect playerBounds = entity->GetGlobalBounds();
                 sf::FloatRect wallBounds = m_Map[x][y][layer][k]->GetGlobalBounds();
