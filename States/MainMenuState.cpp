@@ -91,8 +91,6 @@ void MainMenuState::InitGui()
 
 }
 
-
-
 MainMenuState::MainMenuState(GameDataRef data) : m_Data(std::move(data))
 {
 }
@@ -135,15 +133,6 @@ void MainMenuState::HandleInput(float dt)
             m_Data->machine.RemoveState();
             m_Data->window.close();
         }
-
-        /*if ( m_Data->input.IsSpriteClicked( m_PlayButton, sf::Mouse::Left, m_Data->window ) )
-            {
-                m_Data->machine.AddState( StateRef ( new GameState( m_Data ) ), true );
-            }
-            if ( m_Data->input.IsSpriteClicked( m_SettingsButton, sf::Mouse::Left, m_Data->window ) )
-            {
-                m_Data->machine.AddState( StateRef ( new GameSettingsState( m_Data ) ), true );
-            }*/
     }
 
     if (m_Buttons["Play"]->isPressed() && m_Data->input.GetKeyTime() )

@@ -89,7 +89,7 @@ void GameState::InitPlayers()
 
 void GameState::InitPlayerGui()
 {
-    m_PlayerGui = new PlayerGui( m_Player );
+    m_PlayerGui = new PlayerGui( m_Data, m_Player );
 }
 
 void GameState::InitTileMap()

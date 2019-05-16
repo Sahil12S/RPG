@@ -40,10 +40,13 @@ public:
     AttributeComponent* GetAttributeComponent();
 
     /* Functions */
+    void LoseHP( const int& hp );
+    void GainHP( const int& hp );
+    void LoseExp( const int& exp );
+    void GainExp( const int& exp );
+
     void Attack();
-
     void UpdateAnimation( const float& dt );
-
     void Update( const float& dt ) override;
     void Draw( sf::RenderTarget& target ) override;
 };
