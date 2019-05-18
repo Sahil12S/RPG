@@ -17,33 +17,33 @@ class State
 public:
     virtual ~State() {}
     /*
-        * Initialize the game state
-        */
+     * Initialize the game state
+     */
     virtual void Init() = 0;
 
     /*
-        * Handle input in current state
-        */
+     * Handle input in current state
+     */
     virtual void HandleInput( float dt ) = 0;
 
     /*
-        * Update frames / game in current state
-        */
+     * Update frames / game in current state
+     */
     virtual void Update( float dt ) = 0;
 
     /*
-        * Draw frame in current state
-        */
+     * Draw frame in current state
+     */
     virtual void Draw() = 0;
 
     /*
-        * Pause game
-        */
+     * Pause game
+     */
     virtual void Pause() {};
 
     /*
-        * Resume game
-        */
+     * Resume game
+     */
     virtual void Resume() {};
 };
 

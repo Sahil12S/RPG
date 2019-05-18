@@ -117,6 +117,7 @@ GameState::~GameState()
     delete m_PauseMenu;
     delete m_PlayerGui;
 }
+
 void GameState::Init()
 {
     Debug( "GAME STATE::Initializing..." )

@@ -86,7 +86,8 @@ PlayerGui::PlayerGui( GameDataRef data, Player* player ) : m_Data( std::move( da
 PlayerGui::~PlayerGui()
 {
     Debug("PLAYER GUI::Destructor")
-    delete m_Player;
+    // We don't delete pointer that we are going to require on return of call
+    // delete m_Player;
 }
 
 void PlayerGui::UpdateLevelBar( )
