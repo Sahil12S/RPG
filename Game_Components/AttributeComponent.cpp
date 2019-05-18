@@ -1,11 +1,11 @@
 #include "AttributeComponent.h"
 
 
-AttributeComponent::AttributeComponent( unsigned level )
+AttributeComponent::AttributeComponent( int level )
 {
     m_Level = level;
     m_Exp = 0;
-    m_ExpNext = static_cast<unsigned>( ( 50 / 3 ) * ( pow( m_Level + 1, 3 ) - 6 * pow( m_Level + 1, 2 ) + ( ( m_Level + 1 ) * 17 ) - 12 ) );
+    m_ExpNext = static_cast<int>( ( 50 / 3 ) * ( pow( m_Level + 1, 3 ) - 6 * pow( m_Level + 1, 2 ) + ( ( m_Level + 1 ) * 17 ) - 12 ) );
     m_AttributePoints = 2;
 
     m_Vitality = 1;
@@ -35,7 +35,7 @@ std::string AttributeComponent::DebugPrint() const
     return ss.str();
 }
 
-void AttributeComponent::GainExp( const unsigned exp )
+void AttributeComponent::GainExp( const int& exp )
 {
     m_Exp += exp;
     UpdateLevel();
@@ -62,7 +62,7 @@ void AttributeComponent::UpdateLevel()
     {
         ++m_Level;
         m_Exp -= m_ExpNext;
-        m_ExpNext = static_cast<unsigned>( ( 50 / 3 ) * ( pow( m_Level, 3 ) - 6 * pow( m_Level, 2 ) + ( m_Level * 17 ) - 12 ) );
+        m_ExpNext = static_cast<int>( ( 50 / 3 ) * ( pow( m_Level + 1, 3 ) - 6 * pow( m_Level + 1, 2 ) + ( ( m_Level + 1 ) * 17 ) - 12 ) );
         ++m_AttributePoints;
     }
 }

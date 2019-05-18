@@ -7,7 +7,7 @@ namespace gui
         const float& width, const float& height,
         sf::Font& font, std::string list[],
         unsigned numOfElements, unsigned default_idx
-    ) : m_Font( font ), m_ShowList(false), keyTimeMax( 1.f ), keyTime( 0.f )
+    ) : m_Font( font ), m_ShowList(false), keyTime( 0.f ), keyTimeMax( 1.f )
     {
         m_ActiveElement = new gui::Button( 
             x, y, width, height,

@@ -8,10 +8,10 @@ class AttributeComponent
 {
 public:
     // Levelling attributes
-    unsigned m_Level;
-    unsigned m_Exp;
-    unsigned m_ExpNext;
-    unsigned m_AttributePoints;
+    int m_Level;
+    int m_Exp;
+    int m_ExpNext;
+    int m_AttributePoints;
 
     // Attributes
     int m_Vitality;
@@ -31,13 +31,13 @@ public:
 
 
     // Con / Des
-    AttributeComponent( unsigned level );
+    AttributeComponent( int level );
     virtual ~AttributeComponent();
 
     // Functions
     std::string DebugPrint() const;
 
-    void GainExp( const unsigned exp );
+    void GainExp( const int& exp );
     
     void UpdateStats( const bool& reset );
     void UpdateLevel();

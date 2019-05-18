@@ -54,7 +54,7 @@ bool Tile::Hidden() const
     return m_Hidden;
 }
 
-const bool& Tile::Intersects( const sf::FloatRect bounds ) const
+bool Tile::Intersects( const sf::FloatRect bounds ) const
 {
     return m_Shape.getGlobalBounds().intersects( bounds );
 }

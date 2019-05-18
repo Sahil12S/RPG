@@ -85,6 +85,7 @@ TileMap::TileMap( GameDataRef data, const std::string file_name) : m_Data( std::
 
 TileMap::~TileMap()
 {
+    Debug("TILEMAP::Destructor")
     Clear();
 }
 
@@ -161,6 +162,7 @@ void TileMap::RemoveTile( const int& x, const int& y, const int& z )
 
 void TileMap::SaveToFile( const std::string file_name )
 {
+    Debug("TILEMAP::Saving File")
     /*
      * Format:
      * BASIC
@@ -175,9 +177,8 @@ void TileMap::SaveToFile( const std::string file_name )
      * collision, type
     */
 
-   std::ofstream out_file;
-   out_file.open( file_name );
-
+    std::ofstream out_file;
+    out_file.open( file_name );
     if( out_file.is_open() )
     {
         out_file << m_MaxSizeWorldGrid.x << " " << m_MaxSizeWorldGrid.y << '\n'
@@ -204,7 +205,7 @@ void TileMap::SaveToFile( const std::string file_name )
     }
     else
     {
-        Error( "ERROR: Tilemap couldn't be saved to file: ", file_name )
+        Error( "TILEMAP::Tilemap couldn't be saved to file: ", file_name )
     }
 
     out_file.close();
@@ -213,9 +214,10 @@ void TileMap::SaveToFile( const std::string file_name )
 
 void TileMap::LoadFromFile( const std::string file_name )
 {
+    Debug("TILEMAP::Loading from File")
     std::ifstream in_file;
     in_file.open( file_name );
-
+    std::stringstream sst;
     if( in_file.is_open() )
     {
         sf::Vector2i size;
@@ -232,6 +234,7 @@ void TileMap::LoadFromFile( const std::string file_name )
 
         // Load basic variables
         in_file >> size.x >> size.y >> gridSize >> layers >> texture_file;
+        sst << "x:" << size.x << ", y:" << size.y << "grid:" << gridSize;
 
         // Load tiles
         m_GridSizeF = static_cast<float>( gridSize );
@@ -240,7 +243,6 @@ void TileMap::LoadFromFile( const std::string file_name )
         m_MaxSizeWorldGrid.x = size.x;
         m_MaxSizeWorldGrid.y = size.y;
         m_TextureFile = texture_file;
-
         Clear();
         
         // Initialize map
@@ -277,11 +279,10 @@ void TileMap::LoadFromFile( const std::string file_name )
     }
     else
     {
-        Error( "ERROR: Tilemap couldn't be loaded from file: ", file_name )
+        Error( "TILEMAP::Tilemap couldn't be loaded from file: ", file_name )
     }
 
     in_file.close();
-    std::cout << "TILEMAP: Map load complete" << std::endl;
 }
 
 void TileMap::UpdateCollision( Entity* entity, const float& dt  )
@@ -419,7 +420,6 @@ void TileMap::UpdateCollision( Entity* entity, const float& dt  )
 
 void TileMap::Update()
 {
-
 }
 
 void TileMap::Draw( sf::RenderTarget& target, const sf::Vector2i& gridPosition )

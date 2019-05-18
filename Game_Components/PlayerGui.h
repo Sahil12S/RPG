@@ -16,6 +16,12 @@ private:
     Player* m_Player;
 
     sf::Font m_Font;
+    
+    // Level Bar
+    std::string m_LevelBarString;
+    sf::Text m_LevelBarText;
+    sf::RectangleShape m_LevelBarBack;
+
     // EXP Bar
     std::string m_ExpBarString;
     float m_ExpBarMaxWidth;
@@ -32,6 +38,7 @@ private:
 
 
     void InitFont();
+    void InitLevelBar();
     void InitExpBar();
     void InitHPBar();
 
@@ -39,10 +46,12 @@ public:
     PlayerGui( GameDataRef data, Player* player );
     virtual ~PlayerGui();
 
+    void UpdateLevelBar( );
     void UpdateExpBar( );
     void UpdateHPBar( );
     void Update( const float& dt );
 
+    void DrawLevelBar( sf::RenderTarget& target );
     void DrawExpBar( sf::RenderTarget& target );
     void DrawHPBar( sf::RenderTarget& target );
     void Draw( sf::RenderTarget& target );

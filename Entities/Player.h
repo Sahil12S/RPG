@@ -42,8 +42,8 @@ public:
     /* Functions */
     void LoseHP( const int& hp );
     void GainHP( const int& hp );
-    void LoseExp( const unsigned& exp );
-    void GainExp( const unsigned& exp );
+    void LoseExp( const int& exp );
+    void GainExp( const int& exp );
 
     void Attack();
     void UpdateAnimation( const float& dt );

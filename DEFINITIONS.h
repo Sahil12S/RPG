@@ -34,19 +34,6 @@
 #define PAUSE_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/PauseStateKeyBinds.ini"
 #define EDITOR_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/EditorStateKeyBinds.ini"
 
-// Tile variables
-#define TITLE_SIZE 80
-#define SCALE_X 2.f
-#define SCALE_Y 2.f
-#define TILE_WIDTH 50
-#define TILE_HEIGHT 40
-
-// Tile Map variables
-#define GRID_SIZE 64.f
-#define MAP_WIDTH 100
-#define MAP_HEIGHT 100
-#define LAYERS 1
-
 // For Buttons
 #define BUTTON_WIDTH 200
 #define BUTTON_HEIGHT 70
@@ -77,12 +64,25 @@
 #define OUTLINE_COLOR_HOVER 255, 255, 255, 255
 #define OUTLINE_COLOR_ACTIVE 20, 20, 20, 50
 
+#define SPLASH_STATE_SHOW_TIME 0.5f
+
+// Tile variables
+#define TITLE_SIZE 80
+#define SCALE_X 2.f
+#define SCALE_Y 2.f
+#define TILE_WIDTH 50
+#define TILE_HEIGHT 40
+
+// Tile Map variables
+#define GRID_SIZE 64.f
+#define MAP_WIDTH 100
+#define MAP_HEIGHT 100
+#define LAYERS 1
 
 // For Player
 #define PLAYER_MOVEMENT_SPEED 150.0f
 #define WALK_ANIMATION_DURATION 12.f
 
-#define SPLASH_STATE_SHOW_TIME 0.5f
 
 // For View
 #define CAMERA_SPEED 200.f

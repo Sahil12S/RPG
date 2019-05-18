@@ -77,7 +77,7 @@ void Player::GainHP( const int& hp )
     }
 }
 
-void Player::LoseExp( const unsigned& exp )
+void Player::LoseExp( const int& exp )
 {
     if( m_AttComp->m_Exp > exp )
     {
@@ -89,7 +89,7 @@ void Player::LoseExp( const unsigned& exp )
     }
 }
 
-void Player::GainExp( const unsigned& exp )
+void Player::GainExp( const int& exp )
 {
     m_AttComp->GainExp( exp );
 }

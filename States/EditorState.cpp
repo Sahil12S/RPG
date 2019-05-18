@@ -3,6 +3,7 @@
 // Initializers
 void EditorState::InitVariables()
 {
+    Debug( "EDITOR STATE::Init Variables")
     m_Paused = false;
 
     m_TextureRect = sf::IntRect( 0, 0, static_cast<int>( GRID_SIZE ), static_cast<int>( GRID_SIZE ) );
@@ -15,6 +16,7 @@ void EditorState::InitVariables()
 
 void EditorState::InitView()
 {
+    Debug( "EDITOR STATE::Init View")
     m_MainView.setSize( sf::Vector2f( m_Data->GfxSettings.resolution.width, m_Data->GfxSettings.resolution.height ) );
     m_MainView.setCenter( sf::Vector2f( 
         m_Data->GfxSettings.resolution.width / 2.f, 
@@ -27,6 +29,7 @@ void EditorState::InitTextures()
 
 void EditorState::InitFonts()
 {
+    Debug( "EDITOR STATE::Init Fonts")
     m_Data->assets.LoadFont("Title Font", SCREEN_FONT_FILEPATH);
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
     m_Data->assets.LoadFont("Debug Font", DEBUG_FONT_FILEPATH);
@@ -38,7 +41,7 @@ void EditorState::InitSounds()
 
 void EditorState::InitKeyBinds()
 {
-    Debug( "Editor State: Initializing key bindings..." )
+    Debug( "EDITOR STATE::Init Key Binds" )
 
     // Read Key Bindings from file
     std::ifstream ifs ( EDITOR_STATE_KEY_BIND_FILEPATH );
@@ -59,6 +62,7 @@ void EditorState::InitKeyBinds()
 
 void EditorState::InitTexts()
 {
+    Debug( "EDITOR STATE::Init Texts")
     m_CursorText.setFont( m_Data->assets.GetFont( "Debug Font" ) );
     m_CursorText.setFillColor( sf::Color::White );
     m_CursorText.setCharacterSize( 20 );
@@ -67,6 +71,7 @@ void EditorState::InitTexts()
 
 void EditorState::InitPauseMenu()
 {
+    Debug( "EDITOR STATE::Init Pause Menu")
     m_PauseMenu = new PauseMenu( m_Data );
     m_PauseMenu->AddButton("Quit", m_Data->GfxSettings.resolution.height / 1.2f , "Quit");
     m_PauseMenu->AddButton("Save", m_Data->GfxSettings.resolution.height / 1.4f , "Save");
@@ -75,11 +80,13 @@ void EditorState::InitPauseMenu()
 
 void EditorState::InitTileMap()
 {
+    Debug( "EDITOR STATE::Init TileMap")
     m_TileMap = new TileMap( m_Data, MAP_WIDTH, MAP_HEIGHT, TILES_TEXTURE_FILEPATH );
 }
 
 void EditorState::InitGui()
 {   
+    Debug( "EDITOR STATE::Innit GUI")
     m_SideBar.setSize( sf::Vector2f( 80.f, static_cast<float>( m_Data->GfxSettings.resolution.height ) ) );
     m_SideBar.setFillColor( sf::Color( 50, 50, 50, 100) );
     m_SideBar.setOutlineColor( sf::Color( 200, 200, 200, 150 ) );
@@ -116,7 +123,7 @@ EditorState::EditorState( GameDataRef data ) : m_Data( std::move( data ) )
 
 EditorState::~EditorState()
 {
-    Debug( "Editor State: Destructor")
+    Debug( "EDITOR STATE::Destructor")
     delete m_Hud;
     delete m_PauseMenu;
     delete m_TileMap;
@@ -125,7 +132,7 @@ EditorState::~EditorState()
 
 void EditorState::Init()
 {
-    Debug("Editor State: Initializing...")
+    Debug("EDITOR STATE::Initializing...")
     InitVariables();
     InitView();
     InitTextures();

@@ -30,7 +30,7 @@ public:
     const sf::FloatRect GetGlobalBounds() const;
     const std::string GetAsString() const;
 
-    const bool& Intersects( const sf::FloatRect bounds ) const;
+    bool Intersects( const sf::FloatRect bounds ) const;
 
     void Hide();
     void Update();

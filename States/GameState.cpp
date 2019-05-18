@@ -3,6 +3,7 @@
 
 void GameState::InitView()
 {
+    Debug( "GAME STATE::Init View")
     m_View.setSize( sf::Vector2f( m_Data->GfxSettings.resolution.width, m_Data->GfxSettings.resolution.height ) );
     m_View.setCenter(
         sf::Vector2f( 
@@ -24,16 +25,19 @@ void GameState::InitView()
 
 void GameState::InitVariables()
 {
+    Debug( "GAME STATE::Init Variables")
     m_Paused = false;    
 }
 
 void GameState::InitTextures()
 {
+    Debug( "GAME STATE::Init Textures")
     m_Data->assets.LoadTexture( "callout", CALLOUT_TEXTURE_FILEPATH );
 }
 
 void GameState::InitFonts()
 {
+    Debug( "GAME STATE::Init Fonts")
     m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
     m_Data->assets.LoadFont( "Hud Font", TEXT_FONT_FILEPATH );
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
@@ -46,6 +50,7 @@ void GameState::InitSounds()
 
 void GameState::InitKeyBinds()
 {
+    Debug( "GAME STATE::Init Key Binds")
     // Read Key Bindings from file
     std::ifstream ifs ( GAMESTATE_KEY_BIND_FILEPATH );
 
@@ -60,12 +65,11 @@ void GameState::InitKeyBinds()
     }
 
     ifs.close();
-
-    Debug( "Game State: Initializing key bindings..." )
 }
 
 void GameState::InitPauseMenu()
 {
+    Debug( "GAME STATE::Init Pause Menu")
     m_PauseMenu = new PauseMenu( m_Data );
     m_PauseMenu->AddButton("Quit", m_Data->GfxSettings.resolution.height / 1.2f , "Quit");
 }
@@ -78,9 +82,9 @@ void GameState::InitComponents()
     // hud["score"]->SetText("Hud Font", "Score: 0", 50, m_Data->GfxSettings.resolution.width / 1.2, m_Data->GfxSettings.resolution.height / 25 );
 }
 
-
 void GameState::InitPlayers()
 {
+    Debug( "GAME STATE::Init Players")
     // Initialize player & spawn it
     m_Player = new Player( m_Data );
     // m_Player->SetPosition( m_Data->GfxSettings.resolution.width / 2.f, m_Data->GfxSettings.resolution.height / 2.f );
@@ -89,11 +93,13 @@ void GameState::InitPlayers()
 
 void GameState::InitPlayerGui()
 {
+    Debug( "GAME STATE::Init PlayerGUI")
     m_PlayerGui = new PlayerGui( m_Data, m_Player );
 }
 
 void GameState::InitTileMap()
 {
+    Debug( "GAME STATE::Init TileMap")
     // m_TileMap = new TileMap( m_Data, "myMap.txt" );
     m_TileMap = new TileMap( m_Data, MAP_WIDTH, MAP_HEIGHT, TILES_TEXTURE_FILEPATH );
     m_TileMap->LoadFromFile("myMap.txt");
@@ -105,7 +111,7 @@ GameState::GameState( GameDataRef data ) : m_Data( std::move( data ) )
 
 GameState::~GameState()
 {
-    Debug( "Game State: Destructor")
+    Debug( "GAME STATE::Destructor")
     delete m_Player;
     delete m_TileMap;
     delete m_PauseMenu;
@@ -113,7 +119,7 @@ GameState::~GameState()
 }
 void GameState::Init()
 {
-    Debug( "Game State: Initializing..." )
+    Debug( "GAME STATE::Initializing..." )
 
     InitView();
     InitVariables();
@@ -141,7 +147,6 @@ void GameState::UpdateView( const float& dt )
         std::floor( m_Player->GetPosition().x ),
         std::floor( m_Player->GetPosition().y ) 
     );
-
 }
 
 void GameState::HandleInput( float dt )
@@ -197,10 +202,10 @@ void GameState::HandleInput( float dt )
         if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["MOVE_DOWN"] ) ) )
         {
             m_Player->Move( dt, 0.0f, 1.0f);
-            // if( m_Data->input.GetKeyTime() )
-            // {
-            //     m_Player->LoseExp(1);
-            // }
+            if( m_Data->input.GetKeyTime() )
+            {
+                m_Player->LoseExp(1);
+            }
         }
 
         if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) && m_Data->input.GetKeyTime() )
@@ -235,6 +240,7 @@ void GameState::UpdateGui()
 void GameState::UpdateTileMap( const float& dt )
 {
     m_TileMap->Update();
+    // std::cout << "update TM" << '\n';
     m_TileMap->UpdateCollision( m_Player, dt );
 }
 
