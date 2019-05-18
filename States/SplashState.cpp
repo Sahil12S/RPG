@@ -6,13 +6,13 @@ SplashState::SplashState( GameDataRef data ) : m_Data( std::move( data ) )
 
 void SplashState::Init()
 {
-    Debug( "**Initialized** Splash State" );
+    // Debug( "**Initialized** Splash State" );
     // m_Data->assets.LoadTexture( "Splash State Background", SPLASH_SCENE_BACKGROUND_FILEPATH );
 
     // m_BackgroundSprite.setTexture( m_Data->assets.GetTexture( "Splash State Background" ) );
 }
 
-void SplashState::HandleInput( float dt )
+void SplashState::HandleInput( const float& dt )
 {
     sf::Event event;
 
@@ -26,7 +26,7 @@ void SplashState::HandleInput( float dt )
     }
 }
 
-void SplashState::Update(float dt)
+void SplashState::Update( const float& dt )
 {
     m_Data->input.UpdateMousePosition( m_Data->window );
     if ( m_Clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME )

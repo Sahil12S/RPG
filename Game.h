@@ -9,6 +9,12 @@
 #include "Engine_Managers/GraphicsSettings.h"
 #include "Entities/Entity.h"
 
+class AssetManager;
+class InputManager;
+class StateMachine;
+class GraphicsSettings;
+class Entity;
+
 struct GameData
 {
     StateMachine machine;
@@ -28,7 +34,6 @@ private:
     sf::Clock m_Clock;
 
     GameDataRef m_Data = std::make_shared<GameData>();
-    // GraphicsSettings* m_Gfx;
 
     void InitVariables();
     void InitGraphicsSettings();

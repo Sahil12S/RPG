@@ -8,6 +8,9 @@
 #include "../Game_Components/Button.h"
 #include "../Game_Components/HUD.h"
 
+class Game;
+class Button;
+class HUD;
 
 class PauseMenu
 {

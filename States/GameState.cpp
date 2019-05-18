@@ -150,7 +150,7 @@ void GameState::UpdateView( const float& dt )
     );
 }
 
-void GameState::HandleInput( float dt )
+void GameState::HandleInput( const float& dt )
 {
     sf::Event event;
 
@@ -245,7 +245,7 @@ void GameState::UpdateTileMap( const float& dt )
     m_TileMap->UpdateCollision( m_Player, dt );
 }
 
-void GameState::Update(float dt)
+void GameState::Update( const float& dt )
 {
     m_Data->input.UpdateMousePosition( m_Data->window, &m_View );
     m_Data->input.UpdateKeyTime( dt );

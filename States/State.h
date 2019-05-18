@@ -12,9 +12,21 @@
 #ifndef STATE_H
 #define STATE_H
 
+// #include "../Game.h"
+
+// Predeclaration
+// class Game;
+// struct GameData;
+// typedef std::shared_ptr<GameData> GameDataRef;
+
 class State
 {
+// protected:
+//     GameDataRef m_Data;
+
 public:
+    // State( GameDataRef data );
+    
     virtual ~State() {}
     /*
      * Initialize the game state
@@ -24,12 +36,12 @@ public:
     /*
      * Handle input in current state
      */
-    virtual void HandleInput( float dt ) = 0;
+    virtual void HandleInput( const float& dt ) = 0;
 
     /*
      * Update frames / game in current state
      */
-    virtual void Update( float dt ) = 0;
+    virtual void Update( const float& dt ) = 0;
 
     /*
      * Draw frame in current state

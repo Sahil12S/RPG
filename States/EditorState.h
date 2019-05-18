@@ -3,20 +3,28 @@
 
 #include "../pch.cpp"
 #include "../DEFINITIONS.h"
+#include "../Game.h"
 #include "State.h"
 #include "MainMenuState.h"
 #include "PauseMenu.h"
-#include "../Game.h"
-#include "../Game_Components/HUD.h"
 #include "../Game_Components/Button.h"
+#include "../Game_Components/HUD.h"
 #include "../Game_Components/TextureSelector.h"
 #include "../Map/TileMap.h"
+
+class Game;
+class State;
+class MainMenuState;
+class PauseMenu;
+class Button;
+class HUD;
+class TextureSelector;
+class TileMap;
 
 class EditorState : public State
 {
 private:
     GameDataRef m_Data;
-
     sf::View m_MainView;
 
     gui::HUD* m_Hud;
@@ -62,11 +70,11 @@ public:
     void UnpauseState();
 
     void Init() override;
-    void HandleInput( float dt ) override;
+    void HandleInput( const float& dt ) override;
 
     void UpdateGui( const float& dt );
     void UpdatePauseMenuButtons();
-    void Update( float dt ) override;
+    void Update( const float& dt ) override;
     void Draw() override;
 };
 

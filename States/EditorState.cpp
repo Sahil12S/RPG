@@ -145,7 +145,7 @@ void EditorState::Init()
     InitGui();
 }
 
-void EditorState::HandleInput( float dt )
+void EditorState::HandleInput( const float& dt )
 {
     sf::Event event;
 
@@ -289,7 +289,7 @@ void EditorState::UpdatePauseMenuButtons( )
 
 }
 
-void EditorState::Update( float dt )
+void EditorState::Update( const float& dt )
 {
     m_Data->input.UpdateMousePosition( m_Data->window, &m_MainView );
     m_Data->input.UpdateKeyTime( dt );

@@ -8,8 +8,8 @@ class InputManager
 {
 private:
     /*
-        * Key map so that player can change key bindings
-        */
+     * Key map so that player can change key bindings
+     */
     std::map<std::string, int> m_SupportedKeys;
 
     sf::Vector2i m_MousePosScreen;

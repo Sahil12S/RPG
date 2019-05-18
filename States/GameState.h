@@ -4,13 +4,16 @@
 #include "../pch.cpp"
 #include "../DEFINITIONS.h"
 
+#include "../Game.h"
 #include "State.h"
 #include "PauseMenu.h"
-#include "../Game.h"
-#include "../Entities/Player.h"
 #include "../Map/TileMap.h"
+#include "../Entities/Player.h"
 #include "../Game_Components/PlayerGui.h"
 
+
+class Game;
+class State;
 class PauseMenu;
 class TileMap;
 class Player;
@@ -21,7 +24,6 @@ class GameState : public State
 private:
     /* Variables */
     GameDataRef m_Data;
-
     sf::View m_View;
     // We will load whole texture at one go
     sf::RenderTexture m_RenderTexture;
@@ -70,14 +72,14 @@ public:
     void Init() override;
     
     void UpdateView( const float& dt );
-    void HandleInput( float dt ) override;
+    void HandleInput( const float& dt ) override;
 
     void UpdatePlayerGui( const float& dt );
     void UpdatePauseMenuButtons();
     void UpdateGui();
     void UpdateTileMap( const float& dt );
 
-    void Update( float dt ) override;
+    void Update( const float& dt ) override;
     void Draw() override;
 };
 #endif // GAME_STATE_H

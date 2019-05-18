@@ -6,8 +6,13 @@
 
 #include "State.h"
 #include "../Game.h"
-#include "../Game_Components/HUD.h"
 #include "../Game_Components/Button.h"
+#include "../Game_Components/HUD.h"
+
+class Game;
+class State;
+class Button;
+class HUD;
 
 class MainMenuState : public State
 {
@@ -15,7 +20,6 @@ class MainMenuState : public State
 private:
     /* Variables */
     GameDataRef m_Data;
-
     std::map<std::string, int> m_KeyBinds;
 
     sf::RectangleShape m_Background;
@@ -44,9 +48,9 @@ public:
     virtual ~MainMenuState();
 
     void Init() override;
-    void HandleInput(float dt) override;
+    void HandleInput( const float& dt) override;
     void UpdateButtons();
-    void Update( float dt ) override;
+    void Update( const float& dt ) override;
     void DrawButtons( sf::RenderTarget& target );
     void Draw() override;
 

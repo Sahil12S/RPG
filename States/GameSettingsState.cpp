@@ -59,8 +59,8 @@ void GameSettingsState::InitVariables()
 }
 
 /*
-* Initialize Buttons and Dropdown list
-*/
+ * Initialize Buttons and Dropdown list
+ */
 void GameSettingsState::InitComponents()
 {
     Debug( "Settings State: Initializing components...")
@@ -119,7 +119,7 @@ void GameSettingsState::InitTexts()
     );
 }
 
-GameSettingsState::GameSettingsState( GameDataRef data) : m_Data ( move( data ) )
+GameSettingsState::GameSettingsState( GameDataRef data) : m_Data( std::move( data ) )
 {}
 
 GameSettingsState::~GameSettingsState()
@@ -151,7 +151,7 @@ void GameSettingsState::Init()
     InitTexts();
 }
 
-void GameSettingsState::HandleInput( float dt )
+void GameSettingsState::HandleInput( const float& dt )
 {
     sf::Event event;
 
@@ -210,7 +210,7 @@ void GameSettingsState::UpdateComponents( const float& dt )
     }
 }
 
-void GameSettingsState::Update(float dt)
+void GameSettingsState::Update( const float& dt )
 {
     m_Data->input.UpdateMousePosition( m_Data->window );
 

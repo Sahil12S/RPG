@@ -20,8 +20,7 @@ class GraphicsSettings
     std::vector<sf::VideoMode> videoModes;
 
     void SaveToFile( const std::string& path );
-    void LoadFromFile( const std::string& path );
-            
+    void LoadFromFile( const std::string& path );            
 };
 
 #endif // GRAPHICS_SETTINGS_H

@@ -10,12 +10,17 @@
 #include "../Game_Components/Button.h"
 #include "../Game_Components/DropDownList.h"
 
+class Game;
+class State;
+class Button;
+class DropDownList;
+class HUD;
+
 class GameSettingsState : public State
 {
 private:
     /* Variables */
     GameDataRef m_Data;
-
     gui::HUD* m_Hud;
 
     std::map<std::string, int> m_KeyBinds;
@@ -51,9 +56,9 @@ public:
     // Initializes the state
     void Init() override;
 
-    void HandleInput( float dt ) override;
+    void HandleInput( const float& dt ) override;
     void UpdateComponents( const float& dt );
-    void Update( float dt ) override;
+    void Update( const float& dt ) override;
     void Draw() override;
 };
 

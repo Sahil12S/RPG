@@ -91,7 +91,7 @@ void MainMenuState::InitGui()
 
 }
 
-MainMenuState::MainMenuState(GameDataRef data) : m_Data(std::move(data))
+MainMenuState::MainMenuState( GameDataRef data ) : m_Data( std::move( data ) )
 {
 }
 
@@ -120,7 +120,7 @@ void MainMenuState::Init()
 }
 
 // @override
-void MainMenuState::HandleInput(float dt)
+void MainMenuState::HandleInput( const float& dt )
 {
     sf::Event event;
 
@@ -150,7 +150,7 @@ void MainMenuState::HandleInput(float dt)
 }
 
 // @override
-void MainMenuState::Update(float dt)
+void MainMenuState::Update( const float& dt )
 {
     m_Data->input.UpdateMousePosition(m_Data->window);
     m_Data->input.UpdateKeyTime( dt );
