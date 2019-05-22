@@ -9,6 +9,7 @@
 #include "../Game_Components/HUD.h"
 #include "../Game_Components/Button.h"
 #include "../Game_Components/DropDownList.h"
+#include "../Game_Components/Helpers.h"
 
 class Game;
 class State;
@@ -21,17 +22,17 @@ class GameSettingsState : public State
 private:
     /* Variables */
     GameDataRef m_Data;
-    gui::HUD* m_Hud;
+    gui::HUD *m_Hud;
 
     std::map<std::string, int> m_KeyBinds;
 
     sf::RectangleShape m_Background;
     sf::Text m_OptionsText;
 
-    std::map<std::string, gui::Button*> m_Buttons;
-    std::map<std::string, gui::DropDownList*> m_DropdownList;
+    std::map<std::string, gui::Button *> m_Buttons;
+    std::map<std::string, gui::DropDownList *> m_DropdownList;
 
-    std::vector< sf::VideoMode > m_Modes;
+    std::vector<sf::VideoMode> m_Modes;
 
     // Handle title animation
     sf::Clock clock;
@@ -47,18 +48,16 @@ private:
     void InitVariables();
     void InitTexts();
 
-
-
 public:
-    GameSettingsState( GameDataRef data );
+    GameSettingsState(GameDataRef data);
     ~GameSettingsState();
 
     // Initializes the state
     void Init() override;
 
-    void HandleInput( const float& dt ) override;
-    void UpdateComponents( const float& dt );
-    void Update( const float& dt ) override;
+    void HandleInput(const float &dt) override;
+    void UpdateComponents(const float &dt);
+    void Update(const float &dt) override;
     void Draw() override;
 };
 

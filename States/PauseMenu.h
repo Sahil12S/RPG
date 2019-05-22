@@ -7,6 +7,7 @@
 #include "../Game.h"
 #include "../Game_Components/Button.h"
 #include "../Game_Components/HUD.h"
+#include "../Game_Components/Helpers.h"
 
 class Game;
 class Button;
@@ -18,36 +19,37 @@ private:
     /* Variables */
     GameDataRef m_Data;
 
-    gui::HUD* m_Hud;
+    gui::HUD *m_Hud;
 
     sf::RectangleShape m_Background;
-	sf::RectangleShape m_Container;
+    sf::RectangleShape m_Container;
 
-    std::map<std::string, gui::Button*> m_Buttons;
+    std::map<std::string, gui::Button *> m_Buttons;
 
     void InitTextures();
     void InitFonts();
     void InitVariables();
 
-
 public:
-    PauseMenu( GameDataRef data );
+    PauseMenu(GameDataRef data);
     virtual ~PauseMenu();
 
-    std::vector<std::string, gui::Button*> GetButtons();
+    std::vector<std::string, gui::Button *> GetButtons();
 
+    bool IsButtonPressed(const std::string &key);
 
-    bool IsButtonPressed( const std::string& key );
+    /**
+     * Adds a button for Pause Menu
+     * 
+     * @param key: 
+     */
+    void AddButton(const std::string key,
+                   const float y,
+                   const std::string text);
 
-    void AddButton( const std::string key, 
-                const float y, 
-                const std::string text );
+    void Update(const sf::Vector2i &mousePosWindow);
 
-
-
-    void Update( const sf::Vector2i& mousePosWindow );
-
-    void Draw( sf::RenderTarget& target );
+    void Draw(sf::RenderTarget &target);
 };
 
 #endif // PAUSE_MENU_H

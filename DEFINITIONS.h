@@ -35,8 +35,9 @@
 #define EDITOR_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/EditorStateKeyBinds.ini"
 
 // For Buttons
-#define BUTTON_WIDTH 200
-#define BUTTON_HEIGHT 70
+#define BUTTON_WIDTH_PREC 10.4
+#define BUTTON_HEIGHT_PERC 6.5
+
 #define BUTTON_TEXT_SIZE 50
 
 #define TEXT_IDLE_FILL_COLOR 170, 170, 170, 200
@@ -82,7 +83,6 @@
 // For Player
 #define PLAYER_MOVEMENT_SPEED 150.0f
 #define WALK_ANIMATION_DURATION 12.f
-
 
 // For View
 #define CAMERA_SPEED 200.f

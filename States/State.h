@@ -12,36 +12,31 @@
 #ifndef STATE_H
 #define STATE_H
 
-// #include "../Game.h"
-
-// Predeclaration
-// class Game;
-// struct GameData;
-// typedef std::shared_ptr<GameData> GameDataRef;
+#include "../pch.cpp"
 
 class State
 {
-// protected:
-//     GameDataRef m_Data;
 
 public:
-    // State( GameDataRef data );
-    
     virtual ~State() {}
     /*
      * Initialize the game state
      */
     virtual void Init() = 0;
 
-    /*
+    /**
      * Handle input in current state
+     * 
+     * @param dt: delta time to account for varying frame refresh rate
      */
-    virtual void HandleInput( const float& dt ) = 0;
+    virtual void HandleInput(const float &dt) = 0;
 
-    /*
+    /**
      * Update frames / game in current state
+     * 
+     * @param dt: delta time to account for varying frame refresh rate
      */
-    virtual void Update( const float& dt ) = 0;
+    virtual void Update(const float &dt) = 0;
 
     /*
      * Draw frame in current state
@@ -51,12 +46,12 @@ public:
     /*
      * Pause game
      */
-    virtual void Pause() {};
+    virtual void Pause(){};
 
     /*
      * Resume game
      */
-    virtual void Resume() {};
+    virtual void Resume(){};
 };
 
 #endif // STATE_H

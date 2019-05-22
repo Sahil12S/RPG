@@ -8,6 +8,7 @@
 #include "../Game.h"
 #include "../Game_Components/Button.h"
 #include "../Game_Components/HUD.h"
+#include "../Game_Components/Helpers.h"
 
 class Game;
 class State;
@@ -25,9 +26,9 @@ private:
     sf::RectangleShape m_Background;
     // sf::Texture m_BackgroundTexture;
 
-    gui::HUD* m_Hud;
+    gui::HUD *m_Hud;
 
-    std::map<std::string, gui::Button*> m_Buttons;
+    std::map<std::string, gui::Button *> m_Buttons;
 
     // Handle title animation
     sf::Clock clock;
@@ -42,18 +43,18 @@ private:
     void InitGui();
     void ResetGui();
 
-
 public:
-    explicit MainMenuState( GameDataRef data );
+    explicit MainMenuState(GameDataRef data);
     virtual ~MainMenuState();
 
     void Init() override;
-    void HandleInput( const float& dt) override;
+    void HandleInput(const float &dt) override;
+    /**
+     * Update buttons with current mouse position
+     */
     void UpdateButtons();
-    void Update( const float& dt ) override;
-    void DrawButtons( sf::RenderTarget& target );
+    void Update(const float &dt) override;
+    void DrawButtons(sf::RenderTarget &target);
     void Draw() override;
-
-
 };
 #endif // MAIN_MENU_STATE_H
