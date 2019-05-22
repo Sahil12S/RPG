@@ -44,9 +44,11 @@ private:
     void InitTextures();
     void InitFonts();
     void InitSounds();
-    void InitComponents();
     void InitVariables();
-    void InitTexts();
+    void InitGui();
+    // void InitDropDownList();
+    // void InitTexts();
+    void ResetGui();
 
 public:
     GameSettingsState(GameDataRef data);
@@ -56,7 +58,7 @@ public:
     void Init() override;
 
     void HandleInput(const float &dt) override;
-    void UpdateComponents(const float &dt);
+    void UpdateGui(const float &dt);
     void Update(const float &dt) override;
     void Draw() override;
 };

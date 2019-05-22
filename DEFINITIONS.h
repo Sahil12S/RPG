@@ -20,10 +20,9 @@
 #define CALLOUT_TEXTURE_FILEPATH "../Resources/img/callout.png"
 
 // Fonts
-#define SCREEN_FONT_FILEPATH "../Resources/font/Good_Brush.otf"
+#define TITLE_FONT_FILEPATH "../Resources/font/Good_Brush.otf"
 #define BUTTON_FONT_FILEPATH "../Resources/font/Twopath_Regular.otf"
-#define LIST_FONT_FILEPATH "../Resources/font/Twopath_Regular.otf"
-#define TEXT_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
+#define TEXT_FONT_FILEPATH "../Resources/font/Marlboro.ttf"
 #define DEBUG_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
 
 // Key binds
@@ -34,12 +33,27 @@
 #define PAUSE_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/PauseStateKeyBinds.ini"
 #define EDITOR_STATE_KEY_BIND_FILEPATH "../Config/KeyBindings/EditorStateKeyBinds.ini"
 
-// For Buttons
+/**
+ * Button Percentages
+ * Larger the value, larger the buttons
+ */
 #define BUTTON_WIDTH_PREC 10.4
 #define BUTTON_HEIGHT_PERC 6.5
+/**
+ * Dropdown List Percentages
+ * Larger the value, larger the buttons
+ */
+#define LIST_WIDTH_PERC 9.2
+#define LIST_HEIGHT_PERC 4.75
 
-#define BUTTON_TEXT_SIZE 50
+/**
+ * Text size percentages
+ * Smaller the value, larger the text
+ */
+#define BUTTON_TEXT_SIZE_PERC 60
+#define LIST_TEXT_SIZE_PERC 75
 
+// For Buttons
 #define TEXT_IDLE_FILL_COLOR 170, 170, 170, 200
 #define TEXT_HOVER_FILL_COLOR 250, 250, 250, 250
 #define TEXT_ACTIVE_FILL_COLOR 20, 20, 20, 50
@@ -49,10 +63,6 @@
 #define BUTTON_ACTIVE_FILL_COLOR 20, 20, 20, 0
 
 // For Dropdown list
-#define LIST_WIDTH 150
-#define LIST_HEIGHT 40
-#define LIST_TEXT_SIZE 15
-
 #define LIST_TEXT_IDLE_FILL_COLOR 225, 225, 225, 150
 #define LIST_TEXT_HOVER_FILL_COLOR 250, 250, 250, 255
 #define LIST_TEXT_ACTIVE_FILL_COLOR 20, 20, 20, 50

@@ -4,9 +4,9 @@
 // Initializers
 void GameSettingsState::InitKeyBinds()
 {
-    Debug("Settings State: Initializing Key bindings...")
+    Debug("SETTINGS STATE::Init Key bindings");
 
-        std::fstream ifs(SETTINGS_STATE_KEY_BIND_FILEPATH);
+    std::fstream ifs(SETTINGS_STATE_KEY_BIND_FILEPATH);
 
     if (ifs.is_open())
     {
@@ -22,18 +22,13 @@ void GameSettingsState::InitKeyBinds()
 
 void GameSettingsState::InitTextures()
 {
-    Debug("Settings State: Initializing Textures...")
-        // Set Background
-        m_Background.setSize(sf::Vector2f(m_Data->window.getSize()));
-    m_Background.setFillColor(sf::Color(30, 30, 30));
 }
 
 void GameSettingsState::InitFonts()
 {
-    Debug("Settings State: Initializing Key Fonts...")
-        m_Data->assets.LoadFont("Title Font", SCREEN_FONT_FILEPATH);
+    Debug("SETTINGS STATE::Init Fonts");
+    m_Data->assets.LoadFont("Title Font", TITLE_FONT_FILEPATH);
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
-    m_Data->assets.LoadFont("DDList Font", LIST_FONT_FILEPATH);
     m_Data->assets.LoadFont("Text Font", TEXT_FONT_FILEPATH);
     m_Data->assets.LoadFont("Debug Font", DEBUG_FONT_FILEPATH);
 }
@@ -45,47 +40,50 @@ void GameSettingsState::InitSounds()
 
 void GameSettingsState::InitVariables()
 {
-    Debug("Settings State: Initializing variables...")
-
-        // Initialize HUD
-        m_Hud = new gui::HUD(m_Data);
-    m_Hud->SetText("Title Font", "SETTINGS", TITLE_SIZE, (m_Data->window.getSize().x / 2.0f), m_Data->window.getSize().y / 5.0f);
+    Debug("SETTINGS STATE::Init variables");
 
     m_Modes = sf::VideoMode::getFullscreenModes();
 
     clock.restart().asSeconds();
     movedLeft = false;
-    srand((unsigned)time(0));
 }
 
-/*
- * Initialize Buttons and Dropdown list
- */
-void GameSettingsState::InitComponents()
+void GameSettingsState::InitGui()
 {
-    Debug("Settings State: Initializing components...")
+    Debug("SETTINGS STATE::Init GUI");
 
-        // Set Buttons
-        m_Buttons["Home"] = new gui::Button(
-            m_Data->GfxSettings.resolution.width / 3.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
-            m_Data->GfxSettings.resolution.width - gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution) / 0.4f,
-            gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-            &m_Data->assets.GetFont("Button Font"), "Home", BUTTON_TEXT_SIZE,
-            sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
-            sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
+    const sf::VideoMode &vm = m_Data->GfxSettings.resolution;
+
+    // Background
+    // TODO: Load some texture
+    m_Background.setSize(sf::Vector2f(vm.width, vm.height));
+    m_Background.setFillColor(sf::Color(30, 30, 30));
+
+    // Initialize HUD
+    m_Hud = new gui::HUD(m_Data);
+    m_Hud->SetText("Title Font", "SETTINGS", TITLE_SIZE, (vm.width / 2.0f), vm.height / 5.0f);
+
+    // Set Buttons
+    m_Buttons["Home"] = new gui::Button(
+        vm.width / 3.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
+        vm.height - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.4f,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Home", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
+        sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
+        sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 
     m_Buttons["Apply"] = new gui::Button(
-        2.f * m_Data->GfxSettings.resolution.width / 3.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
-        m_Data->GfxSettings.resolution.width - gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution) / 0.4f,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), "Apply", BUTTON_TEXT_SIZE,
+        2.f * vm.width / 3.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
+        vm.height - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.4f,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Apply", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 
     m_Buttons["Back"] = new gui::Button(
-        25.f, 25.f,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), "Back", BUTTON_TEXT_SIZE,
+        gui::p2pX(1.3, vm), gui::p2pY(1.3, vm),
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Back", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 
@@ -96,21 +94,42 @@ void GameSettingsState::InitComponents()
     }
 
     m_DropdownList["Resolution"] = new gui::DropDownList(
-        m_Data->window.getSize().x / 2.f - LIST_WIDTH / 2.f, 400.f,
-        LIST_WIDTH, LIST_HEIGHT, m_Data->assets.GetFont("DDList Font"),
+        vm.width / 2.f - gui::p2pX(LIST_WIDTH_PERC, vm) / 2.f, gui::p2pY(37.f, vm),
+        gui::p2pX(LIST_WIDTH_PERC, vm), gui::p2pY(LIST_HEIGHT_PERC, vm),
+        m_Data->assets.GetFont("Text Font"),
         modes_str.data(), modes_str.size()
 
     );
-}
 
-void GameSettingsState::InitTexts()
-{
     m_OptionsText.setFont(m_Data->assets.GetFont("Text Font"));
-    m_OptionsText.setCharacterSize(30);
-    m_OptionsText.setPosition(500.f, 400.f);
+    m_OptionsText.setCharacterSize(gui::calcCharSize(LIST_TEXT_SIZE_PERC, vm));
+    m_OptionsText.setPosition(gui::p2pX(26.f, vm), gui::p2pY(37.f, vm));
     m_OptionsText.setFillColor(sf::Color(255, 255, 255, 200));
     m_OptionsText.setString(
         "Resoultion\n\nFullscreen\n\nVsync\n\nAnti-Aliasing");
+}
+
+void GameSettingsState::ResetGui()
+{
+    Debug("SETTINGS STATE::Reset GUI");
+
+    delete m_Hud;
+
+    // Delete buttons
+    for (auto it = m_Buttons.begin(); it != m_Buttons.end(); it++)
+    {
+        delete it->second;
+    }
+    m_Buttons.clear();
+
+    // Delete Drop Down list
+    for (auto it = m_DropdownList.begin(); it != m_DropdownList.end(); it++)
+    {
+        delete it->second;
+    }
+    m_DropdownList.clear();
+
+    InitGui();
 }
 
 GameSettingsState::GameSettingsState(GameDataRef data) : m_Data(std::move(data))
@@ -119,7 +138,9 @@ GameSettingsState::GameSettingsState(GameDataRef data) : m_Data(std::move(data))
 
 GameSettingsState::~GameSettingsState()
 {
-    Debug("[DEBUG] Destructor of Game Settings state") delete m_Hud;
+    Debug("SETTINGS STATE::Destructor");
+
+    delete m_Hud;
     for (const auto &button : m_Buttons)
     {
         delete button.second;
@@ -134,15 +155,14 @@ GameSettingsState::~GameSettingsState()
 
 void GameSettingsState::Init()
 {
-    Debug("Settings State: Initializing...")
+    Debug("SETTINGS STATE::Initializing...");
 
-        InitKeyBinds();
+    InitKeyBinds();
     InitTextures();
     InitSounds();
     InitFonts();
     InitVariables();
-    InitComponents();
-    InitTexts();
+    InitGui();
 }
 
 void GameSettingsState::HandleInput(const float &dt)
@@ -186,10 +206,11 @@ void GameSettingsState::HandleInput(const float &dt)
         // TODO: for test, remove later
         m_Data->GfxSettings.resolution = m_Modes[m_DropdownList["Resolution"]->getActiveElementId()];
         m_Data->window.create(m_Data->GfxSettings.resolution, m_Data->GfxSettings.title, sf::Style::Default);
+        ResetGui();
     }
 }
 
-void GameSettingsState::UpdateComponents(const float &dt)
+void GameSettingsState::UpdateGui(const float &dt)
 {
     for (auto button : m_Buttons)
     {
@@ -206,7 +227,7 @@ void GameSettingsState::Update(const float &dt)
 {
     m_Data->input.UpdateMousePosition(m_Data->window);
 
-    UpdateComponents(dt);
+    UpdateGui(dt);
 }
 
 void GameSettingsState::Draw()

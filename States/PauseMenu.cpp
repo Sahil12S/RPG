@@ -16,7 +16,7 @@ void PauseMenu::InitTextures()
 
 void PauseMenu::InitFonts()
 {
-    m_Data->assets.LoadFont("Title Font", SCREEN_FONT_FILEPATH);
+    m_Data->assets.LoadFont("Title Font", TITLE_FONT_FILEPATH);
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
 }
 
@@ -53,11 +53,13 @@ void PauseMenu::AddButton(const std::string key,
                           const float y,
                           const std::string text)
 {
+    sf::VideoMode &vm = m_Data->GfxSettings.resolution;
+
     m_Buttons[key] = new gui::Button(
-        m_Container.getPosition().x + m_Container.getSize().x / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
+        m_Container.getPosition().x + m_Container.getSize().x / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
         y,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), text, BUTTON_TEXT_SIZE,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), text, gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 }

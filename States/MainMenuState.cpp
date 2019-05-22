@@ -12,7 +12,7 @@ void MainMenuState::InitTextures()
 
 void MainMenuState::InitFonts()
 {
-    m_Data->assets.LoadFont("Title Font", SCREEN_FONT_FILEPATH);
+    m_Data->assets.LoadFont("Title Font", TITLE_FONT_FILEPATH);
     m_Data->assets.LoadFont("Button Font", BUTTON_FONT_FILEPATH);
     // m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
 }
@@ -23,8 +23,9 @@ void MainMenuState::InitSounds()
 
 void MainMenuState::InitVariables()
 {
-    Debug("MAIN MENU STATE::Init Key Variables")
-        m_Hud = new gui::HUD(m_Data);
+    Debug("MAIN MENU STATE::Init Key Variables");
+
+    m_Hud = new gui::HUD(m_Data);
     m_Hud->SetText(
         "Title Font", "RPG",
         TITLE_SIZE,
@@ -53,35 +54,38 @@ void MainMenuState::InitGui()
 {
     Debug("MAIN MENU STATE::Init Gui");
 
+    sf::VideoMode &vm = m_Data->GfxSettings.resolution;
+
+    
     m_Buttons["Exit"] = new gui::Button(
-        m_Data->GfxSettings.resolution.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
-        m_Data->GfxSettings.resolution.height - gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution) / 0.4f,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), "Exit", BUTTON_TEXT_SIZE,
+        vm.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
+        vm.height - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.4f,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Exit", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 
     m_Buttons["Settings"] = new gui::Button(
-        m_Data->GfxSettings.resolution.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
-        m_Buttons["Exit"]->GetButton().getPosition().y - gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution) / 0.8f,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), "Settings", BUTTON_TEXT_SIZE,
+        vm.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
+        m_Buttons["Exit"]->GetButton().getPosition().y - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.8f,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Settings", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 
     m_Buttons["Editor"] = new gui::Button(
-        m_Data->GfxSettings.resolution.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
-        m_Buttons["Settings"]->GetButton().getPosition().y - gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution) / 0.8f,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), "Editor", BUTTON_TEXT_SIZE,
+        vm.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
+        m_Buttons["Settings"]->GetButton().getPosition().y - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.8f,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Editor", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 
     m_Buttons["Play"] = new gui::Button(
-        m_Data->GfxSettings.resolution.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution) / 2.f,
-        m_Buttons["Editor"]->GetButton().getPosition().y - gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution) / 0.8f,
-        gui::p2pX(BUTTON_WIDTH_PREC, m_Data->GfxSettings.resolution), gui::p2pY(BUTTON_HEIGHT_PERC, m_Data->GfxSettings.resolution),
-        &m_Data->assets.GetFont("Button Font"), "Start", BUTTON_TEXT_SIZE,
+        vm.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
+        m_Buttons["Editor"]->GetButton().getPosition().y - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.8f,
+        gui::p2pX(BUTTON_WIDTH_PREC, vm), gui::p2pY(BUTTON_HEIGHT_PERC, vm),
+        &m_Data->assets.GetFont("Button Font"), "Start", gui::calcCharSize(BUTTON_TEXT_SIZE_PERC, vm),
         sf::Color(TEXT_IDLE_FILL_COLOR), sf::Color(TEXT_HOVER_FILL_COLOR), sf::Color(TEXT_ACTIVE_FILL_COLOR),
         sf::Color(BUTTON_IDLE_FILL_COLOR), sf::Color(BUTTON_HOVER_FILL_COLOR), sf::Color(BUTTON_ACTIVE_FILL_COLOR));
 }
