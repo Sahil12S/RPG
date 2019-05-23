@@ -1,5 +1,5 @@
-#ifndef DEFINITIONS_H
-#define DEFINITIONS_H
+#ifndef DEFINITIONS_HPP
+#define DEFINITIONS_HPP
 
 #ifndef DEBUG
 #define Debug(x) std::cout << "\033[34m[DEBUG] \033[0m" << x << std::endl;
@@ -134,4 +134,4 @@ enum class TileType
     eDoodad,
 };
 
-#endif // DEFINITIONS_H
+#endif // DEFINITIONS_HPP

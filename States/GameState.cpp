@@ -1,5 +1,5 @@
-#include "GameState.h"
-#include "MainMenuState.h"
+#include "GameState.hpp"
+#include "MainMenuState.hpp"
 
 void GameState::InitView()
 {

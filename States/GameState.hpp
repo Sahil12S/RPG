@@ -1,16 +1,15 @@
-#ifndef GAME_STATE_H
-#define GAME_STATE_H
+#ifndef GAME_STATE_HPP
+#define GAME_STATE_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
-#include "../Game.h"
-#include "State.h"
-#include "PauseMenu.h"
-#include "../Map/TileMap.h"
-#include "../Entities/Player.h"
-#include "../Game_Components/PlayerGui.h"
-
+#include "../Game.hpp"
+#include "State.hpp"
+#include "PauseMenu.hpp"
+#include "../Map/TileMap.hpp"
+#include "../Entities/Player.hpp"
+#include "../Game_Components/PlayerGui.hpp"
 
 class Game;
 class State;
@@ -31,10 +30,10 @@ private:
 
     std::map<std::string, int> m_KeyBinds;
 
-    Player* m_Player;
-    TileMap* m_TileMap;
-    PauseMenu* m_PauseMenu;
-    PlayerGui* m_PlayerGui;
+    Player *m_Player;
+    TileMap *m_TileMap;
+    PauseMenu *m_PauseMenu;
+    PlayerGui *m_PlayerGui;
 
     sf::Sprite m_BackgroundSprite;
 
@@ -42,8 +41,7 @@ private:
 
     bool m_Paused;
 
-
-    std::map< std::string, gui::HUD* > hud;
+    std::map<std::string, gui::HUD *> hud;
 
     // Initializers
     void InitView();
@@ -59,27 +57,24 @@ private:
     void InitPlayerGui();
     void InitTileMap();
 
-
-
 public:
-    GameState( GameDataRef data );
+    GameState(GameDataRef data);
     ~GameState();
 
     void PauseState();
     void UnpauseState();
 
-
     void Init() override;
-    
-    void UpdateView( const float& dt );
-    void HandleInput( const float& dt ) override;
 
-    void UpdatePlayerGui( const float& dt );
+    void UpdateView(const float &dt);
+    void HandleInput(const float &dt) override;
+
+    void UpdatePlayerGui(const float &dt);
     void UpdatePauseMenuButtons();
     void UpdateGui();
-    void UpdateTileMap( const float& dt );
+    void UpdateTileMap(const float &dt);
 
-    void Update( const float& dt ) override;
+    void Update(const float &dt) override;
     void Draw() override;
 };
-#endif // GAME_STATE_H
+#endif // GAME_STATE_HPP

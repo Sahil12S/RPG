@@ -1,4 +1,4 @@
-#include "GraphicsSettings.h"
+#include "GraphicsSettings.hpp"
 
 GraphicsSettings::GraphicsSettings()
 {
@@ -11,13 +11,12 @@ GraphicsSettings::GraphicsSettings()
     videoModes = sf::VideoMode::getFullscreenModes();
 }
 
-
 // Save to file
-void GraphicsSettings::SaveToFile( const std::string& path )
+void GraphicsSettings::SaveToFile(const std::string &path)
 {
-    std::ofstream ofs( "../" + path );
+    std::ofstream ofs("../" + path);
 
-    if ( ofs.is_open() )
+    if (ofs.is_open())
     {
         ofs << title;
         ofs << resolution.width << resolution.height;
@@ -31,13 +30,13 @@ void GraphicsSettings::SaveToFile( const std::string& path )
 }
 
 // Load from file
-void GraphicsSettings::LoadFromFile( const std::string& path )
+void GraphicsSettings::LoadFromFile(const std::string &path)
 {
-    std::ifstream ifs( "../" + path );
+    std::ifstream ifs("../" + path);
 
-    if ( ifs.is_open() )
+    if (ifs.is_open())
     {
-        std::getline( ifs, title );
+        std::getline(ifs, title);
         ifs >> resolution.width >> resolution.height;
         ifs >> fullscreen;
         ifs >> frameRateLimit;

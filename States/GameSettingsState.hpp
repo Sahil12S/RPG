@@ -1,15 +1,15 @@
-#ifndef GAME_SETTINGS_STATE_H
-#define GAME_SETTINGS_STATE_H
+#ifndef GAME_SETTINGS_STATE_HPP
+#define GAME_SETTINGS_STATE_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
-#include "../Game.h"
-#include "State.h"
-#include "../Game_Components/HUD.h"
-#include "../Game_Components/Button.h"
-#include "../Game_Components/DropDownList.h"
-#include "../Game_Components/Helpers.h"
+#include "../Game.hpp"
+#include "State.hpp"
+#include "../Game_Components/HUD.hpp"
+#include "../Game_Components/Button.hpp"
+#include "../Game_Components/DropDownList.hpp"
+#include "../Game_Components/Helpers.hpp"
 
 class Game;
 class State;
@@ -63,4 +63,4 @@ public:
     void Draw() override;
 };
 
-#endif // GAME_SETTINGS_STATE_H
+#endif // GAME_SETTINGS_STATE_HPP

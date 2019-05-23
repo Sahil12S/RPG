@@ -1,5 +1,5 @@
-#include "GameSettingsState.h"
-#include "MainMenuState.h"
+#include "GameSettingsState.hpp"
+#include "MainMenuState.hpp"
 
 // Initializers
 void GameSettingsState::InitKeyBinds()

@@ -1,7 +1,7 @@
-#include "MainMenuState.h"
-#include "GameState.h"
-#include "GameSettingsState.h"
-#include "EditorState.h"
+#include "MainMenuState.hpp"
+#include "GameState.hpp"
+#include "GameSettingsState.hpp"
+#include "EditorState.hpp"
 
 void MainMenuState::InitTextures()
 {
@@ -56,7 +56,6 @@ void MainMenuState::InitGui()
 
     sf::VideoMode &vm = m_Data->GfxSettings.resolution;
 
-    
     m_Buttons["Exit"] = new gui::Button(
         vm.width / 2.f - gui::p2pX(BUTTON_WIDTH_PREC, vm) / 2.f,
         vm.height - gui::p2pY(BUTTON_HEIGHT_PERC, vm) / 0.4f,

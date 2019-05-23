@@ -1,5 +1,5 @@
-#include "PauseMenu.h"
-#include "MainMenuState.h"
+#include "PauseMenu.hpp"
+#include "MainMenuState.hpp"
 
 void PauseMenu::InitTextures()
 {

@@ -1,10 +1,10 @@
-#ifndef STATE_MACHINE_H
-#define STATE_MACHINE_H
+#ifndef STATE_MACHINE_HPP
+#define STATE_MACHINE_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
-#include "../States/State.h"
+#include "../States/State.hpp"
 
 class State;
 typedef std::unique_ptr<State> StateRef;
@@ -32,7 +32,7 @@ public:
      * by default, remove existing one.
      * We need to preserve existing state when we go to Pause state
      */
-    void AddState( StateRef newState, bool isReplacing = true );
+    void AddState(StateRef newState, bool isReplacing = true);
 
     /*
      * Remove state from stack
@@ -49,7 +49,7 @@ public:
     /*
      * Return top level state which we have to run
      */
-    StateRef& GetActiveState();
+    StateRef &GetActiveState();
 
     /*
      * Return number of states in stack
@@ -60,7 +60,6 @@ public:
      * Removes all states from stack except the top one
      */
     void ClearStates();
-
 };
 
-#endif  // STATE_MACHINE_H
+#endif // STATE_MACHINE_HPP

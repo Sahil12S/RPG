@@ -1,16 +1,16 @@
-#ifndef EDITOR_STATE_H
-#define EDITOR_STATE_H
+#ifndef EDITOR_STATE_HPP
+#define EDITOR_STATE_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
-#include "../Game.h"
-#include "State.h"
-#include "MainMenuState.h"
-#include "PauseMenu.h"
-#include "../Game_Components/Button.h"
-#include "../Game_Components/HUD.h"
-#include "../Game_Components/TextureSelector.h"
-#include "../Map/TileMap.h"
+#include "../DEFINITIONS.hpp"
+#include "../Game.hpp"
+#include "State.hpp"
+#include "MainMenuState.hpp"
+#include "PauseMenu.hpp"
+#include "../Game_Components/Button.hpp"
+#include "../Game_Components/HUD.hpp"
+#include "../Game_Components/TextureSelector.hpp"
+#include "../Map/TileMap.hpp"
 
 class Game;
 class State;
@@ -27,14 +27,14 @@ private:
     GameDataRef m_Data;
     sf::View m_MainView;
 
-    gui::HUD* m_Hud;
-    gui::TextureSelector* m_TS;
+    gui::HUD *m_Hud;
+    gui::TextureSelector *m_TS;
 
-    PauseMenu* m_PauseMenu;
-    TileMap* m_TileMap;
+    PauseMenu *m_PauseMenu;
+    TileMap *m_TileMap;
 
     std::map<std::string, int> m_KeyBinds;
-    std::map<std::string, gui::Button*> m_Buttons;
+    std::map<std::string, gui::Button *> m_Buttons;
 
     bool m_Paused;
     bool m_Collision;
@@ -63,19 +63,19 @@ private:
     void InitGui();
 
 public:
-    EditorState( GameDataRef data );
+    EditorState(GameDataRef data);
     ~EditorState();
 
     void PauseState();
     void UnpauseState();
 
     void Init() override;
-    void HandleInput( const float& dt ) override;
+    void HandleInput(const float &dt) override;
 
-    void UpdateGui( const float& dt );
+    void UpdateGui(const float &dt);
     void UpdatePauseMenuButtons();
-    void Update( const float& dt ) override;
+    void Update(const float &dt) override;
     void Draw() override;
 };
 
-#endif
+#endif // EDITOR_STATE_HPP

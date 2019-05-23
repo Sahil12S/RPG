@@ -1,5 +1,5 @@
-#ifndef PCH_H
-#define PCH_H
+#ifndef PCH_HPP
+#define PCH_HPP
 
 // Core
 #include <algorithm>
@@ -26,6 +26,4 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-
-
-#endif // PCH_H
+#endif // PCH_HPP

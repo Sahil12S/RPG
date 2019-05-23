@@ -1,7 +1,6 @@
-#include "AnimationComponent.h"
+#include "AnimationComponent.hpp"
 
-AnimationComponent::AnimationComponent(GameDataRef data, sf::Sprite& sprite, const std::string& texture ) :
-    m_Data( std::move( data ) ),  m_Sprite( sprite ), m_TextureSheet( m_Data->assets.GetTexture( texture ) )
+AnimationComponent::AnimationComponent(GameDataRef data, sf::Sprite &sprite, const std::string &texture) : m_Data(std::move(data)), m_Sprite(sprite), m_TextureSheet(m_Data->assets.GetTexture(texture))
 {
     m_LastAnimation = nullptr;
     m_PriorityAnimation = nullptr;
@@ -9,30 +8,29 @@ AnimationComponent::AnimationComponent(GameDataRef data, sf::Sprite& sprite, con
 
 AnimationComponent::~AnimationComponent()
 {
-    for( auto& i: m_Animations )
+    for (auto &i : m_Animations)
     {
         delete i.second;
     }
 }
 
-const bool& AnimationComponent::isDone(const std::string& key)
+const bool &AnimationComponent::isDone(const std::string &key)
 {
     return m_Animations[key]->isDone();
 }
 
-void
-AnimationComponent::AddAnimation( const std::string& key, float animation_timer, int start_frame_x, int start_frame_y,
-    int frames_x, int frames_y, int width, int height)
+void AnimationComponent::AddAnimation(const std::string &key, float animation_timer, int start_frame_x, int start_frame_y,
+                                      int frames_x, int frames_y, int width, int height)
 {
-    m_Animations[key] = new Animation( m_Sprite, m_TextureSheet, animation_timer,
-            start_frame_x, start_frame_y, frames_x, frames_y, width, height );
+    m_Animations[key] = new Animation(m_Sprite, m_TextureSheet, animation_timer,
+                                      start_frame_x, start_frame_y, frames_x, frames_y, width, height);
 }
 
-const bool &AnimationComponent::Play(const std::string &key, const float &dt, const bool &priority, float new_timer )
+const bool &AnimationComponent::Play(const std::string &key, const float &dt, const bool &priority, float new_timer)
 {
     // If we want to run animation based on time.
     // NOTE: Not yet implemented
-    if ( new_timer > 0.f )
+    if (new_timer > 0.f)
         m_Animations[key]->animationTimer = new_timer;
 
     if (m_PriorityAnimation) //If there is a priority animation
@@ -84,8 +82,8 @@ const bool &AnimationComponent::Play(const std::string &key, const float &dt, co
     return m_Animations[key]->isDone();
 }
 
-const bool& AnimationComponent::Play(const std::string& key, const float &dt,
-        const float &modifier, const float &modifier_max, const bool priority)
+const bool &AnimationComponent::Play(const std::string &key, const float &dt,
+                                     const float &modifier, const float &modifier_max, const bool priority)
 {
     if (m_PriorityAnimation) //If there is a priority animation
     {
@@ -103,7 +101,7 @@ const bool& AnimationComponent::Play(const std::string& key, const float &dt,
             }
 
             //If the priority animation is done, remove it
-            if (m_Animations[key]->play( dt, abs( modifier / modifier_max ) ) )
+            if (m_Animations[key]->play(dt, abs(modifier / modifier_max)))
             {
                 m_PriorityAnimation = nullptr;
             }

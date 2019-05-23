@@ -1,12 +1,12 @@
-#ifndef SPLASH_STATE_H
-#define SPLASH_STATE_H
+#ifndef SPLASH_STATE_HPP
+#define SPLASH_STATE_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
-#include "../Game.h"
-#include "State.h"
-#include "MainMenuState.h"
+#include "../Game.hpp"
+#include "State.hpp"
+#include "MainMenuState.hpp"
 
 class Game;
 class State;
@@ -23,13 +23,13 @@ public:
     /*
      * Splash State doesn't need any key bindings
      */
-    SplashState( GameDataRef data );
+    SplashState(GameDataRef data);
 
     void Init();
 
-    void HandleInput( const float& dt ) override;
-    void Update( const float& dt ) override;
+    void HandleInput(const float &dt) override;
+    void Update(const float &dt) override;
     void Draw() override;
 };
 
-#endif // SPLASH_STATE_H
+#endif // SPLASH_STATE_HPP

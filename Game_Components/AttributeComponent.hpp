@@ -1,8 +1,8 @@
-#ifndef ATTRIBUTE_COMPONENT_H
-#define ATTRIBUTE_COMPONENT_H
+#ifndef ATTRIBUTE_COMPONENT_HPP
+#define ATTRIBUTE_COMPONENT_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
 class AttributeComponent
 {
@@ -29,20 +29,19 @@ public:
     int m_Defense;
     int m_Luck;
 
-
     // Con / Des
-    AttributeComponent( int level );
+    AttributeComponent(int level);
     virtual ~AttributeComponent();
 
     // Functions
     std::string DebugPrint() const;
 
-    void GainExp( const int& exp );
-    
-    void UpdateStats( const bool& reset );
+    void GainExp(const int &exp);
+
+    void UpdateStats(const bool &reset);
     void UpdateLevel();
 
     void Update();
 };
 
-#endif // ATTRIBUTE_COMPONENT_H
+#endif // ATTRIBUTE_COMPONENT_HPP

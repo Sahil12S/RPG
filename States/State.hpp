@@ -9,8 +9,8 @@
  *  6. Settings state   - When we go to settings (either from menu or from pause screen)
  */
 
-#ifndef STATE_H
-#define STATE_H
+#ifndef STATE_HPP
+#define STATE_HPP
 
 #include "../pch.cpp"
 
@@ -54,4 +54,4 @@ public:
     virtual void Resume(){};
 };
 
-#endif // STATE_H
+#endif // STATE_HPP

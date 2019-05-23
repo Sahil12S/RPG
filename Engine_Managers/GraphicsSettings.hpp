@@ -1,13 +1,12 @@
-#ifndef GRAPHICS_SETTINGS_H
-#define GRAPHICS_SETTINGS_H
+#ifndef GRAPHICS_SETTINGS_HPP
+#define GRAPHICS_SETTINGS_HPP
 
 #include "../pch.cpp"
 
 class GraphicsSettings
 {
-    private:
-
-    public:
+private:
+public:
     GraphicsSettings();
 
     // Variables
@@ -19,8 +18,8 @@ class GraphicsSettings
     sf::ContextSettings contextSettings;
     std::vector<sf::VideoMode> videoModes;
 
-    void SaveToFile( const std::string& path );
-    void LoadFromFile( const std::string& path );            
+    void SaveToFile(const std::string &path);
+    void LoadFromFile(const std::string &path);
 };
 
-#endif // GRAPHICS_SETTINGS_H
+#endif // GRAPHICS_SETTINGS_HPP

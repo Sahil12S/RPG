@@ -1,14 +1,14 @@
-#ifndef MAIN_MENU_STATE_H
-#define MAIN_MENU_STATE_H
+#ifndef MAIN_MENU_STATE_HPP
+#define MAIN_MENU_STATE_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
-#include "State.h"
-#include "../Game.h"
-#include "../Game_Components/Button.h"
-#include "../Game_Components/HUD.h"
-#include "../Game_Components/Helpers.h"
+#include "State.hpp"
+#include "../Game.hpp"
+#include "../Game_Components/Button.hpp"
+#include "../Game_Components/HUD.hpp"
+#include "../Game_Components/Helpers.hpp"
 
 class Game;
 class State;
@@ -57,4 +57,4 @@ public:
     void DrawButtons(sf::RenderTarget &target);
     void Draw() override;
 };
-#endif // MAIN_MENU_STATE_H
+#endif // MAIN_MENU_STATE_HPP

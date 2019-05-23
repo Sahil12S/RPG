@@ -1,8 +1,8 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef BUTTON_HPP
+#define BUTTON_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
 namespace gui
 {
@@ -59,4 +59,4 @@ public:
 };
 
 } // namespace gui
-#endif // BUTTON_H
+#endif // BUTTON_HPP

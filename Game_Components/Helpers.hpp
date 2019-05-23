@@ -1,8 +1,8 @@
-#ifndef HELPERS_H
-#define HELPERS_H
+#ifndef HELPERS_HPP
+#define HELPERS_HPP
 
-#include "../pch.h"
-#include "../DEFINITIONS.h"
+#include "../pch.cpp"
+#include "../DEFINITIONS.hpp"
 
 namespace gui
 {
@@ -34,4 +34,4 @@ float p2pY(const float &prec, const sf::VideoMode &resolution);
 float calcCharSize(const float &perc, const sf::VideoMode &resolution);
 
 } // namespace gui
-#endif // HELPERS_H
+#endif // HELPERS_HPP

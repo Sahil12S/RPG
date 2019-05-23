@@ -1,11 +1,11 @@
-#ifndef TILEMAP_H
-#define TILEMAP_H
+#ifndef TILEMAP_HPP
+#define TILEMAP_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
 #include "../Tile/Tile.hpp"
-#include "../Game.h"
+#include "../Game.hpp"
 
 class Game;
 
@@ -67,4 +67,4 @@ public:
     void RenderDeferred(sf::RenderTarget &target);
 };
 
-#endif // TILEMAP_H
+#endif // TILEMAP_HPP

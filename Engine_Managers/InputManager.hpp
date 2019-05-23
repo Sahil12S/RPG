@@ -1,8 +1,8 @@
-#ifndef INPUT_MANAGER_H
-#define INPUT_MANAGER_H
+#ifndef INPUT_MANAGER_HPP
+#define INPUT_MANAGER_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
 class InputManager
 {
@@ -24,12 +24,12 @@ public:
     InputManager();
     ~InputManager();
 
-    bool IsSpriteClicked( const sf::Sprite& object, sf::Mouse::Button button, sf::RenderWindow& window );
+    bool IsSpriteClicked(const sf::Sprite &object, sf::Mouse::Button button, sf::RenderWindow &window);
 
     void InitKeys();
 
-    void UpdateMousePosition(sf::RenderWindow &window, sf::View* view = nullptr);
-    void UpdateKeyTime( const float& dt );
+    void UpdateMousePosition(sf::RenderWindow &window, sf::View *view = nullptr);
+    void UpdateKeyTime(const float &dt);
 
     sf::Vector2i GetScreenMousePosition();
     sf::Vector2i GetWindowMousePosition();
@@ -37,7 +37,7 @@ public:
     sf::Vector2i GetGridMousePosition();
     bool GetKeyTime();
 
-    std::map<std::string, int>& getSupportedKeys();
+    std::map<std::string, int> &getSupportedKeys();
 };
 
-#endif // INPUT_MANAGER_H
+#endif // INPUT_MANAGER_HPP

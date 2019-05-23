@@ -1,5 +1,5 @@
-#include "Game.h"
-#include "States/SplashState.h"
+#include "Game.hpp"
+#include "States/SplashState.hpp"
 
 void Game::InitVariables()
 {

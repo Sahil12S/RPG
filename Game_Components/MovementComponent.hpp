@@ -1,8 +1,8 @@
-#ifndef MOVEMENTCOMPONENT_H
-#define MOVEMENTCOMPONENT_H
+#ifndef MOVEMENTCOMPONENT_HPP
+#define MOVEMENTCOMPONENT_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
 class MovementComponent
 {
@@ -36,4 +36,4 @@ public:
     void Update(const float &dt);
 };
 
-#endif //MOVEMENTCOMPONENT_H
+#endif //MOVEMENTCOMPONENT_HPP

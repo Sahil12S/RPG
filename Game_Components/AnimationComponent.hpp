@@ -1,9 +1,9 @@
-#ifndef ANIMATIONCOMPONENT_H
-#define ANIMATIONCOMPONENT_H
+#ifndef ANIMATIONCOMPONENT_HPP
+#define ANIMATIONCOMPONENT_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
-#include "../Game.h"
+#include "../DEFINITIONS.hpp"
+#include "../Game.hpp"
 
 struct GameData;
 typedef std::shared_ptr<GameData> GameDataRef;
@@ -14,8 +14,8 @@ private:
     class Animation
     {
     public:
-        sf::Sprite& sprite;
-        sf::Texture& m_TextureSheet;
+        sf::Sprite &sprite;
+        sf::Texture &m_TextureSheet;
         sf::Clock clock;
         float animationTimer;
         float timer;
@@ -37,40 +37,38 @@ private:
         * @width: width of tile in texture sheet
         * @height: height of tile in texture sheet
         */
-        Animation( sf::Sprite& sprite, sf::Texture& texture_sheet,
-                float animation_timer,
-                int start_frame_x, int start_frame_y, int frames_x, int frames_y,
-                int width, int height) :
-                sprite( sprite ), m_TextureSheet( texture_sheet ),
-                animationTimer( animation_timer ), timer( 0.f ), m_Done( false ),
-                width( width ), height( height )
+        Animation(sf::Sprite &sprite, sf::Texture &texture_sheet,
+                  float animation_timer,
+                  int start_frame_x, int start_frame_y, int frames_x, int frames_y,
+                  int width, int height) : sprite(sprite), m_TextureSheet(texture_sheet),
+                                           animationTimer(animation_timer), timer(0.f), m_Done(false),
+                                           width(width), height(height)
         {
-            m_StartRect = sf::IntRect( start_frame_x * width,
-                    start_frame_y * height, width, height );
+            m_StartRect = sf::IntRect(start_frame_x * width,
+                                      start_frame_y * height, width, height);
 
             m_CurrentRect = m_StartRect;
-            m_EndRect = sf::IntRect( (start_frame_x + frames_x - 1) * width,
-                    (start_frame_y + frames_y - 1) * height, width,  height );
+            m_EndRect = sf::IntRect((start_frame_x + frames_x - 1) * width,
+                                    (start_frame_y + frames_y - 1) * height, width, height);
 
-            sprite.setTexture( m_TextureSheet, true );
-            sprite.setTextureRect( m_StartRect );
-
+            sprite.setTexture(m_TextureSheet, true);
+            sprite.setTextureRect(m_StartRect);
         }
 
         // Accessor
-        const bool& isDone() const
+        const bool &isDone() const
         {
             return m_Done;
         }
 
         // Functions
-        const bool& play( const float& dt )
+        const bool &play(const float &dt)
         {
             // Update timer
             m_Done = false;
             timer += 100.f * dt;
 
-            if ( timer >= animationTimer )
+            if (timer >= animationTimer)
             {
                 // reset timer
                 timer = 0.f;
@@ -86,12 +84,12 @@ private:
                     m_Done = true;
                 }
 
-                sprite.setTextureRect( m_CurrentRect );
+                sprite.setTextureRect(m_CurrentRect);
             }
             return m_Done;
         }
 
-        const bool& play(const float& dt, float mod_percent)
+        const bool &play(const float &dt, float mod_percent)
         {
             //Update timer
             if (mod_percent < 0.5f)
@@ -99,7 +97,7 @@ private:
 
             m_Done = false;
             timer += mod_percent * 100.f * dt;
-            if ( timer >= animationTimer)
+            if (timer >= animationTimer)
             {
                 //reset timer
                 timer = 0.f;
@@ -131,15 +129,15 @@ private:
 
     GameDataRef m_Data;
 
-    sf::Sprite& m_Sprite;
-    sf::Texture& m_TextureSheet;
+    sf::Sprite &m_Sprite;
+    sf::Texture &m_TextureSheet;
 
-    std::map<std::string, Animation*> m_Animations;
-    Animation* m_LastAnimation;
-    Animation* m_PriorityAnimation;
+    std::map<std::string, Animation *> m_Animations;
+    Animation *m_LastAnimation;
+    Animation *m_PriorityAnimation;
 
 public:
-    AnimationComponent(GameDataRef data, sf::Sprite& sprite, const std::string& texture);
+    AnimationComponent(GameDataRef data, sf::Sprite &sprite, const std::string &texture);
     virtual ~AnimationComponent();
 
     /* Accessor */
@@ -147,7 +145,7 @@ public:
         * isDone: checks if an animation is complete or not
         * @param key: name of action of which we want to run animation,
         * */
-    const bool& isDone( const std::string& key );
+    const bool &isDone(const std::string &key);
 
     /* Functions */
 
@@ -162,10 +160,10 @@ public:
     * @param width: width of tile
     * @param height: height of tile
     * */
-    void AddAnimation( const std::string& key,
-            float animation_timer,
-            int start_frame_x, int start_frame_y,
-            int frames_x, int frame_y, int width, int height );
+    void AddAnimation(const std::string &key,
+                      float animation_timer,
+                      int start_frame_x, int start_frame_y,
+                      int frames_x, int frame_y, int width, int height);
 
     /*
     * Play: Play animation
@@ -174,10 +172,9 @@ public:
     * @param priority:
     * @param new_timer:
     * */
-    const bool& Play(const std::string &key, const float &dt, const bool &priority = false, float new_timer = 0 );
-    const bool& Play(const std::string& key, const float& dt,
-            const float& modifier, const float& modifier_max, const bool priority = false);
-
+    const bool &Play(const std::string &key, const float &dt, const bool &priority = false, float new_timer = 0);
+    const bool &Play(const std::string &key, const float &dt,
+                     const float &modifier, const float &modifier_max, const bool priority = false);
 };
 
-#endif // ANIMATIONCOMPONENT_H
+#endif // ANIMATIONCOMPONENT_HPP

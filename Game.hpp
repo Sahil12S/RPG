@@ -1,13 +1,13 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_HPP
+#define GAME_HPP
 
 #include "pch.cpp"
 
-#include "Engine_Managers/AssetManager.h"
-#include "Engine_Managers/InputManager.h"
-#include "Engine_Managers/StateMachine.h"
-#include "Engine_Managers/GraphicsSettings.h"
-#include "Entities/Entity.h"
+#include "Engine_Managers/AssetManager.hpp"
+#include "Engine_Managers/InputManager.hpp"
+#include "Engine_Managers/StateMachine.hpp"
+#include "Engine_Managers/GraphicsSettings.hpp"
+#include "Entities/Entity.hpp"
 
 class AssetManager;
 class InputManager;
@@ -47,4 +47,4 @@ public:
     void Run();
 };
 
-#endif // GAME_H
+#endif // GAME_HPP

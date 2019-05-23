@@ -2,7 +2,7 @@
 #define TILE_HPP
 
 #include "../pch.cpp"
-#include "../Game.h"
+#include "../Game.hpp"
 
 class Tile
 {

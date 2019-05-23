@@ -1,13 +1,13 @@
-#ifndef PAUSE_MENU_H
-#define PAUSE_MENU_H
+#ifndef PAUSE_MENU_HPP
+#define PAUSE_MENU_HPP
 
 #include "../pch.cpp"
-#include "../DEFINITIONS.h"
+#include "../DEFINITIONS.hpp"
 
-#include "../Game.h"
-#include "../Game_Components/Button.h"
-#include "../Game_Components/HUD.h"
-#include "../Game_Components/Helpers.h"
+#include "../Game.hpp"
+#include "../Game_Components/Button.hpp"
+#include "../Game_Components/HUD.hpp"
+#include "../Game_Components/Helpers.hpp"
 
 class Game;
 class Button;
@@ -52,4 +52,4 @@ public:
     void Draw(sf::RenderTarget &target);
 };
 
-#endif // PAUSE_MENU_H
+#endif // PAUSE_MENU_HPP
