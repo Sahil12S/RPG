@@ -132,7 +132,8 @@ void TileMap::AddTile(const int &x, const int &y, const int &z, const sf::IntRec
         z < m_Layers && z >= 0)
     {
         /* No tile at this location. Okay to add. */
-        m_Map[x][y][z].emplace_back(new Tile(m_Data, x, y, m_GridSizeF, "Tiles", texture_rect, collision, type));
+        // m_Map[x][y][z].emplace_back(new Tile(m_Data, x, y, m_GridSizeF, "Tiles", texture_rect, collision, type));
+        m_Map[x][y][z].emplace_back(new Tile(x, y, m_GridSizeF, m_Data->assets.GetTexture("Tiles"), texture_rect, collision, type));
     }
 }
 
@@ -260,10 +261,11 @@ void TileMap::LoadFromFile(const std::string file_name)
         {
             m_Map[x][y][z].emplace_back(
                 new Tile(
-                    m_Data,
+                    // m_Data,
                     x, y,
                     m_GridSizeF,
-                    "Tiles",
+                    m_Data->assets.GetTexture("Tiles"),
+                    // "Tiles",
                     sf::IntRect(texRectX, texRectY, m_GridSizeI, m_GridSizeI),
                     collision,
                     type));
@@ -459,16 +461,13 @@ void TileMap::Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition)
         {
             for (size_t k = 0; k < m_Map[x][y][layer].size(); k++)
             {
-                if (m_Map[x][y][layer][k]->getType() == static_cast<short>(TileType::eDoodad))
+                if (m_Map[x][y][layer][k]->GetType() == static_cast<short>(TileType::eDoodad))
                 {
                     // something
                     deferredRenderStack.push(m_Map[x][y][layer][k]);
                 }
-                else if (!m_Map[x][y][layer][k]->Hidden())
-                {
-                    // render
-                    m_Map[x][y][layer][k]->Draw(target);
-                }
+                // render
+                m_Map[x][y][layer][k]->Draw(target);
 
                 if (m_Map[x][y][layer][k]->GetCollision())
                 {
