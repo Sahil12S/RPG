@@ -1,4 +1,4 @@
-#include "Tile.h"
+#include "Tile.hpp"
 
 Tile::Tile(unsigned grid_x, unsigned grid_y, float gridSizeF,
            const sf::Texture &texture, const sf::IntRect &texture_rect,

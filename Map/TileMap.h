@@ -4,7 +4,7 @@
 #include "../pch.cpp"
 #include "../DEFINITIONS.h"
 
-#include "../Tile/Tile.h"
+#include "../Tile/Tile.hpp"
 #include "../Game.h"
 
 class Game;
@@ -23,10 +23,10 @@ private:
     int m_Layers;
 
     // 3D vector to store tiles and layers
-    std::vector< std::vector< std::vector< std::vector< Tile* > > > > m_Map;
+    std::vector<std::vector<std::vector<std::vector<Tile *>>>> m_Map;
 
     // Store tiles that we want to render later
-    std::stack<Tile*> deferredRenderStack;
+    std::stack<Tile *> deferredRenderStack;
 
     std::string m_TextureFile;
     // sf::Texture m_TileSheet;
@@ -43,28 +43,28 @@ private:
     void Clear();
 
 public:
-    TileMap( GameDataRef data, int width, int height, const std::string& texture_file );
-    TileMap( GameDataRef data, const std::string file_name);
+    TileMap(GameDataRef data, int width, int height, const std::string &texture_file);
+    TileMap(GameDataRef data, const std::string file_name);
     virtual ~TileMap();
-    
-    const sf::Texture* GetTileSheet() const;
-    int GetLayerSize( const int& x, const int& y, const int& layer ) const;
-    bool TileEmpty( const int& x, const int& y, const int& z ) const;
+
+    const sf::Texture *GetTileSheet() const;
+    int GetLayerSize(const int &x, const int &y, const int &layer) const;
+    bool TileEmpty(const int &x, const int &y, const int &z) const;
 
     // Functions
-    void AddTile( const int& x, const int& y, const int& z, const sf::IntRect& texture_rect, const bool& collision, const short& type );
+    void AddTile(const int &x, const int &y, const int &z, const sf::IntRect &texture_rect, const bool &collision, const short &type);
     // Remove tile from map
-    void RemoveTile( const int& x, const int& y, const int& z );
+    void RemoveTile(const int &x, const int &y, const int &z);
     // Save complete tilemap to a text file
-    void SaveToFile( const std::string file_name );
+    void SaveToFile(const std::string file_name);
     // Load map from a text file
-    void LoadFromFile( const std::string file_name );
+    void LoadFromFile(const std::string file_name);
 
-    void UpdateCollision( Entity* entity, const float& dt );
+    void UpdateCollision(Entity *entity, const float &dt);
     void Update();
     // We can render using position rather than player
-    void Draw( sf::RenderTarget& target, const sf::Vector2i& gridPosition );
-    void RenderDeferred( sf::RenderTarget& target );
+    void Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition);
+    void RenderDeferred(sf::RenderTarget &target);
 };
 
 #endif // TILEMAP_H

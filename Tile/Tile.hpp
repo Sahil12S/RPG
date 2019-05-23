@@ -1,5 +1,5 @@
-#ifndef TILE_H
-#define TILE_H
+#ifndef TILE_HPP
+#define TILE_HPP
 
 #include "../pch.cpp"
 #include "../Game.h"
@@ -83,4 +83,4 @@ public:
     void Draw(sf::RenderTarget &target);
 };
 
-#endif // TILE_H
+#endif // TILE_HPP
