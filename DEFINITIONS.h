@@ -97,16 +97,16 @@
 // For View
 #define CAMERA_SPEED 200.f
 
-enum ButtonState
+enum class ButtonState
 {
-    eBtnIdle = 0,
+    eBtnIdle,
     eBtnHover,
     eBtnActive
 };
 
-enum MovementStates
+enum class MovementStates
 {
-    eIdle = 0,
+    eIdle,
     eMoving,
     eMovingLeft,
     eMovingRight,
@@ -114,22 +114,22 @@ enum MovementStates
     eMovingDown,
 };
 
-enum AttackFace
+enum class AttackFace
 {
     eNone,
     eAttackFaceLeft,
     eAttackFaceRight
 };
 
-enum PlayerStates
+enum class PlayerStates
 {
     eAlive,
     eDead
 };
 
-enum TileType
+enum class TileType
 {
-    eDefault = 0,
+    eDefault,
     eDamaging,
     eDoodad,
 };

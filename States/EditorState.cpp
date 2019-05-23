@@ -9,7 +9,7 @@ void EditorState::InitVariables()
     m_TextureRect = sf::IntRect(0, 0, static_cast<int>(GRID_SIZE), static_cast<int>(GRID_SIZE));
 
     m_Collision = false;
-    m_Type = TileType::eDefault;
+    m_Type = static_cast<unsigned short>(TileType::eDefault);
     m_Layer = 0;
     m_TileAddLock = false;
 }

@@ -1,9 +1,8 @@
 #include "MovementComponent.h"
 
-MovementComponent::MovementComponent( sf::Sprite& sprite, const float& maxVelocity,
-        const float& acceleration, const float& deceleration ) :
-        m_Sprite( sprite ), m_MaxVelocity ( maxVelocity ),
-        m_Acceleration( acceleration ), m_Deceleration( deceleration )
+MovementComponent::MovementComponent(sf::Sprite &sprite, const float &maxVelocity,
+                                     const float &acceleration, const float &deceleration) : m_Sprite(sprite), m_MaxVelocity(maxVelocity),
+                                                                                             m_Acceleration(acceleration), m_Deceleration(deceleration)
 {
 }
 
@@ -14,44 +13,44 @@ const sf::Vector2f &MovementComponent::GetVelocity() const
     return m_Velocity;
 }
 
-bool MovementComponent::GetState(const unsigned short& state) const
+bool MovementComponent::GetState(const MovementStates &state) const
 {
-    switch ( state )
+    switch (state)
     {
-        case eIdle:
-            if ( m_Velocity.x == 0.f && m_Velocity.y == 0.f)
-                return true;
-            break;
+    case MovementStates::eIdle:
+        if (m_Velocity.x == 0.f && m_Velocity.y == 0.f)
+            return true;
+        break;
 
-        case eMoving:
-            if ( m_Velocity.x != 0.f || m_Velocity.y != 0.f)
-                return true;
-            break;
+    case MovementStates::eMoving:
+        if (m_Velocity.x != 0.f || m_Velocity.y != 0.f)
+            return true;
+        break;
 
-        case eMovingLeft:
+    case MovementStates::eMovingLeft:
 
-            if ( m_Velocity.x < 0.f)
-                return true;
-            break;
+        if (m_Velocity.x < 0.f)
+            return true;
+        break;
 
-        case eMovingRight:
+    case MovementStates::eMovingRight:
 
-            if (m_Velocity.x > 0.f )
-                return true;
-            break;
+        if (m_Velocity.x > 0.f)
+            return true;
+        break;
 
-        case eMovingUp:
-            if (m_Velocity.y < 0.f )
-                return true;
-            break;
+    case MovementStates::eMovingUp:
+        if (m_Velocity.y < 0.f)
+            return true;
+        break;
 
-        case eMovingDown:
-            if (m_Velocity.y > 0.f )
-                return true;
-            break;
+    case MovementStates::eMovingDown:
+        if (m_Velocity.y > 0.f)
+            return true;
+        break;
 
-        default:
-            return false;
+    default:
+        return false;
     }
     return false;
 }
@@ -77,7 +76,7 @@ void MovementComponent::StopVelocityY()
     m_Velocity.y = 0.f;
 }
 
-void MovementComponent::Move( const float& dt, const float& dir_x, const float& dir_y )
+void MovementComponent::Move(const float &dt, const float &dir_x, const float &dir_y)
 {
     m_Velocity.x += dir_x * m_Acceleration * dt;
     m_Velocity.y += dir_y * m_Acceleration * dt;
@@ -99,7 +98,7 @@ void MovementComponent::Update(const float &dt)
         if (this->m_Velocity.x < 0.f)
             this->m_Velocity.x = 0.f;
     }
-    else if(this->m_Velocity.x < 0.f) //Check for negative x
+    else if (this->m_Velocity.x < 0.f) //Check for negative x
     {
         //Max velocity check
         if (this->m_Velocity.x < -this->m_MaxVelocity)
@@ -134,5 +133,5 @@ void MovementComponent::Update(const float &dt)
             this->m_Velocity.y = 0.f;
     }
 
-    m_Sprite.move( m_Velocity * dt );
+    m_Sprite.move(m_Velocity * dt);
 }
