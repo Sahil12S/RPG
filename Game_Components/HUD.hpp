@@ -19,6 +19,7 @@ private:
 
 public:
     HUD(GameDataRef data);
+    virtual ~HUD();
 
     void SetText(const std::string &fontName, const std::string &text, const float &size, const float &x, const float &y);
 

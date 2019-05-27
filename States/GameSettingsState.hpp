@@ -52,7 +52,7 @@ private:
 
 public:
     GameSettingsState(GameDataRef data);
-    ~GameSettingsState();
+    virtual ~GameSettingsState();
 
     // Initializes the state
     void Init() override;

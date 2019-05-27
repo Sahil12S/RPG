@@ -25,7 +25,7 @@ private:
 
 public:
     StateMachine();
-    ~StateMachine();
+    virtual ~StateMachine();
 
     /*
      * Add a new state to stack

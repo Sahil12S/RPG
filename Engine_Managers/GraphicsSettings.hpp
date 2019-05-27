@@ -8,6 +8,7 @@ class GraphicsSettings
 private:
 public:
     GraphicsSettings();
+    virtual ~GraphicsSettings();
 
     // Variables
     std::string title;

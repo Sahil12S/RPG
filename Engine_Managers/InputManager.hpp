@@ -22,7 +22,7 @@ private:
 
 public:
     InputManager();
-    ~InputManager();
+    virtual ~InputManager();
 
     bool IsSpriteClicked(const sf::Sprite &object, sf::Mouse::Button button, sf::RenderWindow &window);
 

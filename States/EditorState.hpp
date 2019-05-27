@@ -64,7 +64,7 @@ private:
 
 public:
     EditorState(GameDataRef data);
-    ~EditorState();
+    virtual ~EditorState();
 
     void PauseState();
     void UnpauseState();

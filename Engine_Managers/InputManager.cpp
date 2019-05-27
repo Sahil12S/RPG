@@ -1,9 +1,31 @@
 #include "InputManager.hpp"
 
+void InputManager::InitKeys()
+{
+    Debug("INPUT MANAGER::Init Keys")
+        std::ifstream ifs(GENERAL_KEY_BIND_FILEPATH);
+
+    if (ifs.is_open())
+    {
+        std::string key;
+        int keyValue = 0;
+
+        while (ifs >> key >> keyValue)
+        {
+            m_SupportedKeys[key] = keyValue;
+        }
+    }
+    else
+    {
+        Error("INPUT MANAGER::Key binding file not found", GENERAL_KEY_BIND_FILEPATH)
+    }
+
+    ifs.close();
+}
+
 InputManager::InputManager()
 {
-    Debug("Input Manager Initialized")
-        InitKeys();
+    InitKeys();
     m_KeyTime = 0.f;
     m_KeyTimeMax = 15.f;
 }
@@ -24,30 +46,6 @@ bool InputManager::IsSpriteClicked(const sf::Sprite &object, sf::Mouse::Button b
         }
     }
     return false;
-}
-
-void InputManager::InitKeys()
-{
-    std::ifstream ifs(GENERAL_KEY_BIND_FILEPATH);
-
-    if (ifs.is_open())
-    {
-        std::string key;
-        int keyValue = 0;
-
-        while (ifs >> key >> keyValue)
-        {
-            m_SupportedKeys[key] = keyValue;
-        }
-    }
-    else
-    {
-        Error("Input Manager: Key binding file not found", GENERAL_KEY_BIND_FILEPATH)
-    }
-
-    ifs.close();
-
-    Debug("Input Manager: Initializing default key binds")
 }
 
 std::map<std::string, int> &InputManager::getSupportedKeys()

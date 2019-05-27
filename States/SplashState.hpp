@@ -24,6 +24,7 @@ public:
      * Splash State doesn't need any key bindings
      */
     SplashState(GameDataRef data);
+    virtual ~SplashState();
 
     void Init();
 

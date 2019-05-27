@@ -33,7 +33,7 @@ private:
 public:
     // Constructor / Destructor
     explicit Player(GameDataRef data);
-    ~Player() override;
+    virtual ~Player() override;
 
     // Accessors
     AttributeComponent *GetAttributeComponent();

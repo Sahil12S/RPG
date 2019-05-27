@@ -59,7 +59,7 @@ private:
 
 public:
     GameState(GameDataRef data);
-    ~GameState();
+    virtual ~GameState();
 
     void PauseState();
     void UnpauseState();
