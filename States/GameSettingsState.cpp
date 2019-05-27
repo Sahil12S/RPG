@@ -61,7 +61,10 @@ void GameSettingsState::InitGui()
 
     // Initialize HUD
     m_Hud = new gui::HUD(m_Data);
-    m_Hud->SetText("Title Font", "SETTINGS", TITLE_SIZE, (vm.width / 2.0f), vm.height / 5.0f);
+    m_Hud->SetText(
+        "Title Font", "SETTINGS",
+        gui::calcCharSize(TITLE_SIZE_PERC, m_Data->GfxSettings.resolution),
+        (vm.width / 2.0f), vm.height / 5.0f);
 
     // Set Buttons
     m_Buttons["Home"] = new gui::Button(
@@ -97,9 +100,7 @@ void GameSettingsState::InitGui()
         vm.width / 2.f - gui::p2pX(LIST_WIDTH_PERC, vm) / 2.f, gui::p2pY(37.f, vm),
         gui::p2pX(LIST_WIDTH_PERC, vm), gui::p2pY(LIST_HEIGHT_PERC, vm),
         m_Data->assets.GetFont("Text Font"),
-        modes_str.data(), modes_str.size()
-
-    );
+        modes_str.data(), modes_str.size());
 
     m_OptionsText.setFont(m_Data->assets.GetFont("Text Font"));
     m_OptionsText.setCharacterSize(gui::calcCharSize(LIST_TEXT_SIZE_PERC, vm));
@@ -226,7 +227,6 @@ void GameSettingsState::UpdateGui(const float &dt)
 void GameSettingsState::Update(const float &dt)
 {
     m_Data->input.UpdateMousePosition(m_Data->window);
-
     UpdateGui(dt);
 }
 

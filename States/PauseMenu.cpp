@@ -23,8 +23,11 @@ void PauseMenu::InitFonts()
 void PauseMenu::InitVariables()
 {
     m_Hud = new gui::HUD(m_Data);
-    m_Hud->SetText("Title Font", "PAUSED", TITLE_SIZE, (m_Container.getPosition().x + m_Container.getSize().x / 2.f),
-                   m_Data->window.getSize().y / 6.0f);
+    m_Hud->SetText(
+        "Title Font", "PAUSED",
+        gui::calcCharSize(TITLE_SIZE_PERC, m_Data->GfxSettings.resolution),
+        (m_Container.getPosition().x + m_Container.getSize().x / 2.f),
+        m_Data->window.getSize().y / 6.0f);
 }
 
 PauseMenu::PauseMenu(GameDataRef data) : m_Data(std::move(data))

@@ -49,6 +49,10 @@ Game::Game()
     InitStates();
 }
 
+Game::~Game()
+{
+}
+
 void Game::UpdateDt()
 {
     /*

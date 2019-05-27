@@ -5,6 +5,10 @@ SplashState::SplashState(GameDataRef data) : m_Data(std::move(data))
 {
 }
 
+SplashState::~SplashState()
+{
+}
+
 void SplashState::Init()
 {
     // Debug( "**Initialized** Splash State" );

@@ -8,6 +8,10 @@ HUD::HUD(GameDataRef data) : m_Data(move(data))
     text = "";
 }
 
+HUD::~HUD()
+{
+}
+
 const std::string &HUD::GetText() const
 {
     return text;

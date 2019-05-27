@@ -52,6 +52,7 @@
  */
 #define BUTTON_TEXT_SIZE_PERC 60
 #define LIST_TEXT_SIZE_PERC 75
+#define TITLE_SIZE_PERC 50
 
 // For Buttons
 #define TEXT_IDLE_FILL_COLOR 170, 170, 170, 200
@@ -78,7 +79,7 @@
 #define SPLASH_STATE_SHOW_TIME 0.5f
 
 // Tile variables
-#define TITLE_SIZE 80
+
 #define SCALE_X 2.f
 #define SCALE_Y 2.f
 #define TILE_WIDTH 50

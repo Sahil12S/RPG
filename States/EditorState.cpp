@@ -85,8 +85,8 @@ void EditorState::InitTileMap()
 
 void EditorState::InitGui()
 {
-    Debug("EDITOR STATE::Innit GUI")
-        m_SideBar.setSize(sf::Vector2f(80.f, static_cast<float>(m_Data->GfxSettings.resolution.height)));
+    Debug("EDITOR STATE::Innit GUI");
+    m_SideBar.setSize(sf::Vector2f(80.f, static_cast<float>(m_Data->GfxSettings.resolution.height)));
     m_SideBar.setFillColor(sf::Color(50, 50, 50, 100));
     m_SideBar.setOutlineColor(sf::Color(200, 200, 200, 150));
     m_SideBar.setOutlineThickness(1.f);
@@ -94,7 +94,7 @@ void EditorState::InitGui()
     m_Hud = new gui::HUD(m_Data);
     m_Hud->SetText(
         "Title Font", "Editor",
-        TITLE_SIZE,
+        gui::calcCharSize(TITLE_SIZE_PERC, m_Data->GfxSettings.resolution),
         (m_Data->GfxSettings.resolution.width / 2.0f),
         m_Data->GfxSettings.resolution.height / 6.0f);
 

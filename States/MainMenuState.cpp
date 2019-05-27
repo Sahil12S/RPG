@@ -28,7 +28,7 @@ void MainMenuState::InitVariables()
     m_Hud = new gui::HUD(m_Data);
     m_Hud->SetText(
         "Title Font", "RPG",
-        TITLE_SIZE,
+        gui::calcCharSize(TITLE_SIZE_PERC, m_Data->GfxSettings.resolution),
         (m_Data->GfxSettings.resolution.width / 2.0f),
         m_Data->GfxSettings.resolution.height / 6.0f);
 }

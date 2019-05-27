@@ -10,7 +10,7 @@ DropDownList::DropDownList(
 {
     m_ActiveElement = new gui::Button(
         x, y, width, height,
-        &m_Font, list[default_idx], 35,
+        &m_Font, list[default_idx], 15,
         sf::Color(LIST_TEXT_IDLE_FILL_COLOR), sf::Color(LIST_TEXT_HOVER_FILL_COLOR), sf::Color(LIST_TEXT_ACTIVE_FILL_COLOR),
         sf::Color(LIST_IDLE_FILL_COLOR), sf::Color(LIST_HOVER_FILL_COLOR), sf::Color(LIST_ACTIVE_FILL_COLOR),
         sf::Color(OUTLINE_COLOR_IDLE), sf::Color(OUTLINE_COLOR_HOVER), sf::Color(OUTLINE_COLOR_ACTIVE));
@@ -24,7 +24,7 @@ DropDownList::DropDownList(
         m_List.emplace_back(
             new gui::Button(
                 x, y + ((i + 1) * height), width, height,
-                &m_Font, list[i], 35,
+                &m_Font, list[i], 15,
                 sf::Color(LIST_TEXT_IDLE_FILL_COLOR), sf::Color(LIST_TEXT_HOVER_FILL_COLOR), sf::Color(LIST_TEXT_ACTIVE_FILL_COLOR),
                 sf::Color(LIST_IDLE_FILL_COLOR), sf::Color(LIST_HOVER_FILL_COLOR), sf::Color(LIST_ACTIVE_FILL_COLOR),
                 sf::Color(255, 255, 255, 0), sf::Color(255, 255, 255, 0), sf::Color(20, 20, 20, 0),
