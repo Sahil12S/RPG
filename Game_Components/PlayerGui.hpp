@@ -3,6 +3,7 @@
 
 #include "../Game.hpp"
 #include "../Entities/Player.hpp"
+#include "Helpers.hpp"
 
 class Game;
 // struct GameDataRef;
@@ -15,6 +16,7 @@ private:
     Player *m_Player;
 
     sf::Font m_Font;
+    sf::VideoMode vm;
 
     // Level Bar
     std::string m_LevelBarString;

@@ -8,25 +8,29 @@ void PlayerGui::InitFont()
 
 void PlayerGui::InitLevelBar()
 {
-    Debug("PLAYER GUI::Init Level Bar") float width = 50.f;
-    float height = 30.f;
-    float x = 20.f;
-    float y = 20.f;
+    Debug("PLAYER GUI::Init Level Bar");
+    float width = gui::p2pX(2.6f, vm);
+    float height = gui::p2pY(2.8f, vm);
+    float x = gui::p2pX(1.f, vm);
+    float y = gui::p2pY(1.86f, vm);
 
     m_LevelBarBack.setSize(sf::Vector2f(width, height));
     m_LevelBarBack.setFillColor(sf::Color(50, 50, 50, 200));
     m_LevelBarBack.setPosition(x, y);
 
     m_LevelBarText.setFont(m_Data->assets.GetFont("Gui Font"));
-    m_LevelBarText.setCharacterSize(18);
-    m_LevelBarText.setPosition(m_LevelBarBack.getPosition().x + 10.f, m_LevelBarBack.getPosition().y + 6.f);
+    m_LevelBarText.setCharacterSize(gui::calcCharSize(140, vm));
+    m_LevelBarText.setPosition(
+        m_LevelBarBack.getPosition().x + gui::p2pX(.5f, vm),
+        m_LevelBarBack.getPosition().y + gui::p2pY(.6f, vm));
 }
 void PlayerGui::InitExpBar()
 {
-    Debug("PLAYER GUI::Init Exp Bar") float width = 200.f;
-    float height = 30.f;
-    float x = 20.f;
-    float y = 60.f;
+    Debug("PLAYER GUI::Init Exp Bar");
+    float width = gui::p2pX(10.4f, vm);
+    float height = gui::p2pY(2.8f, vm);
+    float x = gui::p2pX(1.f, vm);
+    float y = gui::p2pY(5.6f, vm);
 
     m_ExpBarMaxWidth = width;
 
@@ -39,16 +43,19 @@ void PlayerGui::InitExpBar()
     m_ExpBarInner.setPosition(m_ExpBarBack.getPosition());
 
     m_ExpBarText.setFont(m_Data->assets.GetFont("Gui Font"));
-    m_ExpBarText.setCharacterSize(14);
-    m_ExpBarText.setPosition(m_ExpBarBack.getPosition().x + 10.f, m_ExpBarBack.getPosition().y + 6.f);
+    m_ExpBarText.setCharacterSize(gui::calcCharSize(180, vm));
+    m_ExpBarText.setPosition(
+        m_ExpBarBack.getPosition().x + gui::p2pX(.5f, vm),
+        m_ExpBarBack.getPosition().y + gui::p2pY(.6f, vm));
 }
 
 void PlayerGui::InitHPBar()
 {
-    Debug("PLAYER GUI::Init HP Bar") float width = 300.f;
-    float height = 50.f;
-    float x = 20.f;
-    float y = 100.f;
+    Debug("PLAYER GUI::Init HP Bar");
+    float width = gui::p2pX(15.6f, vm);
+    float height = gui::p2pY(4.6f, vm);
+    float x = gui::p2pX(1.f, vm);
+    float y = gui::p2pY(9.3f, vm);
 
     m_HpBarMaxWidth = width;
 
@@ -61,16 +68,18 @@ void PlayerGui::InitHPBar()
     m_HpBarInner.setPosition(m_HpBarBack.getPosition());
 
     m_HpBarText.setFont(m_Data->assets.GetFont("Gui Font"));
-    m_HpBarText.setCharacterSize(18);
+    m_HpBarText.setCharacterSize(gui::calcCharSize(140, vm));
     // std::cout <<m_HpBarBack.getPosition().y + m_HpBarBack.getGlobalBounds().height / 2 - m_HpBarText.getGlobalBounds().height / 2 << '\n';
     m_HpBarText.setPosition(
-        m_HpBarBack.getPosition().x + 10.f,
-        m_HpBarBack.getPosition().y + 14.f);
+        m_HpBarBack.getPosition().x + gui::p2pX(.5f, vm),
+        m_HpBarBack.getPosition().y + gui::p2pY(1.3f, vm));
 }
 
 PlayerGui::PlayerGui(GameDataRef data, Player *player) : m_Data(std::move(data))
 {
     m_Player = player;
+
+    vm = m_Data->GfxSettings.resolution;
 
     InitFont();
     InitLevelBar();
