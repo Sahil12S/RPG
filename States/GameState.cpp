@@ -140,8 +140,8 @@ void GameState::UpdateView(const float &dt)
 {
     // To control large number of decimals, we floor it down
     m_View.setCenter(
-        std::floor(m_Player->GetPosition().x),
-        std::floor(m_Player->GetPosition().y));
+        std::floor(m_Player->GetPosition().x - (static_cast<float>(m_Data->input.GetWindowMousePosition().x) - static_cast<float>(m_Data->GfxSettings.resolution.width)) / 5.f),
+        std::floor(m_Player->GetPosition().y - (static_cast<float>(m_Data->input.GetWindowMousePosition().y) - static_cast<float>(m_Data->GfxSettings.resolution.height)) / 5.f));
 }
 
 void GameState::HandleInput(const float &dt)
