@@ -85,7 +85,7 @@ void EditorState::InitTileMap()
 
 void EditorState::InitGui()
 {
-    Debug("EDITOR STATE::Innit GUI");
+    Debug("EDITOR STATE::Init GUI");
     m_SideBar.setSize(sf::Vector2f(80.f, static_cast<float>(m_Data->GfxSettings.resolution.height)));
     m_SideBar.setFillColor(sf::Color(50, 50, 50, 100));
     m_SideBar.setOutlineColor(sf::Color(200, 200, 200, 150));
@@ -202,6 +202,7 @@ void EditorState::HandleInput(const float &dt)
         // Add tile to map
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_Data->input.GetKeyTime())
         {
+            std::cout << "Clicked" << std::endl;
             if (!m_SideBar.getGlobalBounds().contains(sf::Vector2f(m_Data->input.GetWindowMousePosition())))
             {
                 if (!m_TS->GetActive())
