@@ -15,8 +15,8 @@
 
 // Textures
 #define GAME_BACKGROUND_FILEPATH "../Resources/img/background.png"
-#define PLAYER_SHEET_FILEPATH "../Resources/img/player2.png"
-#define TILES_TEXTURE_FILEPATH "../Resources/img/tilesheet64x64.png"
+#define PLAYER_SHEET_FILEPATH "../Resources/img/PLAYER_SHEET2.png"
+#define TILES_TEXTURE_FILEPATH "../Resources/img/tilesheet.png"
 
 // Fonts
 #define TITLE_FONT_FILEPATH "../Resources/font/Good_Brush.otf"
@@ -79,8 +79,8 @@
 
 // Tile variables
 
-#define SCALE_X 2.f
-#define SCALE_Y 2.f
+// #define SCALE_X 2.f
+// #define SCALE_Y 2.f
 #define TILE_WIDTH 50
 #define TILE_HEIGHT 40
 

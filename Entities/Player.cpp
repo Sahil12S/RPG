@@ -29,18 +29,21 @@ Player::Player(GameDataRef data) : Entity(data), m_Data(move(data))
     InitComponents();
 
     // Set acceleration and deceleration
-    CreateMovementComponent(PLAYER_MOVEMENT_SPEED, 1500, 500);
+    CreateMovementComponent(200.f, 1500.f, 900.f);
     CreateAnimationComponent("Player Sheet"); // Send texture
     // OffsetX, OffsetY, width, height
-    CreateHitboxComponent(35.f, 20.f, 30.f, 60.f);
+    CreateHitboxComponent(10.f, 5.f, 44.f, 59.f);
     CreateAttributeComponent(0);
 
     // Animation name, animation timer, start pos X, start pos Y, frames X, frames Y, tile size
     // Lesser the timer, faster the animation speed
-    m_AC->AddAnimation("IDLE", 15, 0, 0, 4, 1, TILE_WIDTH, TILE_HEIGHT);
-    m_AC->AddAnimation("WALK", 10, 0, 1, 6, 1, TILE_WIDTH, TILE_HEIGHT);
-    m_AC->AddAnimation("ATTACK0", 7, 0, 3, 6, 1, TILE_WIDTH, TILE_HEIGHT);
-    m_AC->AddAnimation("ATTACK1", 7, 0, 4, 5, 1, TILE_WIDTH, TILE_HEIGHT);
+    m_AC->AddAnimation("IDLE", 15.f, 0, 0, 8, 1, 64, 64);
+    m_AC->AddAnimation("WALK_DOWN", 12.f, 0, 1, 3, 1, 64, 64);
+    m_AC->AddAnimation("WALK_LEFT", 12.f, 4, 1, 3, 1, 64, 64);
+    m_AC->AddAnimation("WALK_RIGHT", 12.f, 8, 1, 3, 1, 64, 64);
+    m_AC->AddAnimation("WALK_UP", 12.f, 12, 1, 3, 1, 64, 64);
+    // m_AC->AddAnimation("ATTACK0", 7, 0, 3, 6, 1, TILE_WIDTH, TILE_HEIGHT);
+    // m_AC->AddAnimation("ATTACK1", 7, 0, 4, 5, 1, TILE_WIDTH, TILE_HEIGHT);
 
     // Implement later
     // m_AC->AddAnimation("TURN_ATTACK", 67, 0, 5, 6, 1, TILE_WIDTH, TILE_HEIGHT );
@@ -98,7 +101,7 @@ void Player::Attack()
     {
         m_LastAttackFace = m_CurrentFace;
     }
-    m_IsAttacking = true;
+    // m_IsAttacking = true;
 }
 
 void Player::UpdateAnimation(const float &dt)
@@ -152,30 +155,19 @@ void Player::UpdateAnimation(const float &dt)
     }
     else if (m_MC->GetState(MovementStates::eMovingLeft))
     {
-        m_CurrentFace = AttackFace::eAttackFaceLeft;
-
-        if (m_Sprite.getScale().x > 0.f)
-        {
-            // Set Proper origin
-            m_Sprite.setOrigin(50.f, 0.f);
-            m_Sprite.setScale(-SCALE_X, SCALE_Y);
-        }
-        m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
+        m_AC->Play("WALK_LEFT", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
     }
     else if (m_MC->GetState(MovementStates::eMovingRight))
     {
-        m_CurrentFace = AttackFace::eAttackFaceRight;
-
-        if (m_Sprite.getScale().x < 0.f)
-        {
-            m_Sprite.setOrigin(0.f, 0.f);
-            m_Sprite.setScale(SCALE_X, SCALE_Y);
-        }
-        m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
+        m_AC->Play("WALK_RIGHT", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
     }
-    else if (m_MC->GetState(MovementStates::eMovingUp) || m_MC->GetState(MovementStates::eMovingDown) || m_MC->GetState(MovementStates::eMoving))
+    else if (m_MC->GetState(MovementStates::eMovingUp))
     {
-        m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
+        m_AC->Play("WALK_UP", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
+    }
+    else if (m_MC->GetState(MovementStates::eMovingDown))
+    {
+        m_AC->Play("WALK_DOWN", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
     }
 }
 
@@ -186,9 +178,11 @@ void Player::Update(const float &dt)
     m_HC->Update();
 }
 
-void Player::Draw(sf::RenderTarget &target)
+void Player::Draw(sf::RenderTarget &target, bool show_hitbox)
 {
     target.draw(m_Sprite);
-
-    m_HC->Draw(target);
+    if (show_hitbox)
+    {
+        m_HC->Draw(target);
+    }
 }

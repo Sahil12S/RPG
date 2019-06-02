@@ -267,9 +267,9 @@ void GameState::Draw()
     m_Data->window.clear();
 
     m_Data->window.setView(m_View);
-    m_TileMap->Draw(m_Data->window, m_Player->GetGridPosition(static_cast<int>(GRID_SIZE)));
+    m_TileMap->Draw(m_Data->window, m_Player->GetGridPosition(static_cast<int>(GRID_SIZE)), false);
 
-    m_Player->Draw(m_Data->window);
+    m_Player->Draw(m_Data->window, false);
     m_TileMap->RenderDeferred(m_Data->window);
 
     m_Data->window.setView(m_Data->window.getDefaultView());

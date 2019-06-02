@@ -61,7 +61,7 @@ public:
     virtual void StopVelocityY();
 
     virtual void Update(const float &dt) = 0;
-    virtual void Draw(sf::RenderTarget &target) = 0;
+    virtual void Draw(sf::RenderTarget &target, bool show_hitbox) = 0;
 };
 
 #endif // ENTITY_HPP

@@ -6,7 +6,7 @@ Entity::Entity(GameDataRef data) : m_Data(std::move(data))
     m_MC = nullptr;
     m_AC = nullptr;
     m_HC = nullptr;
-    m_Sprite.setScale(2.f, 2.f);
+    // m_Sprite.setScale(2.f, 2.f);
 }
 
 Entity::~Entity()
@@ -133,6 +133,6 @@ void Entity::Update(const float &dt)
 {
 }
 
-void Entity::Draw(sf::RenderTarget &target)
+void Entity::Draw(sf::RenderTarget &target, bool show_hitbox)
 {
 }

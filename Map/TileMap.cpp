@@ -410,7 +410,7 @@ void TileMap::Update()
 {
 }
 
-void TileMap::Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition)
+void TileMap::Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition, bool show_collision)
 {
 
     layer = 0;
@@ -468,11 +468,13 @@ void TileMap::Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition)
                 }
                 // render
                 m_Map[x][y][layer][k]->Draw(target);
-
-                if (m_Map[x][y][layer][k]->GetCollision())
+                if (show_collision)
                 {
-                    m_CollisionBox.setPosition(m_Map[x][y][layer][k]->GetPosition());
-                    target.draw(m_CollisionBox);
+                    if (m_Map[x][y][layer][k]->GetCollision())
+                    {
+                        m_CollisionBox.setPosition(m_Map[x][y][layer][k]->GetPosition());
+                        target.draw(m_CollisionBox);
+                    }
                 }
             }
         }

@@ -47,7 +47,7 @@ public:
     void Attack();
     void UpdateAnimation(const float &dt);
     void Update(const float &dt) override;
-    void Draw(sf::RenderTarget &target) override;
+    void Draw(sf::RenderTarget &target, bool show_hitbox = false) override;
 };
 
 #endif // PLAYER_HPP

@@ -63,7 +63,7 @@ public:
     void UpdateCollision(Entity *entity, const float &dt);
     void Update();
     // We can render using position rather than player
-    void Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition);
+    void Draw(sf::RenderTarget &target, const sf::Vector2i &gridPosition, bool show_collision = true);
     void RenderDeferred(sf::RenderTarget &target);
 };
 
